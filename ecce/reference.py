@@ -19,7 +19,7 @@ def all():
                                     for b in data.keys()]
     )))
 
-def reference(book, chapter, verse):
+def init(book, chapter, verse):
     result = pipe(all(), filter(_match((book, chapter, verse))), first)
 
     if result is None:
