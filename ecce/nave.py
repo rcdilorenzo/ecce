@@ -9,6 +9,7 @@ from toolz.curried import *
 from tqdm import tqdm
 
 import ecce.reference as ref
+import ecce.passage as passage
 from ecce.constants import *
 from ecce.utils import *
 
@@ -30,6 +31,57 @@ def init():
         pickle.dump(results, f)
 
     return results
+
+
+def by_reference():
+    attr = flip(getattr)
+    by_book = compose(attr('book'), first)
+    by_chapter = compose(attr('chapter'), first)
+    by_verse = compose(attr('verse'), first)
+
+    def _to_topics(value):
+        return dissoc(
+            second(value), 'reference_list', 'source_topic_key',
+            'sort_order_category', 'subtopic_key', 'category_key', 'topic_key',
+            'sort_order_subtopic')
+
+    return {
+        book: {
+            chapter: {
+                verse: list_map(_to_topics, values)
+                for verse, values in groupby(by_verse, chap_values).items()
+            }
+            for chapter, chap_values in groupby(by_chapter,
+                                                book_values).items()
+        }
+        for book, book_values in groupby(by_book, init()).items()
+    }
+
+
+def by_topic():
+    attr = flip(getattr)
+    by_topic = compose(lambda v: v['topic_name'], second)
+    by_category = compose(lambda v: v['category_text'], second)
+    by_subtopic = compose(lambda v: v['subtopic_text'], second)
+
+    def _to_references(value):
+        return dissoc(
+            second(value), 'reference_list', 'source_topic_key',
+            'sort_order_category', 'subtopic_key', 'category_key', 'topic_key',
+            'sort_order_subtopic')
+
+    return {
+        topic: {
+            category: {
+                subtopic: passage.text(passage.init(list_map(first, values)))
+                for subtopic, values in groupby(by_subtopic,
+                                                chap_values).items()
+            }
+            for category, chap_values in groupby(by_category,
+                                                 topic_values).items()
+        }
+        for topic, topic_values in groupby(by_topic, init()).items()
+    }
 
 
 @memoize
@@ -83,13 +135,9 @@ def parse(raw_reference):
     def _expand_book(raw):
         """Converts "Lu2:3,4,5" to ("Luke", "2:3,4,5")"""
         return pipe(
-            NAVE_ABBREVIATIONS.keys(),
-            partial(sorted, key=len),
-            reversed,
-            list_filter(lambda k: k in raw),
-            first,
-            to_maybe
-        ) >> (lambda k: Just((NAVE_ABBREVIATIONS[k], raw.replace(k, ''))))
+            NAVE_ABBREVIATIONS.keys(), partial(sorted, key=len), reversed,
+            list_filter(lambda k: k in raw), first, to_maybe) >> (
+                lambda k: Just((NAVE_ABBREVIATIONS[k], raw.replace(k, ''))))
 
     def _expand_chapter(raw):
         """Converts "2:3,4,5" to (2, "3, 4, 5")"""
@@ -118,9 +166,8 @@ def parse(raw_reference):
 
         def _from_chapters(pair):
             chapter, verses = pair
-            return map(
-                lambda verse: to_maybe(ref.init(book, chapter, verse)),
-                verses)
+            return map(lambda verse: to_maybe(ref.init(book, chapter, verse)),
+                       verses)
 
         return concat(map(_from_chapters, chapters))
 
@@ -128,15 +175,15 @@ def parse(raw_reference):
         raw_reference.split('; '),
 
         # Initial text conversion
-        map(mconcat_bind([
-            _expand_book,
-            compose(to_maybe, lens[1].modify(_expand_chapter)),
-            compose(to_maybe, lens[1].Each()[1].modify(_expand_verses))
-        ])),
+        map(
+            mconcat_bind([
+                _expand_book,
+                compose(to_maybe, lens[1].modify(_expand_chapter)),
+                compose(to_maybe, lens[1].Each()[1].modify(_expand_verses))
+            ])),
         mcompact,
 
         # Convert data structure to validated ESV references
         map(_to_references),
         flatten,
-        mcompact
-    )
+        mcompact)

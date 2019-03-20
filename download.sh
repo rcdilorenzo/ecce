@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FOLDER="data/"
+FOLDER="ecce/data/"
 
 mkdir "$FOLDER"
 cd "$FOLDER"

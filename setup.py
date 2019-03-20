@@ -7,9 +7,11 @@ setup(
     setup_requires = ['pytest-runner'],
     tests_require = ['pytest', 'pytest-describe'],
     packages = find_packages(),
+    include_package_data=True,
+    package_data={'ecce': ['data/**/*']},
     entry_points = {
         'console_scripts': [
-            # 'ecce = ecce.__main__:main'
+            'ecce = ecce.__main__:main'
         ]
     }
 )

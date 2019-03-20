@@ -1,4 +1,6 @@
-data/
+ecce/data/
 __pycache__/
 .eggs/
 *.egg-info/
+build/
+dist/

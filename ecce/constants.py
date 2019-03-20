@@ -4,13 +4,22 @@ from ecce.utils import *
 
 logging.basicConfig(level=logging.DEBUG)
 
-ESV_PATH            = relative_path(__file__, '../data/ESV.json')
-NAVE_CAT_PATH       = relative_path(__file__, '../data/nave/categories.txt')
-NAVE_TOPIC_PATH    = relative_path(__file__, '../data/nave/topics.txt')
-NAVE_SUBTOPIC_PATH = relative_path(__file__, '../data/nave/subtopics.txt')
-NAVE_REF_PATH       = relative_path(__file__, '../data/nave/topicxref.txt')
-NAVE_FRAME_PATH       = relative_path(__file__, '../data/nave/parsed.csv')
-NAVE_PATH       = relative_path(__file__, '../data/nave/pickled.obj')
+DATA_PATH = relative_path(__file__, 'data')
+EXPORT_PATH = relative_path(__file__, 'data/exported')
+
+if os.path.isdir(DATA_PATH) is False: os.mkdir(DATA_PATH)
+if os.path.isdir(EXPORT_PATH) is False: os.mkdir(EXPORT_PATH)
+
+ESV_PATH            = relative_path(__file__, 'data/ESV.json')
+NAVE_CAT_PATH       = relative_path(__file__, 'data/nave/categories.txt')
+NAVE_TOPIC_PATH     = relative_path(__file__, 'data/nave/topics.txt')
+NAVE_SUBTOPIC_PATH  = relative_path(__file__, 'data/nave/subtopics.txt')
+NAVE_REF_PATH       = relative_path(__file__, 'data/nave/topicxref.txt')
+NAVE_FRAME_PATH     = relative_path(__file__, 'data/nave/parsed.csv')
+NAVE_PATH           = relative_path(__file__, 'data/nave/pickled.obj')
+
+NAVE_EXPORT_TOPIC = os.path.join(EXPORT_PATH, 'nave-by-topic.json')
+NAVE_EXPORT_REF   = os.path.join(EXPORT_PATH, 'nave-by-reference.json')
 
 NAVE_ABBREVIATIONS = {
     'Ge': 'Genesis',
