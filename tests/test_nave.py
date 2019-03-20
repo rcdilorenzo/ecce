@@ -35,10 +35,33 @@ def describe_nave():
                 reference.Data('Judges', 21, 21)
             ]
 
-        def mutliple():
+        def contiguous_and_non_contiguous_verses():
+            assert nave.parse('Jud21:10,19-21') == [
+                reference.Data('Judges', 21, 10),
+                reference.Data('Judges', 21, 19),
+                reference.Data('Judges', 21, 20),
+                reference.Data('Judges', 21, 21)
+            ]
+
+        def multiple_chapters():
+            assert nave.parse('De2:17,18:1-2; Ge2:1') == [
+                reference.Data('Deuteronomy', 2, 17),
+                reference.Data('Deuteronomy', 18, 1),
+                reference.Data('Deuteronomy', 18, 2),
+                reference.Data('Genesis', 2, 1)
+            ]
+
+        def multiple():
             assert nave.parse('Ex15:20; Ex32:19; Jud11:34') == [
                 reference.Data('Exodus', 15, 20),
                 reference.Data('Exodus', 32, 19),
                 reference.Data('Judges', 11, 34)
+            ]
+
+        def similar_book_names():
+            assert nave.parse('Jude1:3-4; Jud1:1') == [
+                reference.Data('Jude', 1, 3),
+                reference.Data('Jude', 1, 4),
+                reference.Data('Judges', 1, 1)
             ]
 

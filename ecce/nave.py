@@ -1,74 +1,137 @@
-from ecce.utils import *
-import ecce.reference as ref
-from pymonad.Maybe import *
+from multiprocessing import Pool, cpu_count
+
+import pandas as pd
+import pickle
 from funcy import first, flatten
-from toolz.curried import *
 from lenses import lens
+from pymonad.Maybe import *
+from toolz.curried import *
+from tqdm import tqdm
+
+import ecce.reference as ref
+from ecce.constants import *
+from ecce.utils import *
 
 
-NAVE_ABBREVIATIONS = {
-    'Ge': 'Genesis', 'Ex': 'Exodus', 'Le': 'Leviticus', 'Nu': 'Numbers',
-    'De': 'Deuteronomy', 'Jos': 'Joshua', 'Jud': 'Judges', 'Ru': 'Ruth',
-    '1Sa': '1 Samuel', '2Sa': '2 Samuel', '1Ki': '1 Kings', '2Ki': '2 Kings',
-    '1Ch': '1 Chronicles', '2Ch': '2 Chronicles', 'Ezr': 'Ezra',
-    'Ne': 'Nehemiah', 'Es': 'Esther', 'Job': 'Job', 'Ps': 'Psalms',
-    'Pr': 'Proverbs', 'Ec': 'Ecclesiates', 'So': 'Song of Solomon',
-    'Isa': 'Isaiah', 'Jer': 'Jeremiah', 'La': 'Lamentations', 'Eze': 'Ezekiel',
-    'Da': 'Daniel', 'Ho': 'Hosea', 'Joe': 'Joel', 'Am': 'Amos',
-    'Ob': 'Obadiah', 'Jon': 'Jonah', 'Mic': 'Micah', 'Na': 'Nahum',
-    'Hab': 'Habakkuk', 'Zep': 'Zephaniah', 'Hag': 'Haggi', 'Zec': 'Zechariah',
-    'Mal': 'Malachi', 'Mt': 'Matthew', 'Mr': 'Mark', 'Lu': 'Luke',
-    'Joh': 'John', 'Ac': 'Acts', 'Ro': 'Romans', '1Co': '1 Corinthians',
-    '2Co': '2 Corinthians', 'Ga': 'Galatians', 'Eph': 'Ephesians',
-    'Php': 'Philippians', 'Col': 'Colossians', '1Th': '1 Thessalonians',
-    '2Th': '2 Thessalonians', '1Ti': '1 Timothy', '2Ti': '2 Timothy',
-    'Tit': 'Titus', 'Phm': 'Philemon', 'Heb': 'Hebrews', 'Jas': 'James',
-    '1Pe': '1 Peter', '2Pe': '2 Peter', '1Jo': '1 John', '2Jo': '2 John',
-    '3Jo': '3 John', 'Jude': 'Jude', 'Re': 'Revelation'
-}
+@memoize
+def init():
+    if os.path.isfile(NAVE_PATH):
+        with open(NAVE_PATH, 'rb') as f:
+            return pickle.load(f)
+
+    iterator = tqdm(df().iterrows(), total=len(df()))
+
+    print('Parsing all references...')
+
+    pool = Pool(cpu_count())
+    results = list(concat(pool.map(_parse_refs, iterator)))
+
+    with open(NAVE_PATH, 'wb') as f:
+        pickle.dump(results, f)
+
+    return results
+
+
+@memoize
+def df():
+    if os.path.isfile(NAVE_FRAME_PATH):
+        return pd.read_csv(NAVE_FRAME_PATH)
+
+    categories = pd.read_csv(
+        NAVE_CAT_PATH,
+        sep='\t',
+        names=[
+            'topic_key', 'category_key', 'category_text', 'sort_order',
+            'source_topic_key'
+        ])
+
+    topics = pd.read_csv(
+        NAVE_TOPIC_PATH,
+        sep='\t',
+        names=['topic_key', 'topic_name', 'source_topic_key'])
+
+    subtopics = pd.read_csv(
+        NAVE_SUBTOPIC_PATH,
+        sep='\t',
+        names=[
+            'topic_key', 'category_key', 'subtopic_key', 'subtopic_text',
+            'sort_order', 'source_topic_key', 'reference_list'
+        ])
+
+    df = pd.merge(
+        subtopics,
+        pd.merge(
+            topics,
+            categories,
+            on=['topic_key', 'source_topic_key'],
+            how='left'),
+        on=['topic_key', 'source_topic_key', 'category_key'],
+        how='left',
+        suffixes=('_subtopic', '_category'))
+
+    df.to_csv(NAVE_FRAME_PATH, index=False)
+    return df
+
+
+def _parse_refs(index_and_row):
+    _, row = index_and_row
+    return list_map(lambda reference: (reference, row.to_dict()),
+                    parse(row.at['reference_list']))
+
 
 def parse(raw_reference):
     def _expand_book(raw):
         """Converts "Lu2:3,4,5" to ("Luke", "2:3,4,5")"""
         return pipe(
             NAVE_ABBREVIATIONS.keys(),
+            partial(sorted, key=len),
+            reversed,
             list_filter(lambda k: k in raw),
             first,
-            to_maybe,
-        ) >> (
-            lambda k: Just((NAVE_ABBREVIATIONS[k], raw.replace(k, '')))
-        )
+            to_maybe
+        ) >> (lambda k: Just((NAVE_ABBREVIATIONS[k], raw.replace(k, ''))))
 
     def _expand_chapter(raw):
         """Converts "2:3,4,5" to (2, "3, 4, 5")"""
-        chapter, verses = raw.split(':')
-        return (int(chapter), verses)
+        # Fix data misformat
+        raw = raw.replace('-626:', '-6,26:')
+
+        if raw.count(':') > 1:
+            return list(concat(map(_expand_chapter, raw.split(','))))
+        else:
+            chapter, verses = raw.split(':')
+            return [(int(chapter), verses)]
 
     def _expand_verses(raw):
         """Converts "3,4,5" or "3-5" to [3, 4, 5]"""
-        if '-' in raw:
-            start, end = list_map(int, raw.split('-'))
-            return list(range(start, end + 1))
+        if ',' in raw:
+            return list(flatten(map(_expand_verses, raw.split(','))))
+        elif '-' in raw:
+            components = list_map(int, raw.split('-'))
+            return list(range(components[0], components[-1] + 1))
         else:
-            return list_map(int, raw.split(','))
+            return [int(raw)]
 
     def _to_references(data):
-        """Converts ('Luke', (2, [3, 4, 5])) to (List ref.Data)"""
-        book, (chapter, verses) = data
-        return map(
-            lambda verse: to_maybe(ref.init(book, chapter, verse)),
-            verses
-        )
+        """Converts ('Luke', [(2, [3, 4, 5]), ...]) to (List ref.Data)"""
+        book, chapters = data
+
+        def _from_chapters(pair):
+            chapter, verses = pair
+            return map(
+                lambda verse: to_maybe(ref.init(book, chapter, verse)),
+                verses)
+
+        return concat(map(_from_chapters, chapters))
 
     return pipe(
         raw_reference.split('; '),
 
         # Initial text conversion
         map(mconcat_bind([
-            to_maybe,
-            _expand_book,
+            to_maybe, _expand_book,
             compose(to_maybe, lens[1].modify(_expand_chapter)),
-            compose(to_maybe, lens[1][1].modify(_expand_verses))
+            compose(to_maybe, lens[1].Each()[1].modify(_expand_verses))
         ])),
         mcompact,
 
@@ -77,4 +140,3 @@ def parse(raw_reference):
         flatten,
         mcompact
     )
-

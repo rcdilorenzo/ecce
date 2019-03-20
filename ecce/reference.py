@@ -10,6 +10,9 @@ from toolz.curried import filter
 
 Data = Struct('Reference', ['book', 'chapter', 'verse'])
 
+# Needed for pickling
+Reference = Data
+
 @memoize
 def all():
     data = esv.verses()
