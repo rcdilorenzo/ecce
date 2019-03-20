@@ -8,7 +8,7 @@ setup(
     tests_require = ['pytest', 'pytest-describe'],
     packages = find_packages(),
     include_package_data=True,
-    package_data={'ecce': ['data/**/*']},
+    package_data={'ecce': ['data/**/*', 'data/ESV.json']},
     entry_points = {
         'console_scripts': [
             'ecce = ecce.__main__:main'
