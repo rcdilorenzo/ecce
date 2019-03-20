@@ -37,9 +37,6 @@ def ordered(references):
 
     return sorted(references, key=key)
 
-def passages(references):
-    return {}
-
 @curry
 def _match(components, ref):
     book, chapter, verse = components

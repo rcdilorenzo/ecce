@@ -2,7 +2,7 @@ from multiprocessing import Pool, cpu_count
 
 import pandas as pd
 import pickle
-from funcy import first, flatten
+from funcy import first, second, flatten
 from lenses import lens
 from pymonad.Maybe import *
 from toolz.curried import *
