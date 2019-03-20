@@ -1,4 +1,5 @@
 import ecce.esv as esv
+from ecce.constants import CANONICAL_ORDER
 
 from base64 import b64decode, b64encode
 from collections import namedtuple as Struct
@@ -29,6 +30,15 @@ def init(book, chapter, verse):
         logging.error(f'No reference found: {(book, chapter, verse)}')
 
     return result
+
+def ordered(references):
+    def key(ref):
+        return (CANONICAL_ORDER.index(ref.book), ref.chapter, ref.verse)
+
+    return sorted(references, key=key)
+
+def passages(references):
+    return {}
 
 @curry
 def _match(components, ref):

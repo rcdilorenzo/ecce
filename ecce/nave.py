@@ -129,7 +129,7 @@ def parse(raw_reference):
 
         # Initial text conversion
         map(mconcat_bind([
-            to_maybe, _expand_book,
+            _expand_book,
             compose(to_maybe, lens[1].modify(_expand_chapter)),
             compose(to_maybe, lens[1].Each()[1].modify(_expand_verses))
         ])),
