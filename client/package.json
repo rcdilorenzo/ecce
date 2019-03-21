@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "async-reactor": "^1.2.2",
+    "d3-fetch": "^1.1.2",
     "folktale": "^2.3.2",
     "ramda": "^0.26.1",
     "react": "^16.8.4",
