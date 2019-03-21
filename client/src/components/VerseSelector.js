@@ -13,7 +13,7 @@ const VerseSelector = ({ book, chapter, verse, handlers }) => {
   const bookOptions = ESV.books.map(toOptions);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap max-w-sm m-auto">
       <Select
         className="flex-grow w-48 pr-2 mb-2"
         value={toOptions(book)}

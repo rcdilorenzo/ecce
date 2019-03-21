@@ -4,13 +4,16 @@ import * as R from 'ramda';
 import * as ESV from './models/esv';
 import VerseTopics from './components/VerseTopics';
 import VerseSelector from './components/VerseSelector';
+import TopicExplorer from './components/TopicExplorer';
 
 const mergeRight = R.flip(R.merge);
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { book: ESV.books[0], chapter: 1, verse: 1 };
+    this.state = {
+      book: ESV.books[0], chapter: 1, verse: 1
+    };
   }
 
   bookSelected(selected) {
@@ -33,14 +36,16 @@ class App extends Component {
     };
 
     return (
-      <div className="p-5 max-w-sm m-auto mt-5">
+      <div className="p-5 max-w-lg m-auto mt-5">
         <h1 className="pt-5 pb-5">Verse Topic Explorer</h1>
-
         <VerseSelector
           {...this.state}
           handlers={selectionHandlers} />
 
         <VerseTopics {...this.state} />
+
+        <h1 className="pt-5 pb-5">Topic Explorer</h1>
+        <TopicExplorer />
       </div>
     );
   }

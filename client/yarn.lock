@@ -7446,6 +7446,10 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   dependencies:
     safe-buffer "^5.1.0"
 
+randomcolor@^0.4.2:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/randomcolor/-/randomcolor-0.4.4.tgz#5ff56862e97ba03beb0419ff0536ec7aff59eeeb"
+
 randomfill@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/randomfill/-/randomfill-1.0.4.tgz#c92196fc86ab42be983f1bf31778224931d61458"
@@ -7606,6 +7610,15 @@ react-select@^2.4.2:
     raf "^3.4.0"
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
+
+react-tagcloud@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-tagcloud/-/react-tagcloud-1.4.0.tgz#6bd696943fc8a0afc28fd39430743043319025f3"
+  dependencies:
+    object-assign "^4.1.0"
+    prop-types "^15.6.2"
+    randomcolor "^0.4.2"
+    shuffle-array "^1.0.1"
 
 react-transition-group@^2.2.1:
   version "2.6.1"
@@ -8233,6 +8246,10 @@ shell-quote@1.6.1:
 shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
+
+shuffle-array@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shuffle-array/-/shuffle-array-1.0.1.tgz#c4ff3cfe74d16f93730592301b25e6577b12898b"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
