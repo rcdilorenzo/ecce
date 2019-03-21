@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 import * as R from 'ramda';
 import Select from 'react-select';
-import Maybe from 'folktale/maybe';
+import AsyncSelect from 'react-select/lib/Async';
 
-import VerseComponent from './VerseComponent';
-import { CANONICAL_ORDER } from './constants';
-import naveReference from './data/nave-by-reference.json';
+import * as ESV from './models/esv';
+
+import VerseTopics from './components/VerseTopics';
+
+const toOptions = (value) => {
+  return { value, label: value };
+};
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.bookOptions = CANONICAL_ORDER.map(this._valueToOptions);
+    this.bookOptions = ESV.books.map(toOptions);
 
     this.state = {
-      book: CANONICAL_ORDER[0],
+      book: ESV.books[0],
       chapter: 1,
       verse: 1
     }
-  }
-
-  _valueToOptions(value) {
-    return { value, label: value };
-  }
-
-  chapters(book) {
-    return Object.keys(naveReference[book]);
-  }
-
-  verses(book, chapter) {
-    return Object.keys(naveReference[book][chapter]);
   }
 
   bookSelected(selected) {
@@ -54,23 +46,26 @@ class App extends Component {
         <div className="flex flex-wrap">
           <Select
             className="flex-grow w-48 pr-2 mb-2"
-            value={this._valueToOptions(book)}
+            value={toOptions(book)}
             options={this.bookOptions}
             onChange={this.bookSelected.bind(this)} />
-          <Select
-            className="pr-2 w-24"
-            value={this._valueToOptions(chapter)}
-            options={this.chapters(book).map(this._valueToOptions)}
+
+          <AsyncSelect
+            className="pr-2 w-24 mb-2"
+            defaultOptions
+            value={toOptions(chapter)}
+            loadOptions={() => ESV.chapters(book).then(R.map(toOptions))}
             onChange={this.chapterSelected.bind(this)} />
-          <Select
-            className="w-24"
-            value={this._valueToOptions(verse)}
-            options={this.verses(book, chapter).map(this._valueToOptions)}
+
+          <AsyncSelect
+            className="w-24 mb-2"
+            value={toOptions(verse)}
+            defaultOptions
+            loadOptions={() => ESV.verses(book, chapter).then(R.map(toOptions))}
             onChange={this.verseSelected.bind(this)} />
           </div>
         <div>
-          <VerseComponent {...this.state}
-            topics={naveReference[book][chapter][verse]} />
+        <VerseTopics {...this.state} />
         </div>
       </div>
     );
