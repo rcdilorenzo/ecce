@@ -57,6 +57,63 @@ def by_reference():
         for book, book_values in groupby(by_book, init()).items()
     }
 
+subtopic_id   = lambda v: f"{v['subtopic_key']}:{v['source_topic_key']}"
+subtopic_text = lambda v: v['subtopic_text']
+category_id   = lambda v: v['category_key']
+category_text = lambda v: v['category_text']
+topic_id      = lambda v: v['topic_key']
+topic_text    = lambda v: v['topic_name']
+
+group_attr = lambda f: compose(f, second, first)
+
+def by_subtopic_nodes():
+    attr = flip(getattr)
+    by_subtopic = compose(subtopic_id, second)
+
+    return _by_group_transform(by_subtopic, {
+        'id': group_attr(subtopic_id),
+        'category_id': group_attr(category_id),
+        'label': group_attr(subtopic_text),
+        'reference_count': len,
+        'passages': compose(
+            list_map(passage.compact), passage.text, passage.init,
+            list_map(first))
+    }.items())
+
+
+def by_category_nodes():
+    by_category = compose(category_id, second)
+
+    return _by_group_transform(by_category, {
+        'id': group_attr(category_id),
+        'topic_id': group_attr(topic_id),
+        'label': group_attr(category_text),
+        'reference_count': len
+    }.items())
+
+
+def by_topic_nodes():
+    by_topic = compose(topic_id, second)
+
+    return _by_group_transform(by_topic, {
+        'id': group_attr(topic_id),
+        'label': group_attr(topic_text),
+        'reference_count': len
+    }.items())
+
+
+def _by_group_transform(groupby_f, columns_to_transforms):
+    attr = flip(getattr)
+    category_id = lambda v: v['category_key']
+    category_text = lambda v: v['category_text']
+
+    by_category = compose(category_id, second)
+    to_data = juxt(list_map(second, columns_to_transforms))
+
+    data = list_map(to_data, groupby(groupby_f, init()).values())
+
+    return pd.DataFrame(data, columns=list_map(first, columns_to_transforms))
+
 
 def by_topic():
     attr = flip(getattr)

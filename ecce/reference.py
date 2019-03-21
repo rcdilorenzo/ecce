@@ -41,3 +41,6 @@ def ordered(references):
 def _match(components, ref):
     book, chapter, verse = components
     return ref.book == book and ref.chapter == chapter and ref.verse == verse
+
+def compact(ref):
+    return (ref.book, ref.chapter, ref.verse)

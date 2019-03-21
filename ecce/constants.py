@@ -18,8 +18,12 @@ NAVE_REF_PATH       = relative_path(__file__, 'data/nave/topicxref.txt')
 NAVE_FRAME_PATH     = relative_path(__file__, 'data/nave/parsed.csv')
 NAVE_PATH           = relative_path(__file__, 'data/nave/pickled.obj')
 
-NAVE_EXPORT_TOPIC = os.path.join(EXPORT_PATH, 'nave-by-topic.json')
-NAVE_EXPORT_REF   = os.path.join(EXPORT_PATH, 'nave-by-reference.json')
+NAVE_EXPORT_TOPIC    = os.path.join(EXPORT_PATH, 'nave-by-topic.json')
+NAVE_EXPORT_REF      = os.path.join(EXPORT_PATH, 'nave-by-reference.json')
+NAVE_SUBTOPIC_NODES  = os.path.join(EXPORT_PATH, 'nave-subtopic-nodes.tsv')
+NAVE_CATEGORY_NODES  = os.path.join(EXPORT_PATH, 'nave-category-nodes.tsv')
+NAVE_TOPIC_NODES     = os.path.join(EXPORT_PATH, 'nave-topic-nodes.tsv')
+NAVE_EXPORT_PASSAGES = os.path.join(EXPORT_PATH, 'nave-passages.json')
 
 NAVE_ABBREVIATIONS = {
     'Ge': 'Genesis',
