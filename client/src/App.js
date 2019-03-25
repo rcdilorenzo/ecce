@@ -5,6 +5,7 @@ import * as ESV from './models/esv';
 import VerseTopics from './components/VerseTopics';
 import VerseSelector from './components/VerseSelector';
 import TopicExplorer from './components/TopicExplorer';
+import NaveTopicGraph from './components/NaveTopicGraph';
 
 const mergeRight = R.flip(R.merge);
 
@@ -45,6 +46,7 @@ class App extends Component {
         <VerseTopics {...this.state} />
 
         <h1 className="pt-5 pb-5">Topic Explorer</h1>
+        <NaveTopicGraph />
         <TopicExplorer />
       </div>
     );
