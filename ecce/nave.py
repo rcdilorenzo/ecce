@@ -57,11 +57,11 @@ def by_reference():
         for book, book_values in groupby(by_book, init()).items()
     }
 
-subtopic_id   = lambda v: f"{v['subtopic_key']}:{v['source_topic_key']}"
+subtopic_id   = lambda v: f"sbtpc:{v['subtopic_key']}:{v['source_topic_key']}"
 subtopic_text = lambda v: v['subtopic_text']
-category_id   = lambda v: v['category_key']
+category_id   = lambda v: f"cat:{v['category_key']}"
 category_text = lambda v: v['category_text']
-topic_id      = lambda v: v['topic_key']
+topic_id      = lambda v: f"tpc:{v['topic_key']}"
 topic_text    = lambda v: v['topic_name']
 
 group_attr = lambda f: compose(f, second, first)

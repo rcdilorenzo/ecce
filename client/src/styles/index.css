@@ -15,3 +15,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ui.segment.tab {
+    @apply p-10 shadow-md rounded-lg bg-white;
+    background: #F8F8F8;
+    background: -webkit-linear-gradient(top, #F8F8F8, #EEEEEE);
+    background: -moz-linear-gradient(top, #F8F8F8, #EEEEEE);
+    background: linear-gradient(to bottom, #F8F8F8, #EEEEEE);
+}
+
+.ui.menu {
+    @apply mb-5 flex;
+    .item {
+        @apply p-3 cursor-pointer border-b-2 flex-grow text-center;
+        &:hover {
+            @apply border-grey;
+        }
+        &.active {
+            @apply border-black;
+        }
+    }
+}

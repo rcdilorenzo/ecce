@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bit/semantic-org.semantic-ui-react.tab": "^0.86.0",
     "async-reactor": "^1.2.2",
     "d3-fetch": "^1.1.2",
     "folktale": "^2.3.2",
+    "precss": "^4.0.0",
     "ramda": "^0.26.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-force-graph": "^1.20.5",
     "react-scripts": "2.1.8",
-    "react-select": "^2.4.2",
-    "react-tagcloud": "^1.4.0"
+    "react-select": "^2.4.2"
   },
   "scripts": {
     "build:css": "postcss src/styles/index.css -o src/index.css",

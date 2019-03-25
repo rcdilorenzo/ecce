@@ -13,7 +13,7 @@ export const allTopics = () => {
 
 export const topicNodes    = () => tsv('/data/nave-topic-nodes.tsv');
 export const categoryNodes = () => tsv('/data/nave-category-nodes.tsv');
-export const subtopicNodes = () => tsv('/data/nave-subtopics-nodes.tsv');
+export const subtopicNodes = () => tsv('/data/nave-subtopic-nodes.tsv');
 
 export const topicCounts = () => {
   const mapAsValues = f => R.pipe(Object.values, R.map(f))

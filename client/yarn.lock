@@ -889,9 +889,242 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@bit/semantic-org.semantic-ui-react.grid@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.grid/-/semantic-org.semantic-ui-react.grid-0.86.0.tgz#68426ccf3cce196eededf847d5dd2263de7865fa"
+  integrity sha1-aEJszzzOGW7t7fhH1d0iY954Zfo=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.internal.genericd" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index" "0.86.0"
+    classnames "^2.2.6"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.icon@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.icon/-/semantic-org.semantic-ui-react.icon-0.86.0.tgz#cc9136f29d70da62f3a04644c168a458280569f6"
+  integrity sha1-zJE28p1w2mLzoEZEwWikWCgFafY=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.internal.genericd" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index" "0.86.0"
+    classnames "^2.2.6"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.internal.genericd@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.internal.genericd/-/semantic-org.semantic-ui-react.internal.genericd-0.86.0.tgz#2c2a9929abe4994b9ac7d4e9e172e02b2e536cf2"
+  integrity sha1-LCqZKavkmUuax9Tp4XLgKy5TbPI=
+
+"@bit/semantic-org.semantic-ui-react.internal.utils.index@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.internal.utils.index/-/semantic-org.semantic-ui-react.internal.utils.index-0.86.0.tgz#68034b672659e393185cb1c4a7f6a51457deaa3c"
+  integrity sha1-aANLZyZZ45MYXLHEp/alFFfeqjw=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.utils.auto-controlled-component" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.child-mapping" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.children-utils" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.class-name-builders" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.create-pagination-items" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.custom-prop-types" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.does-node-contain-click" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.event-stack" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.factories" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.get-element-type" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.get-unhandled-props" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.html-props-utils" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.is-browser" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.leven" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.make-debugger" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.normalize-offset" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.normalize-transition-duration" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.number-to-word" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.object-diff" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.ref-utils" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.utils.sui" "0.86.0"
+
+"@bit/semantic-org.semantic-ui-react.menu@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.menu/-/semantic-org.semantic-ui-react.menu-0.86.0.tgz#cd2559c8e7958c5c6367a46512710dd7b539ae5a"
+  integrity sha1-zSVZyOeVjFxjZ6RlEnEN17U5rlo=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.icon" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.genericd" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index" "0.86.0"
+    classnames "^2.2.6"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.segment@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.segment/-/semantic-org.semantic-ui-react.segment-0.86.0.tgz#e1b38be904162a788a5bfcb9d2633463ca1e942d"
+  integrity sha1-4bOL6QQWKniKW/y50mM0Y8oelC0=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.internal.genericd" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index" "0.86.0"
+    classnames "^2.2.6"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.tab@^0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.tab/-/semantic-org.semantic-ui-react.tab-0.86.0.tgz#c14abd41534bb8e52215b16f4b9dffd9b4556bfa"
+  integrity sha1-wUq9QVNLuOUiFbFvS53/2bRVa/o=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.grid" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.genericd" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.internal.utils.index" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.menu" "0.86.0"
+    "@bit/semantic-org.semantic-ui-react.segment" "0.86.0"
+    classnames "^2.2.6"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.utils.auto-controlled-component@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.auto-controlled-component/-/semantic-org.semantic-ui-react.utils.auto-controlled-component-0.86.0.tgz#9ca63d87b756b88bd6c9e7b8a7e93f04b02d78ba"
+  integrity sha1-nKY9h7dWuIvWyee4p+k/BLAteLo=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.child-mapping@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.child-mapping/-/semantic-org.semantic-ui-react.utils.child-mapping-0.86.0.tgz#9dc64f90531911d8f9135832c6bb4b2970130838"
+  integrity sha1-ncZPkFMZEdj5E1gyxrtLKXATCDg=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.children-utils@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.children-utils/-/semantic-org.semantic-ui-react.utils.children-utils-0.86.0.tgz#b8f250c5ea13fdf3086d9e6c3ffe11ea20f13fd1"
+  integrity sha1-uPJQxeoT/fMIbZ5sP/4R6iDxP9E=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.class-name-builders@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.class-name-builders/-/semantic-org.semantic-ui-react.utils.class-name-builders-0.86.0.tgz#a9ead89a0a98fa634137001084413b738ee0c9c6"
+  integrity sha1-qerYmgqY+mNBNwAQhEE7c47gycY=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.utils.number-to-word" "0.86.0"
+
+"@bit/semantic-org.semantic-ui-react.utils.create-pagination-items@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.create-pagination-items/-/semantic-org.semantic-ui-react.utils.create-pagination-items-0.86.0.tgz#007742536701af43913368a97ec4bb20b84cde74"
+  integrity sha1-AHdCU2cBr0ORM2ipfsS7ILhM3nQ=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.custom-prop-types@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.custom-prop-types/-/semantic-org.semantic-ui-react.utils.custom-prop-types-0.86.0.tgz#0896117078df3906bfd4aacba25ad88918bfbc4a"
+  integrity sha1-CJYRcHjfOQa/1KrLolrYiRi/vEo=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.utils.leven" "0.86.0"
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
+"@bit/semantic-org.semantic-ui-react.utils.does-node-contain-click@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.does-node-contain-click/-/semantic-org.semantic-ui-react.utils.does-node-contain-click-0.86.0.tgz#e0721d44de56937e912c3168951c259a92de3e73"
+  integrity sha1-4HIdRN5Wk36RLDFolRwlmpLePnM=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.event-stack@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.event-stack/-/semantic-org.semantic-ui-react.utils.event-stack-0.86.0.tgz#b0ef1be44387f230b30101e00e4a59eb0aff6d7b"
+  integrity sha1-sO8b5EOH8jCzAQHgDkpZ6wr/bXs=
+  dependencies:
+    "@semantic-ui-react/event-stack" "^3.1.0"
+
+"@bit/semantic-org.semantic-ui-react.utils.factories@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.factories/-/semantic-org.semantic-ui-react.utils.factories-0.86.0.tgz#660952ad295048e78fefd88cad198174fbbbc2e1"
+  integrity sha1-ZglSrSlQSOeP79iMrRmBdPu7wuE=
+  dependencies:
+    classnames "^2.2.6"
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.get-element-type@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.get-element-type/-/semantic-org.semantic-ui-react.utils.get-element-type-0.86.0.tgz#1a5e552038db5627938a28919154742214e3fb05"
+  integrity sha1-Gl5VIDjbVieTiiiRkVR0IhTj+wU=
+
+"@bit/semantic-org.semantic-ui-react.utils.get-unhandled-props@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.get-unhandled-props/-/semantic-org.semantic-ui-react.utils.get-unhandled-props-0.86.0.tgz#8221bebf1f5d94bf7d842c3a1874c8ab8ad58a08"
+  integrity sha1-giG+vx9dlL99hCw6GHTIq4rVigg=
+
+"@bit/semantic-org.semantic-ui-react.utils.html-props-utils@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.html-props-utils/-/semantic-org.semantic-ui-react.utils.html-props-utils-0.86.0.tgz#49ebfaf0a742df3c7a8e6e8e73bfe716ff7391ba"
+  integrity sha1-Sev68KdC3zx6jm6Oc7/nFv9zkbo=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.is-browser@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.is-browser/-/semantic-org.semantic-ui-react.utils.is-browser-0.86.0.tgz#5c673ae4396c0929c46b15d049e46ea794e5428c"
+  integrity sha1-XGc65DlsCSnEaxXQSeRup5TlQow=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.leven@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.leven/-/semantic-org.semantic-ui-react.utils.leven-0.86.0.tgz#8b741ad11ed0e619ba44c7e2beddb76a89703f1b"
+  integrity sha1-i3Qa0R7Q5hm6RMfivt23aolwPxs=
+
+"@bit/semantic-org.semantic-ui-react.utils.make-debugger@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.make-debugger/-/semantic-org.semantic-ui-react.utils.make-debugger-0.86.0.tgz#c6f6ee50a7c137bd677f9e1a782efeb5ded358ea"
+  integrity sha1-xvbuUKfBN71nf54aeC7+td7TWOo=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.utils.is-browser" "0.86.0"
+    debug "^4.1.1"
+
+"@bit/semantic-org.semantic-ui-react.utils.normalize-offset@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.normalize-offset/-/semantic-org.semantic-ui-react.utils.normalize-offset-0.86.0.tgz#8376de01de792db42523a19740fab258e5b5360f"
+  integrity sha1-g3beAd55LbQlI6GXQPqyWOW1Ng8=
+
+"@bit/semantic-org.semantic-ui-react.utils.normalize-transition-duration@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.normalize-transition-duration/-/semantic-org.semantic-ui-react.utils.normalize-transition-duration-0.86.0.tgz#56e57a3b35636f3c8cd92b08daaa8e4545ed692c"
+  integrity sha1-VuV6OzVjbzyM2SsI2qqORUXtaSw=
+
+"@bit/semantic-org.semantic-ui-react.utils.number-to-word@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.number-to-word/-/semantic-org.semantic-ui-react.utils.number-to-word-0.86.0.tgz#276ca8e4dbd57c0179b10aa7b1ab78441991fac4"
+  integrity sha1-J2yo5NvVfAF5sQqnsat4RBmR+sQ=
+
+"@bit/semantic-org.semantic-ui-react.utils.object-diff@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.object-diff/-/semantic-org.semantic-ui-react.utils.object-diff-0.86.0.tgz#b99d26a22a9ce73df2b7eef9312dcb4f2975a966"
+  integrity sha1-uZ0moiqc5z3yt+75MS3LTyl1qWY=
+  dependencies:
+    lodash "^4.17.11"
+
+"@bit/semantic-org.semantic-ui-react.utils.ref-utils@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.ref-utils/-/semantic-org.semantic-ui-react.utils.ref-utils-0.86.0.tgz#5c904598ebcd7fc92d394e2745197c93af74be79"
+  integrity sha1-XJBFmOvNf8ktOU4nRRl8k690vnk=
+
+"@bit/semantic-org.semantic-ui-react.utils.sui@0.86.0":
+  version "0.86.0"
+  resolved "https://node.bit.dev/semantic-org.semantic-ui-react.utils.sui/-/semantic-org.semantic-ui-react.utils.sui-0.86.0.tgz#0ca9b0c3eb36b37831dbec6bd666b2a566525ed7"
+  integrity sha1-DKmww+s2s3gx2+xr1maypWZSXtc=
+  dependencies:
+    "@bit/semantic-org.semantic-ui-react.utils.number-to-word" "0.86.0"
+    lodash "^4.17.11"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
+
+"@csstools/sass-import-resolve@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@csstools/sass-import-resolve/-/sass-import-resolve-1.0.0.tgz#32c3cdb2f7af3cd8f0dca357b592e7271f3831b5"
+  integrity sha512-pH4KCsbtBLLe7eqUrw8brcuFO8IZlN36JjdKlOublibVdAIPHCzEnpBWOVUXK5sCf+DpBi8ZtuWtjF0srybdeA==
 
 "@emotion/babel-utils@^0.6.4":
   version "0.6.10"
@@ -947,6 +1180,14 @@
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
+
+"@semantic-ui-react/event-stack@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@semantic-ui-react/event-stack/-/event-stack-3.1.0.tgz#aadbe4a28b0dd7703c5f451640d0fefe66dd9208"
+  integrity sha512-WHtU9wutZByZtFZxzj4BVEk+rvWldZpZhRcyv6d84+XLSolm83zLHYJLTACGuSl6Xa/xpgVXquvm9GyMudkJYg==
+  dependencies:
+    exenv "^1.2.2"
+    prop-types "^15.6.2"
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.0.0":
   version "4.0.0"
@@ -1588,7 +1829,7 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
-autoprefixer@^9.4.2, autoprefixer@^9.4.5, autoprefixer@^9.5.0:
+autoprefixer@^9.4.2, autoprefixer@^9.4.5, autoprefixer@^9.4.9, autoprefixer@^9.5.0:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.5.0.tgz#7e51d0355c11596e6cf9a0afc9a44e86d1596c70"
   dependencies:
@@ -2233,7 +2474,7 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000899:
   version "1.0.30000903"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000903.tgz#86d46227759279b3db345ddbe778335dbba9e858"
 
-caniuse-lite@^1.0.30000918, caniuse-lite@^1.0.30000929, caniuse-lite@^1.0.30000947, caniuse-lite@^1.0.30000951:
+caniuse-lite@^1.0.30000918, caniuse-lite@^1.0.30000929, caniuse-lite@^1.0.30000939, caniuse-lite@^1.0.30000947, caniuse-lite@^1.0.30000951:
   version "1.0.30000951"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000951.tgz#c7c2fd4d71080284c8677dd410368df8d83688fe"
 
@@ -2354,7 +2595,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5:
+classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
@@ -3129,7 +3370,7 @@ debug@^3.1.0, debug@^3.2.5:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   dependencies:
@@ -3843,6 +4084,11 @@ execa@^0.7.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
+
+exenv@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
 
 exit@^0.1.2:
   version "0.1.2"
@@ -7275,12 +7521,35 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
 
+postcss-advanced-variables@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-advanced-variables/-/postcss-advanced-variables-3.0.0.tgz#d1ca9a0da920c0be41213dd33ce6033d14f0b150"
+  integrity sha512-e5tcG0+l2qaqV65+qQCAW91vX4+mYbh2m5tdBYrzOhYjFgtNmtehmZWotvzWTGbtgbP11tgGirEYy2P7m6HceQ==
+  dependencies:
+    "@csstools/sass-import-resolve" "^1.0.0"
+    postcss "^7.0.6"
+
+postcss-atroot@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/postcss-atroot/-/postcss-atroot-0.1.3.tgz#6752c0230c745140549345b2b0e30ebeda01a405"
+  integrity sha1-Z1LAIwx0UUBUk0WysOMOvtoBpAU=
+  dependencies:
+    postcss "^5.0.5"
+
 postcss-attribute-case-insensitive@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/postcss-attribute-case-insensitive/-/postcss-attribute-case-insensitive-4.0.0.tgz#807b6a797ad8bf1c821b2d51cf641e9dd3837624"
   dependencies:
     postcss "^7.0.2"
     postcss-selector-parser "^5.0.0-rc.3"
+
+postcss-attribute-case-insensitive@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/postcss-attribute-case-insensitive/-/postcss-attribute-case-insensitive-4.0.1.tgz#b2a721a0d279c2f9103a36331c88981526428cc7"
+  integrity sha512-L2YKB3vF4PetdTIthQVeT+7YiSzMoNMLLYxPXXppOOP7NoazEAy45sh2LvJ8leCQjfBcfkYQs8TtCcQjeZTp8A==
+  dependencies:
+    postcss "^7.0.2"
+    postcss-selector-parser "^5.0.0"
 
 postcss-calc@^7.0.0:
   version "7.0.1"
@@ -7426,6 +7695,14 @@ postcss-env-function@^2.0.2:
   dependencies:
     postcss "^7.0.2"
     postcss-values-parser "^2.0.0"
+
+postcss-extend-rule@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-extend-rule/-/postcss-extend-rule-2.0.0.tgz#031fe6f608cf6efd20cb58b11f343b164c18d370"
+  integrity sha512-dgr1GJzW3lUBczZJO5Fm51rktn34Uc99xR1uQyC2Td8JPep/Y+TRx6TjK0yngikOd4LxV1xyuohMMpcaOBgrfA==
+  dependencies:
+    postcss "^6.0.22"
+    postcss-nesting "^5.0.0"
 
 postcss-flexbugs-fixes@4.1.0:
   version "4.1.0"
@@ -7606,12 +7883,19 @@ postcss-modules-values@^1.3.0:
     icss-replace-symbols "^1.1.0"
     postcss "^6.0.1"
 
-postcss-nested@^4.1.1:
+postcss-nested@^4.1.0, postcss-nested@^4.1.1:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-4.1.2.tgz#8e0570f736bfb4be5136e31901bf2380b819a561"
   dependencies:
     postcss "^7.0.14"
     postcss-selector-parser "^5.0.0"
+
+postcss-nesting@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-5.0.0.tgz#973e3a7dc6426543affc0b0beb367c3b2a8d9923"
+  integrity sha512-Yoe3w2mcVslnEJl5zLyz1yBxCFUpYu138apEEOCwS2HRdDw/TDxTwD1fXBrIarL8J1cPzHfVwO1m40B2/UpGCw==
+  dependencies:
+    postcss "^6.0.21"
 
 postcss-nesting@^7.0.0:
   version "7.0.0"
@@ -7760,6 +8044,58 @@ postcss-preset-env@6.5.0:
     postcss-selector-matches "^4.0.0"
     postcss-selector-not "^4.0.0"
 
+postcss-preset-env@^6.4.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-6.6.0.tgz#642e7d962e2bdc2e355db117c1eb63952690ed5b"
+  integrity sha512-I3zAiycfqXpPIFD6HXhLfWXIewAWO8emOKz+QSsxaUZb9Dp8HbF5kUf+4Wy/AxR33o+LRoO8blEWCHth0ZsCLA==
+  dependencies:
+    autoprefixer "^9.4.9"
+    browserslist "^4.4.2"
+    caniuse-lite "^1.0.30000939"
+    css-blank-pseudo "^0.1.4"
+    css-has-pseudo "^0.10.0"
+    css-prefers-color-scheme "^3.1.1"
+    cssdb "^4.3.0"
+    postcss "^7.0.14"
+    postcss-attribute-case-insensitive "^4.0.1"
+    postcss-color-functional-notation "^2.0.1"
+    postcss-color-gray "^5.0.0"
+    postcss-color-hex-alpha "^5.0.2"
+    postcss-color-mod-function "^3.0.3"
+    postcss-color-rebeccapurple "^4.0.1"
+    postcss-custom-media "^7.0.7"
+    postcss-custom-properties "^8.0.9"
+    postcss-custom-selectors "^5.1.2"
+    postcss-dir-pseudo-class "^5.0.0"
+    postcss-double-position-gradients "^1.0.0"
+    postcss-env-function "^2.0.2"
+    postcss-focus-visible "^4.0.0"
+    postcss-focus-within "^3.0.0"
+    postcss-font-variant "^4.0.0"
+    postcss-gap-properties "^2.0.0"
+    postcss-image-set-function "^3.0.1"
+    postcss-initial "^3.0.0"
+    postcss-lab-function "^2.0.1"
+    postcss-logical "^3.0.0"
+    postcss-media-minmax "^4.0.0"
+    postcss-nesting "^7.0.0"
+    postcss-overflow-shorthand "^2.0.0"
+    postcss-page-break "^2.0.0"
+    postcss-place "^4.0.1"
+    postcss-pseudo-class-any-link "^6.0.0"
+    postcss-replace-overflow-wrap "^3.0.0"
+    postcss-selector-matches "^4.0.0"
+    postcss-selector-not "^4.0.0"
+
+postcss-property-lookup@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-property-lookup/-/postcss-property-lookup-2.0.0.tgz#c995d1df42a75420f2aea834c2cbe296b2c15922"
+  integrity sha512-KUb53a7UZWDMVb0SRODOonc4H1wlbgQ0VfYwmJaR1xWPorhariEz0U7x0ri3W/imFs6HqLYWP7hl2yMvi5Ty+w==
+  dependencies:
+    object-assign "^4.0.1"
+    postcss "^6.0.6"
+    tcomb "^3.2.21"
+
 postcss-pseudo-class-any-link@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/postcss-pseudo-class-any-link/-/postcss-pseudo-class-any-link-6.0.0.tgz#2ed3eed393b3702879dec4a87032b210daeb04d1"
@@ -7879,7 +8215,7 @@ postcss-values-parser@^2.0.0:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss@^5.0.8, postcss@^5.2.4:
+postcss@^5.0.5, postcss@^5.0.8, postcss@^5.2.4:
   version "5.2.18"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.18.tgz#badfa1497d46244f6390f58b319830d9107853c5"
   dependencies:
@@ -7888,7 +8224,7 @@ postcss@^5.0.8, postcss@^5.2.4:
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
-postcss@^6.0.1, postcss@^6.0.23, postcss@^6.0.9:
+postcss@^6.0.1, postcss@^6.0.21, postcss@^6.0.22, postcss@^6.0.23, postcss@^6.0.6, postcss@^6.0.9:
   version "6.0.23"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
   dependencies:
@@ -7911,6 +8247,19 @@ postcss@^7.0.11, postcss@^7.0.14, postcss@^7.0.6, postcss@^7.0.7:
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+precss@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/precss/-/precss-4.0.0.tgz#518ce5c4d31eac9bd268c538ae6fb462f3bf57b3"
+  integrity sha512-cRPZMKpHLZXR6gJlrXRjJe7SQMf+wYxg6rKp+TwYsYABjApSj9z8E8yIlagqADaWyikeIZttaNU6xqSjFIAP/g==
+  dependencies:
+    postcss "^7.0.6"
+    postcss-advanced-variables "^3.0.0"
+    postcss-atroot "^0.1.3"
+    postcss-extend-rule "^2.0.0"
+    postcss-nested "^4.1.0"
+    postcss-preset-env "^6.4.0"
+    postcss-property-lookup "^2.0.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -7945,6 +8294,7 @@ pretty-format@^23.6.0:
 pretty-hrtime@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
+  integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
 private@^0.1.6, private@^0.1.8, private@~0.1.5:
   version "0.1.8"
@@ -8138,10 +8488,6 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   dependencies:
     safe-buffer "^5.1.0"
 
-randomcolor@^0.4.2:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/randomcolor/-/randomcolor-0.4.4.tgz#5ff56862e97ba03beb0419ff0536ec7aff59eeeb"
-
 randomfill@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/randomfill/-/randomfill-1.0.4.tgz#c92196fc86ab42be983f1bf31778224931d61458"
@@ -8316,15 +8662,6 @@ react-select@^2.4.2:
     raf "^3.4.0"
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
-
-react-tagcloud@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/react-tagcloud/-/react-tagcloud-1.4.0.tgz#6bd696943fc8a0afc28fd39430743043319025f3"
-  dependencies:
-    object-assign "^4.1.0"
-    prop-types "^15.6.2"
-    randomcolor "^0.4.2"
-    shuffle-array "^1.0.1"
 
 react-transition-group@^2.2.1:
   version "2.6.1"
@@ -8982,10 +9319,6 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
 
-shuffle-array@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/shuffle-array/-/shuffle-array-1.0.1.tgz#c4ff3cfe74d16f93730592301b25e6577b12898b"
-
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -9523,6 +9856,11 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
+
+tcomb@^3.2.21:
+  version "3.2.29"
+  resolved "https://registry.yarnpkg.com/tcomb/-/tcomb-3.2.29.tgz#32404fe9456d90c2cf4798682d37439f1ccc386c"
+  integrity sha512-di2Hd1DB2Zfw6StGv861JoAF5h/uQVu/QJp2g8KVbtfKnoHdBQl5M32YWq6mnSYBQ1vFFrns5B1haWJL7rKaOQ==
 
 terser-webpack-plugin@1.2.2:
   version "1.2.2"

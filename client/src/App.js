@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import * as R from 'ramda';
+import Tab from '@bit/semantic-org.semantic-ui-react.tab';
 
 import * as ESV from './models/esv';
 import VerseTopics from './components/VerseTopics';
 import VerseSelector from './components/VerseSelector';
-import TopicExplorer from './components/TopicExplorer';
-import NaveTopicGraph from './components/NaveTopicGraph';
+import NaveExplorer from './components/NaveExplorer';
 
 const mergeRight = R.flip(R.merge);
 
@@ -36,18 +36,27 @@ class App extends Component {
       verseSelected: this.verseSelected.bind(this)
     };
 
+    const panes = [
+        { menuItem: 'Verse Explorer', render: () => {
+            return (
+            <Tab.Pane attached={false}>
+                <VerseSelector {...this.state} handlers={selectionHandlers} />
+                <VerseTopics {...this.state} />
+            </Tab.Pane>
+            );
+        } },
+        { menuItem: "Nave's Topics Explorer", render: () => {
+            return (
+            <Tab.Pane attached={false}>
+                <NaveExplorer />
+            </Tab.Pane>
+            );
+        } }
+    ]
+
     return (
       <div className="p-5 max-w-lg m-auto mt-5">
-        <h1 className="pt-5 pb-5">Verse Topic Explorer</h1>
-        <VerseSelector
-          {...this.state}
-          handlers={selectionHandlers} />
-
-        <VerseTopics {...this.state} />
-
-        <h1 className="pt-5 pb-5">Topic Explorer</h1>
-        <NaveTopicGraph />
-        <TopicExplorer />
+        <Tab menu={{ attached: false }} panes={panes} />
       </div>
     );
   }
