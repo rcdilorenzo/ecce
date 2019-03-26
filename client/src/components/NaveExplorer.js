@@ -10,12 +10,10 @@ const MAX_TOPICS = 800;
 const sortTopics = R.sortBy(R.pipe(R.prop('reference_count'), R.negate));
 
 const loadData = (setData) => {
-  Promise.all([
-    Nave.topicNodes().then(sortTopics),
-    Nave.categoryNodes()
-  ]).then(([topics, categories]) => {
-    setData({ selected: topics[0], topics, categories })
-  })
+  Nave
+    .topicNodes()
+    .then(sortTopics)
+    .then(topics => setData({ selected: topics[0], topics }));
 };
 
 const toOptions = t => {
@@ -38,7 +36,7 @@ const selectedOption = R.curry((data, setData, option) => {
 
 
 const NaveExplorer = React.memo((_props) => {
-    const [data, setData] = useState({ topics: [], categories: [], selected: null });
+    const [data, setData] = useState({ topics: [], selected: null });
     useEffect(() => loadData(setData), [setData])
 
     if (data.topics.length === 0) {
@@ -56,8 +54,7 @@ const NaveExplorer = React.memo((_props) => {
 
         <NaveTopicGraph
           topicId={data.selected.id}
-          topicName={data.selected.label}
-          categories={data.categories.filter(c => c.topic_id === data.selected.id)} />
+          topicName={data.selected.label} />
       </React.Fragment>
     );
 });

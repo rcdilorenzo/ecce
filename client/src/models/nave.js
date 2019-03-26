@@ -1,26 +1,10 @@
-import naveReference from '../data/nave-by-reference.json';
-import naveTopics from '../data/nave-by-topic.json';
 import * as R from 'ramda';
-import { tsv } from 'd3-fetch';
+import * as Api from './api';
 
-export const topics = (book, chapter, verse) => {
-  return Promise.resolve(naveReference[book][chapter][verse]);
-};
+export const topics = R.pipe(Api.path.nave.reference, Api.fetchFrame);
 
-export const allTopics = () => {
-  return Promise.resolve(Object.keys(naveTopics));
-};
+export const allTopics = R.pipe(Api.path.nave.topics, Api.fetchFrame);
 
-export const topicNodes    = () => tsv('/data/nave-topic-nodes.tsv');
-export const categoryNodes = () => tsv('/data/nave-category-nodes.tsv');
-export const subtopicNodes = () => tsv('/data/nave-subtopic-nodes.tsv');
+export const topicNodes = () => Api.fetchFrame(Api.path.nave.topics());
 
-export const topicCounts = () => {
-  const mapAsValues = f => R.pipe(Object.values, R.map(f))
-
-  return Promise.resolve(R.map(R.pipe(
-    mapAsValues(mapAsValues(mapAsValues(p => p.references.length))),
-    R.flatten,
-    R.sum
-  ))(naveTopics));
-};
+export const categoryNodes = R.pipe(Api.path.nave.categories, Api.fetchFrame);

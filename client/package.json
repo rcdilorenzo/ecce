@@ -5,7 +5,6 @@
   "dependencies": {
     "@bit/semantic-org.semantic-ui-react.tab": "^0.86.0",
     "async-reactor": "^1.2.2",
-    "d3-fetch": "^1.1.2",
     "folktale": "^2.3.2",
     "precss": "^4.0.0",
     "ramda": "^0.26.1",
@@ -33,6 +32,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "proxy": "http://localhost:8000",
   "devDependencies": {
     "autoprefixer": "^9.5.0",
     "postcss-cli": "^6.1.2",

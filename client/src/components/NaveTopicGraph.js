@@ -1,5 +1,9 @@
 import React from 'react';
+import Async from 'react-async';
 import { ForceGraph2D } from 'react-force-graph';
+
+import * as Nave from '../models/nave';
+import AsyncError from './AsyncError';
 
 const NaveTopicGraph = ({ topicId, topicName, categories }) => {
   const topicNode = { id: topicId, label: topicName, level: 'topic', reference_count: 800 };
@@ -40,4 +44,18 @@ const NaveTopicGraph = ({ topicId, topicName, categories }) => {
   );
 };
 
-export default NaveTopicGraph;
+const AsyncNaveTopicGraph = (props) => (
+  <Async promiseFn={() => Nave.categoryNodes(props.topicId)}>
+    <Async.Loading>
+      <p>Loading graph...</p>
+    </Async.Loading>
+
+    <Async.Resolved>
+      {data => <NaveTopicGraph {...props} categories={data} />}
+    </Async.Resolved>
+
+    <AsyncError />
+  </Async>
+);
+
+export default AsyncNaveTopicGraph;

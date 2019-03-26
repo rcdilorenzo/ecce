@@ -56,6 +56,11 @@ class App extends Component {
 
     return (
       <div className="p-5 max-w-lg m-auto mt-5">
+        <h1 className="pb-3">
+          <a className="no-underline text-black" href="https://github.com/rcdilorenzo/ecce">
+            Ecce - Exploratory Core Concept Extraction
+          </a>
+        </h1>
         <Tab menu={{ attached: false }} panes={panes} />
       </div>
     );
