@@ -8343,7 +8343,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.7.2:
+prop-types@>=15.5.7, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   dependencies:
@@ -8526,6 +8526,13 @@ react-app-polyfill@^0.2.2:
     promise "8.0.2"
     raf "3.4.1"
     whatwg-fetch "3.0.0"
+
+react-async@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-async/-/react-async-5.1.2.tgz#8318392ffc88defe058b8bbd271a52dd65c895f1"
+  integrity sha512-ufwXmgPw0XtqPXioARTMdkW8BNGxoDryTVFMYcxeot1ba9bEid3gezFCqH3Y7CxOwLpCBTnOTiQwPqxooiQ1xg==
+  optionalDependencies:
+    prop-types ">=15.5.7"
 
 react-dev-utils@^8.0.0:
   version "8.0.0"

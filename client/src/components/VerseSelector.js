@@ -1,6 +1,6 @@
 import React from 'react';
+import Async from 'react-async';
 import Select from 'react-select';
-import AsyncSelect from 'react-select/lib/Async';
 import * as R from 'ramda';
 
 import * as ESV from '../models/esv';
@@ -9,7 +9,7 @@ const toOptions = (value) => {
   return { value, label: value };
 };
 
-const VerseSelector = ({ book, chapter, verse, handlers }) => {
+const VerseSelector = ({ book, chapter, verse, handlers, references }) => {
   const bookOptions = ESV.books.map(toOptions);
 
   return (
@@ -20,21 +20,46 @@ const VerseSelector = ({ book, chapter, verse, handlers }) => {
         options={bookOptions}
         onChange={handlers.bookSelected} />
 
-      <AsyncSelect
+      <Select
         className="pr-2 w-24 mb-2"
-        defaultOptions
         value={toOptions(chapter)}
-        loadOptions={() => ESV.chapters(book).then(R.map(toOptions))}
+        options={R.map(toOptions, Object.keys(references[book]))}
         onChange={handlers.chapterSelected} />
 
-      <AsyncSelect
+      <Select
         className="w-24 mb-2"
         value={toOptions(verse)}
-        defaultOptions
-        loadOptions={() => ESV.verses(book, chapter).then(R.map(toOptions))}
+        options={R.map(toOptions, references[book][chapter])}
         onChange={handlers.verseSelected} />
     </div>
   )
 }
 
-export default VerseSelector;
+const AsyncVerseSelector = (props) => (
+  <Async promiseFn={ESV.references}>
+    <Async.Loading>
+      <div className="flex flex-wrap max-w-sm m-auto">
+        <Select
+          className="flex-grow w-48 pr-2 mb-2"
+          defaultValue={toOptions('Loading...')}
+          options={[]} />
+
+        <Select
+          className="pr-2 w-24 mb-2"
+          defaultValue={toOptions('...')}
+          options={[]} />
+
+        <Select
+          className="w-24 mb-2"
+          defaultValue={toOptions('...')}
+          options={[]} />
+      </div>
+    </Async.Loading>
+
+    <Async.Resolved>
+      {data => <VerseSelector {...props} references={data} />}
+    </Async.Resolved>
+  </Async>
+)
+
+export default AsyncVerseSelector;

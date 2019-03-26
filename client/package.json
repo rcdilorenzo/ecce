@@ -10,6 +10,7 @@
     "precss": "^4.0.0",
     "ramda": "^0.26.1",
     "react": "^16.8.4",
+    "react-async": "^5.1.2",
     "react-dom": "^16.8.4",
     "react-force-graph": "^1.20.5",
     "react-scripts": "2.1.8",

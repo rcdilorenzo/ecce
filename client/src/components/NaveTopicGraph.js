@@ -38,9 +38,6 @@ const NaveTopicGraph = ({ topicId, topicName, categories }) => {
         nodeAutoColorBy="level"
         d3VelocityDecay={0.3} />
   );
-  //{n => Math.sqrt(n.reference_count)}
-  // linkDirectionalParticles={2}
-  // linkDirectionalParticleWidth={2}
 };
 
 export default NaveTopicGraph;
