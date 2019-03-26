@@ -2,8 +2,10 @@ from ecce.constants import *
 import json
 import pandas as pd
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=['*'])
 
 with open(ESV_PATH) as f:
     esv = json.load(f)
