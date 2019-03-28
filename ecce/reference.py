@@ -31,6 +31,9 @@ def init(book, chapter, verse):
 
     return result
 
+def init_raw_row(row):
+    return Data(row.at['book'], row.at['chapter'], row.at['verse'])
+
 def ordered(references):
     def key(ref):
         return (CANONICAL_ORDER.index(ref.book), ref.chapter, ref.verse)

@@ -41,3 +41,9 @@ def export_nave(args):
         (nave.by_topic_nodes().to_csv(
             NAVE_TOPIC_NODES, sep='\t', index=False))
 
+def export_topics(args):
+    print(f'Writing to {NLP_TOPICS_PATH}')
+    if os.path.isfile(NLP_TOPICS_PATH) is False:
+        (nave.topic_data_frame().to_csv(
+            NLP_TOPICS_PATH, sep='\t', index=False))
+

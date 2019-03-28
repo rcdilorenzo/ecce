@@ -9,13 +9,25 @@ def add_nave_export(subparsers):
     parser = subparsers.add_parser(
         'nave-export', help='Export processed data from Nave\'s Topical Index')
     parser.set_defaults(func=export_nave)
+    return subparsers
+
+
+def add_topics_export(subparsers):
+    parser = subparsers.add_parser(
+        'topic-export', help='Preprocess topics and export with ESV text')
+    parser.set_defaults(func=export_topics)
+    return subparsers
 
 
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    pipe(parser.add_subparsers(), add_nave_export)
+    pipe(
+        parser.add_subparsers(),
+        add_nave_export,
+        add_topics_export
+    )
 
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)

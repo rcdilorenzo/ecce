@@ -2,20 +2,45 @@ from multiprocessing import Pool, cpu_count
 
 import pandas as pd
 import pickle
-from funcy import first, second, flatten
+from funcy import first, second, flatten, memoize
 from lenses import lens
 from pymonad.Maybe import *
 from toolz.curried import *
 from tqdm import tqdm
+import spacy
 
 import ecce.reference as ref
 import ecce.passage as passage
+import ecce.esv
 from ecce.constants import *
 from ecce.utils import *
+
+spacy.prefer_gpu()
+# Download with `python -m spacy download en`
+nlp = None # Lazy-loaded
 
 
 @memoize
 def init():
+    """
+    Sample Output:
+
+        [
+            ( Reference(book='Exodus', chapter=32, verse=19),
+              { 'topic_key': -2146356859,
+                'category_key': -2108238392,
+                'subtopic_key': 0,
+                'subtopic_text': 'General reference(s) to this category',
+                'sort_order_subtopic': 0,
+                'source_topic_key': '$$T0001327',
+                'reference_list': 'Ex32:19,25',
+                'topic_name': 'DANCING',
+                'category_text': 'Idolatrous',
+                'sort_order_category': 3.0 } ),
+            ...
+        ]
+
+    """
     if os.path.isfile(NAVE_PATH):
         with open(NAVE_PATH, 'rb') as f:
             return pickle.load(f)
@@ -31,6 +56,48 @@ def init():
         pickle.dump(results, f)
 
     return results
+
+@memoize
+def topic_data_frame(module=ecce.esv):
+    columns = ['book', 'chapter', 'verse', 'topics']
+    df = pd.DataFrame([
+        list(ref._asdict().values()) + [extract_topics_of(data)]
+        for (ref, data) in tqdm(init())
+    ], columns=columns).groupby(
+        ['book', 'chapter', 'verse'],
+        as_index=False
+    ).aggregate(compose(','.join, set, flatten))
+
+    df['text'] = df.apply(compose(module.text, ref.init_raw_row), axis=1)
+
+    return df
+
+
+def extract_topics_of(nave_data):
+    """Performs NLP on Nave's topics
+
+    Args:
+        nave_data (dict): nave subtopic data (see return value of init())
+
+    Returns:
+        list of topics
+    """
+    # TODO: Beef up implementation
+
+    global nlp
+    if nlp is None: nlp = spacy.load('en')
+
+    return _extract_topic_name_topics(nave_data['topic_name'])
+
+@memoize
+def _extract_topic_name_topics(string):
+    if not isinstance(string, str): return []
+    if len(string) == 0: return []
+
+    # TODO: Determine how to add this to spaCy pipeline
+    string = string.replace('(', '').replace(')', '')
+
+    return [n.text for n in nlp(string).noun_chunks]
 
 
 def by_reference():
