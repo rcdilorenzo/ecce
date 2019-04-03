@@ -19,12 +19,20 @@ def add_topics_export(subparsers):
     return subparsers
 
 
+def add_train(subparsers):
+    parser = subparsers.add_parser(
+        'train-lstm', help='Train an LSTM neural network model')
+    parser.set_defaults(func=train_lstm)
+    return subparsers
+
+
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     pipe(
         parser.add_subparsers(),
+        add_train,
         add_nave_export,
         add_topics_export
     )

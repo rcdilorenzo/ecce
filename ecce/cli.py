@@ -4,7 +4,12 @@ import pandas as pd
 
 import ecce.nave as nave
 from ecce.constants import *
+from ecce.modeling.lstm_model import LstmModel
 
+def train_lstm(args):
+    model = LstmModel()
+    model.train()
+    model.evaluate()
 
 def export_nave(args):
     print(f'Writing to {NAVE_EXPORT_REF}')
