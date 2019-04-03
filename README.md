@@ -19,3 +19,20 @@ the topics from the Bible. If time permits, this would be accomplished using an 
 website that gives users a way to see related passages that were only previously linked in a
 manual fashion. Second, the trained recurrent neural network will be used to predicting both
 related topics and Scripture references from arbitrary text (similar in form to Bible verses).
+
+# Results (In Progress)
+
+## Word Embeddings
+
+| Embedding          | Included Words | Preprocesing                     | Sample                                                                  |
+|--------------------|----------------|----------------------------------|-------------------------------------------------------------------------|
+| glove.6B.100d.txt  | 84.47%         | NA                               | ['jehoiada' 'ephah' 'benaiah' ... 'shebat' 'hadrach' 'famish']          |
+| glove.6B.100d.txt  | 84.48%         | Replace possessive with singular | ['jehoiada' 'ephah' 'benaiah' ... 'shebat' 'hadrach' 'famish']          |
+| glove.42B.300d.txt | 92.55%         | Replace possessive with singular | ['bosheth' 'whorings' 'netophah' ... 'siegeworks' 'hodiah' 'shelomoth'] |
+
+### Models
+
+| Model Type          | Data Type                           | Data Split          | Metric Type | Metric Value |
+|---------------------|-------------------------------------|---------------------|-------------|--------------|
+| Logistic Regression | Bag of Words                        | 75% Train, 25% Test | Accuracy    | 1.65%        |
+| LSTM (100 nodes)    | Sequence (by frequency, no weights) | 75% Train, 25% Test | Accuracy    | 2.95%        |
