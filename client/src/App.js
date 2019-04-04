@@ -6,6 +6,8 @@ import * as ESV from './models/esv';
 import VerseTopics from './components/VerseTopics';
 import VerseSelector from './components/VerseSelector';
 import NaveExplorer from './components/NaveExplorer';
+import Dashboard from './components/Dashboard';
+import Card from './components/Card';
 
 const mergeRight = R.flip(R.merge);
 
@@ -36,32 +38,22 @@ class App extends Component {
       verseSelected: this.verseSelected.bind(this)
     };
 
-    const panes = [
-        { menuItem: 'Verse Explorer', render: () => {
-            return (
-            <Tab.Pane attached={false}>
-                <VerseSelector {...this.state} handlers={selectionHandlers} />
-                <VerseTopics {...this.state} />
-            </Tab.Pane>
-            );
-        } },
-        { menuItem: "Nave's Topics Explorer", render: () => {
-            return (
-            <Tab.Pane attached={false}>
-                <NaveExplorer />
-            </Tab.Pane>
-            );
-        } }
-    ]
-
     return (
-      <div className="p-5 max-w-lg m-auto mt-5">
-        <h1 className="pb-3">
+      <div className="mt-8">
+        <h1 className="pb-3 text-center">
           <a className="no-underline text-black" href="https://github.com/rcdilorenzo/ecce">
             Ecce - Exploratory Core Concept Extraction
           </a>
         </h1>
-        <Tab menu={{ attached: false }} panes={panes} />
+        <Dashboard>
+          <Card>
+            <VerseSelector {...this.state} handlers={selectionHandlers} />
+            <VerseTopics {...this.state} />
+          </Card>
+          <Card>
+            <NaveExplorer />
+          </Card>
+        </Dashboard>
       </div>
     );
   }
