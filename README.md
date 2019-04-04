@@ -24,7 +24,7 @@ related topics and Scripture references from arbitrary text (similar in form to 
 
 ## Word Embeddings
 
-| Embedding          | Included Words | Preprocesing                     | Sample                                                                  |
+| Embedding          | Included Words | Preprocessing                    | Sample of Missing Values                                                 |
 |--------------------|----------------|----------------------------------|-------------------------------------------------------------------------|
 | glove.6B.100d.txt  | 84.47%         | NA                               | ['jehoiada' 'ephah' 'benaiah' ... 'shebat' 'hadrach' 'famish']          |
 | glove.6B.100d.txt  | 84.48%         | Replace possessive with singular | ['jehoiada' 'ephah' 'benaiah' ... 'shebat' 'hadrach' 'famish']          |
