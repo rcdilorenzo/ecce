@@ -3,11 +3,13 @@ import * as R from 'ramda';
 import Tab from '@bit/semantic-org.semantic-ui-react.tab';
 
 import * as ESV from './models/esv';
+import * as Data from './models/data';
 import VerseTopics from './components/VerseTopics';
 import VerseSelector from './components/VerseSelector';
 import NaveExplorer from './components/NaveExplorer';
 import Dashboard from './components/Dashboard';
 import Card from './components/Card';
+import ProcessedData from './components/cards/ProcessedData';
 
 const mergeRight = R.flip(R.merge);
 
@@ -52,6 +54,9 @@ class App extends Component {
           </Card>
           <Card>
             <NaveExplorer />
+          </Card>
+          <Card>
+            <ProcessedData />
           </Card>
         </Dashboard>
       </div>

@@ -1,8 +1,11 @@
-from ecce.constants import *
 import json
+
 import pandas as pd
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+
+from ecce.constants import *
+import ecce.modeling.data as data
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
@@ -21,6 +24,7 @@ with open(ESV_PATH) as f:
 with open(NAVE_EXPORT_REF) as f:
     nave_references = json.load(f)
 
+
 def _as_dict(df):
     return {
         'columns': df.columns.tolist(),
@@ -28,9 +32,14 @@ def _as_dict(df):
     }
 
 
+def _first_row_as_dict(df):
+    return dict(zip(df.columns.tolist(), df.values.tolist()[0]))
+
+
 topic_node_data = _as_dict(pd.read_csv(NAVE_TOPIC_NODES, sep='\t'))
 category_frame = pd.read_csv(NAVE_CATEGORY_NODES, sep='\t')
 
+processed_data = pd.read_csv(NLP_TOPICS_PATH, sep='\t')
 
 # ============
 # Handlers
@@ -50,6 +59,22 @@ def text(book: str, chapter: int, verse: int):
         return {'error': str(e), 'type': 'KeyError'}
 
 
+@app.get('/api/data/{book}/{chapter}/{verse}')
+def data_line(book: str, chapter: int, verse: int):
+    df = processed_data
+    results = df[(df.book == book) & (df.chapter == chapter) &
+                 (df.verse == verse)]
+    if len(results) == 1:
+        return _first_row_as_dict(results)
+    else:
+        return {'error': 'No reference found', 'type': 'KeyError'}
+
+
+@app.get('/api/data/topics/stats')
+def topic_stats():
+    return { 'counts': _as_dict(data.topic_counts()) }
+
+
 @app.get('/api/nave/topics')
 def topic_nodes():
     return topic_node_data
@@ -58,7 +83,8 @@ def topic_nodes():
 @app.get('/api/nave/reference/{book}/{chapter}/{verse}')
 def topic_data_by_reference(book: str, chapter: int, verse: int):
     try:
-        return _as_dict(pd.DataFrame(nave_references[book][str(chapter)][str(verse)]))
+        return _as_dict(
+            pd.DataFrame(nave_references[book][str(chapter)][str(verse)]))
     except KeyError as e:
         return {'error': str(e), 'type': 'KeyError'}
 

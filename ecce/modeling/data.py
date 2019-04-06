@@ -150,11 +150,15 @@ def data_split():
     topics = topic_encoder().transform(df.topics.values)
     return train_test_split(text, topics, test_size=0.2, random_state=1337)
 
+@memoize
+def topic_counts():
+    df = frame().topics.apply(len).value_counts().sort_index()
+    return pd.DataFrame(dict(topics=df.index, frequency=df.values))
+
 
 def topic_histogram():
-    topic_counts = frame().topics.apply(len).value_counts().sort_index()
     return [(f'{count} topic{"" if count == 1 else "s"}', freq)
-            for count, freq in zip(topic_counts.index, topic_counts.values)]
+            for count, freq in zip(topic_counts().topics, topic_counts().frequency)]
 
 
 def print_topic_graph():

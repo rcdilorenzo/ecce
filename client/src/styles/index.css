@@ -36,3 +36,15 @@ code {
         }
     }
 }
+
+@media (min-width: 768px) {
+    .card {
+        min-width: 400px;
+    }
+}
+
+@media (min-width: 992px) {
+    .card {
+        min-width: 450px;
+    }
+}

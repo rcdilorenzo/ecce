@@ -10,7 +10,8 @@ const Card = ({ children }) =>  {
     'bg-grey-lighter',
     'rounded-lg',
     'shadow-md',
-    'md:w-64'
+    'md:w-1/2',
+    'card'
   ].join(' ');
 
   return (

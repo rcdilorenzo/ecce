@@ -31,5 +31,13 @@ export const path = {
     categories: (topicId) => (
       `/api/nave/topics/${topicId}/categories`
     )
+  },
+  data: {
+    topicStats: () => (
+      '/api/data/topics/stats'
+    ),
+    byReference: (book, chapter, verse) => (
+      `/api/data/${book}/${chapter}/${verse}`
+    )
   }
 };
