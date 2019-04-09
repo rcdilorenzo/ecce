@@ -33,8 +33,8 @@ export const path = {
     )
   },
   data: {
-    topicStats: () => (
-      '/api/data/topics/stats'
+    stats: () => (
+      '/api/data/stats'
     ),
     byReference: (book, chapter, verse) => (
       `/api/data/${book}/${chapter}/${verse}`

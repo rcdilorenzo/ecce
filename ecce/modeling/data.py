@@ -4,7 +4,7 @@ import os
 import numpy as np
 import pandas as pd
 from ascii_graph import Pyasciigraph
-from funcy import flatten
+from funcy import flatten, second
 from gensim.models import KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
 from keras.preprocessing.sequence import pad_sequences
@@ -149,6 +149,13 @@ def data_split():
     text = tokenize(df.text.values)
     topics = topic_encoder().transform(df.topics.values)
     return train_test_split(text, topics, test_size=0.2, random_state=1337)
+
+@memoize
+def verse_counts():
+    topics = frame().topics
+    counts_by_topic = [(t, topics.apply(lambda values: t in values).sum())
+                       for t in tqdm(set(flatten(topics.values)))]
+    return pd.DataFrame(counts_by_topic, columns=['topic_name', 'verse_count'])
 
 @memoize
 def topic_counts():

@@ -43,8 +43,6 @@ const NaveExplorer = React.memo((_props) => {
         return (<p>Loading...</p>);
     }
 
-    console.log(data)
-
     return (
       <React.Fragment>
         <Select className="pr-2 mb-2"

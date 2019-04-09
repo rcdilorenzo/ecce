@@ -9,7 +9,8 @@ import VerseSelector from './components/VerseSelector';
 import NaveExplorer from './components/NaveExplorer';
 import Dashboard from './components/Dashboard';
 import Card from './components/Card';
-import ProcessedData from './components/cards/ProcessedData';
+import TopicCountByVerse from './components/cards/TopicCountByVerse';
+import VerseCountByTopic from './components/cards/VerseCountByTopic';
 
 const mergeRight = R.flip(R.merge);
 
@@ -56,7 +57,10 @@ class App extends Component {
             <NaveExplorer />
           </Card>
           <Card>
-            <ProcessedData />
+            <TopicCountByVerse />
+          </Card>
+          <Card>
+            <VerseCountByTopic />
           </Card>
         </Dashboard>
       </div>

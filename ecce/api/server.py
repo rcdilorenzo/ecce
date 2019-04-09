@@ -70,9 +70,12 @@ def data_line(book: str, chapter: int, verse: int):
         return {'error': 'No reference found', 'type': 'KeyError'}
 
 
-@app.get('/api/data/topics/stats')
-def topic_stats():
-    return { 'counts': _as_dict(data.topic_counts()) }
+@app.get('/api/data/stats')
+def stats():
+    return {
+        'topics': _as_dict(data.topic_counts()),
+        'verses': _as_dict(data.verse_counts())
+    }
 
 
 @app.get('/api/nave/topics')

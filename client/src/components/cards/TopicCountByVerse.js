@@ -4,16 +4,16 @@ import * as R from 'ramda';
 
 import * as Data from '../../models/data';
 
-const ProcessedData = (props) => {
+const TopicCountByVerse = (props) => {
   const [data, setData] = useState([{ topics: 0, frequency: 0 }]);
 
   useEffect(() => {
-    Data.topicStats().then(R.pipe(R.prop('counts'), setData));
+    Data.stats().then(R.pipe(R.prop('topics'), setData));
   }, [setData]);
 
   return (
     <React.Fragment>
-      <h2>Topic Stats</h2>
+      <h2>Topic Count By Verse</h2>
       <div style={{ height: '300px' }}>
         <VictoryChart height={300} padding={{ left: 75, right: 50, top: 50, bottom: 50}}>
           <VictoryBar data={data} x="topics" y="frequency" />
@@ -25,4 +25,4 @@ const ProcessedData = (props) => {
   );
 };
 
-export default ProcessedData;
+export default TopicCountByVerse;
