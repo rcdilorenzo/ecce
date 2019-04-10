@@ -87,4 +87,4 @@ const AsyncNaveTopicGraph = (props) => (
   </Async>
 );
 
-export default AsyncNaveTopicGraph;
+export default React.memo(AsyncNaveTopicGraph);

@@ -19,9 +19,6 @@ class App extends Component {
     this.state = {
       book: ESV.books[0], chapter: 1, verse: 1
     };
-
-    Data.byReference('Genesis', 1, 1).then(console.log);
-    Data.stats().then(console.log);
   }
 
   bookSelected(selected) {

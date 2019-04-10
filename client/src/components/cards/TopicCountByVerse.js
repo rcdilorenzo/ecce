@@ -26,4 +26,4 @@ const TopicCountByVerse = (props) => {
   );
 };
 
-export default TopicCountByVerse;
+export default React.memo(TopicCountByVerse);
