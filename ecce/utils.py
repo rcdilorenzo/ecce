@@ -1,4 +1,7 @@
+import hashlib
 import os
+import logging
+import pandas as pd
 from functools import reduce
 
 from pymonad.List import *
@@ -8,6 +11,22 @@ from toolz.curried import *
 list_filter = curry(lambda f, x: list(filter(f, x)))
 list_map = curry(lambda f, x: list(map(f, x)))
 lines = '\n'.join
+
+def cache_frame(filename, tsv=False):
+    def decorator(f):
+        def wrapped_f(*args):
+            call_filename = filename.format(
+                hashlib.md5(str(args).encode('utf-8')).hexdigest()[0:6]
+            )
+            if os.path.isfile(call_filename) is False:
+                df = f(*args)
+                logging.info(f'Saving to {call_filename}...')
+                df.to_csv(call_filename, sep=('\t' if tsv else ','), index=False)
+                return df
+
+            return pd.read_csv(call_filename)
+        return wrapped_f
+    return decorator
 
 
 def relative_path(current_file, path):

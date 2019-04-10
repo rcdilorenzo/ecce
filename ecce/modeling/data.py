@@ -15,7 +15,8 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from toolz import compose, memoize, partial, pipe
 from tqdm import tqdm
 
-from ecce.constants import GLOVE_PATH, GLOVE_WORD2VEC_PATH, NLP_TOPICS_PATH, WORD_EMBEDDINGS
+from ecce.constants import *
+from ecce.utils import cache_frame
 
 
 @memoize
@@ -34,6 +35,17 @@ def frame():
         logging.warning(f'Skipping {count} verses with no assigned topics.')
 
     return df[clause]
+
+
+@memoize
+def filtered_frame(min_per_topic=MIN_VERSES_PER_TOPIC):
+    df = frame().copy()
+    counts_df = verse_counts()
+    whitelist_topics = counts_df.topic_name[
+        counts_df.verse_count >= min_per_topic].values
+    df.topics = df.topics.apply(lambda topics: list(
+        filter(lambda t: t in whitelist_topics, topics)))
+    return df[df.topics.apply(len) > 0]
 
 
 @memoize
@@ -142,15 +154,14 @@ def topic_encoder():
     encoder.fit_transform(frame().topics.values)
     return encoder
 
-
 @memoize
 def data_split():
-    df = frame()
+    df = filtered_frame()
     text = tokenize(df.text.values)
     topics = topic_encoder().transform(df.topics.values)
     return train_test_split(text, topics, test_size=0.2, random_state=1337)
 
-@memoize
+@cache_frame(CACHE_VERSE_COUNTS)
 def verse_counts():
     topics = frame().topics
     counts_by_topic = [(t, topics.apply(lambda values: t in values).sum())

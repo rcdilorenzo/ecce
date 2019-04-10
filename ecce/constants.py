@@ -6,10 +6,13 @@ logging.basicConfig(level=logging.DEBUG)
 
 DATA_PATH = relative_path(__file__, 'data')
 EXPORT_PATH = relative_path(__file__, 'data/exported')
+CACHE_PATH = relative_path(__file__, 'data/cache')
 
 if os.path.isdir(DATA_PATH) is False: os.mkdir(DATA_PATH)
 if os.path.isdir(EXPORT_PATH) is False: os.mkdir(EXPORT_PATH)
+if os.path.isdir(CACHE_PATH) is False: os.mkdir(CACHE_PATH)
 
+MIN_VERSES_PER_TOPIC = 30
 
 ESV_PATH            = relative_path(__file__, 'data/ESV.json')
 NAVE_CAT_PATH       = relative_path(__file__, 'data/nave/categories.txt')
@@ -29,6 +32,8 @@ NAVE_SUBTOPIC_NODES  = os.path.join(EXPORT_PATH, 'nave-subtopic-nodes.tsv')
 NAVE_CATEGORY_NODES  = os.path.join(EXPORT_PATH, 'nave-category-nodes.tsv')
 NAVE_TOPIC_NODES     = os.path.join(EXPORT_PATH, 'nave-topic-nodes.tsv')
 NAVE_EXPORT_PASSAGES = os.path.join(EXPORT_PATH, 'nave-passages.json')
+
+CACHE_VERSE_COUNTS = os.path.join(CACHE_PATH, 'verse-counts-{}.csv')
 
 NLP_TOPICS_PATH     = os.path.join(EXPORT_PATH, 'verse-with-topics.tsv')
 
