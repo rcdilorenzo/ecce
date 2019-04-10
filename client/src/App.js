@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as R from 'ramda';
-import Tab from '@bit/semantic-org.semantic-ui-react.tab';
 
 import * as ESV from './models/esv';
 import * as Data from './models/data';

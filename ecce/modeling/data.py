@@ -159,13 +159,16 @@ def verse_counts():
 
 @memoize
 def topic_counts():
-    df = frame().topics.apply(len).value_counts().sort_index()
-    return pd.DataFrame(dict(topics=df.index, frequency=df.values))
+    df = frame()
+    verse = df.apply(lambda r: f"{r.at['book']} {r.at['chapter']}:{r.at['verse']}", axis=1)
+    topic_count = df.topics.apply(len)
+    return pd.DataFrame(dict(verse=verse, topic_count=topic_count))
 
 
 def topic_histogram():
+    df = frame().topics.apply(len).value_counts().sort_index()
     return [(f'{count} topic{"" if count == 1 else "s"}', freq)
-            for count, freq in zip(topic_counts().topics, topic_counts().frequency)]
+            for count, freq in zip(df.index, df.values)]
 
 
 def print_topic_graph():

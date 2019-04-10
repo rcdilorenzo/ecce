@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { VictoryChart, VictoryBar, VictoryAxis } from 'victory';
+import React from 'react';
+import TopicVerseHistogram from './TopicVerseHistogram';
 import * as R from 'ramda';
-
 import * as Data from '../../models/data';
 
 const TopicCountByVerse = (props) => {
-  const [data, setData] = useState([{ topics: 0, frequency: 0 }]);
-
-  useEffect(() => {
-    Data.stats().then(R.pipe(R.prop('topics'), setData));
-  }, [setData]);
+  const description = (minCount, counts, data) => (
+    `Filtering verses with at least ${minCount} topics (${counts.length} of ${data.length} verses)`
+  );
 
   return (
-    <React.Fragment>
-      <h2>Topic Count By Verse</h2>
-      <div style={{ height: '300px' }}>
-        <VictoryChart height={300} padding={{ left: 75, right: 50, top: 50, bottom: 50}}>
-          <VictoryBar data={data} x="topics" y="frequency" />
-          <VictoryAxis label="Number of Topics" />
-          <VictoryAxis dependentAxis={true} style={{ axisLabel: { padding: 60 }}} label="Number of Verses" />
-        </VictoryChart>
-      </div>
-    </React.Fragment>
+    <TopicVerseHistogram
+      title="Topic Count by Verse"
+      kdeMultiplier={20000}
+      xAxisLabel="Topics per Verse"
+      yAxisLabel="# Verses"
+      bandwidth={0.6}
+      sliderMarks={{ 1: 1, 4: 4, 8: 8, 12: 12 }}
+      sliderMax={12}
+      defaultMinCount={1}
+      barWidth={10}
+      binCount={30}
+      promise={() => Data.stats().then(R.prop('topics'))}
+      attr="topic_count"
+      filterDescription={description} />
   );
 };
 

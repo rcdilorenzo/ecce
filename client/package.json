@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bit/semantic-org.semantic-ui-react.tab": "^0.86.0",
     "async-reactor": "^1.2.2",
     "d3-array": "^2.0.3",
     "folktale": "^2.3.2",
