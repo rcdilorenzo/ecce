@@ -255,13 +255,13 @@ def _parse_refs(index_and_row):
                     parse(row.at['reference_list']))
 
 
-def parse(raw_reference):
+def parse(raw_reference, abbreviations=NAVE_ABBREVIATIONS):
     def _expand_book(raw):
         """Converts "Lu2:3,4,5" to ("Luke", "2:3,4,5")"""
         return pipe(
-            NAVE_ABBREVIATIONS.keys(), partial(sorted, key=len), reversed,
+            abbreviations.keys(), partial(sorted, key=len), reversed,
             list_filter(lambda k: k in raw), first, to_maybe) >> (
-                lambda k: Just((NAVE_ABBREVIATIONS[k], raw.replace(k, ''))))
+                lambda k: Just((abbreviations[k], raw.replace(k, ''))))
 
     def _expand_chapter(raw):
         """Converts "2:3,4,5" to (2, "3, 4, 5")"""

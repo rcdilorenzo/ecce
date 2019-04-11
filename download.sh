@@ -23,6 +23,15 @@ then
     rm nave.zip
 fi
 
+if [ ! -d tsk ]
+then
+    echo "Downloading Treasury of Scripture Knowledge..."
+    wget http://www.justverses.com/downloads/zips/tsk.zip
+    mkdir tsk
+    unzip tsk.zip -d tsk
+    rm tsk.zip
+fi
+
 if [ ! -d glove ]
 then
     echo "Downloading 'globe.42B.300d.zip' for word embeddings..."

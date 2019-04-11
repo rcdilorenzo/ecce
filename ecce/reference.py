@@ -5,7 +5,7 @@ from base64 import b64decode, b64encode
 from collections import namedtuple as Struct
 from funcy import first, cat
 import json
-import logging
+import warnings
 from toolz import memoize, pipe, curry
 from toolz.curried import filter
 
@@ -27,7 +27,7 @@ def init(book, chapter, verse):
     result = pipe(all(), filter(_match((book, chapter, verse))), first)
 
     if result is None:
-        logging.error(f'No reference found: {(book, chapter, verse)}')
+        warnings.warn(f'No reference found: {(book, chapter, verse)}')
 
     return result
 
