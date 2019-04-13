@@ -1,7 +1,7 @@
 import keras.models
 from keras.layers import *
 from keras.layers.embeddings import Embedding
-from keras.optimizers import Adam
+from keras.optimizers import *
 from toolz import memoize, pipe
 
 import ecce.modeling.data as data
@@ -28,7 +28,9 @@ class LstmModel(Model):
                 weights=[embedding_matrix],
                 input_length=max_length,
                 mask_zero=True),
-            LSTM(150),
+            LSTM(800),
+            Dense(topic_count * 3, activation='relu'),
+            Dropout(0.2),
             Dense(topic_count, activation='sigmoid'))
 
         _model = keras.models.Model(inputs=inputs, outputs=outputs)

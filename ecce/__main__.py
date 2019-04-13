@@ -26,15 +26,25 @@ def add_train(subparsers):
     return subparsers
 
 
+def add_predict(subparsers):
+    parser = subparsers.add_parser(
+        'predict-lstm', help='(REPL) Predict topics based on text')
+    parser.add_argument('-w', '--weights', type=str)
+    parser.add_argument('-t', '--threshold', type=float, help='Threshold for topic probability')
+    parser.set_defaults(func=predict_lstm)
+    return subparsers
+
+
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     pipe(
         parser.add_subparsers(),
-        add_train,
         add_nave_export,
-        add_topics_export
+        add_topics_export,
+        add_train,
+        add_predict
     )
 
     if len(sys.argv) == 1:

@@ -7,10 +7,13 @@ logging.basicConfig(level=logging.DEBUG)
 DATA_PATH = relative_path(__file__, 'data')
 EXPORT_PATH = relative_path(__file__, 'data/exported')
 CACHE_PATH = relative_path(__file__, 'data/cache')
+CHECKPOINTS_PATH  = relative_path(__file__, 'data/checkpoints/')
+
 
 if os.path.isdir(DATA_PATH) is False: os.mkdir(DATA_PATH)
 if os.path.isdir(EXPORT_PATH) is False: os.mkdir(EXPORT_PATH)
 if os.path.isdir(CACHE_PATH) is False: os.mkdir(CACHE_PATH)
+if os.path.isdir(CHECKPOINTS_PATH) is False: os.mkdir(CHECKPOINTS_PATH)
 
 MIN_VERSES_PER_TOPIC = 30
 
@@ -36,6 +39,7 @@ NAVE_TOPIC_NODES     = os.path.join(EXPORT_PATH, 'nave-topic-nodes.tsv')
 NAVE_EXPORT_PASSAGES = os.path.join(EXPORT_PATH, 'nave-passages.json')
 
 CACHE_VERSE_COUNTS = os.path.join(CACHE_PATH, 'verse-counts-{}.csv')
+CACHE_TSK_CLUSTERS = os.path.join(CACHE_PATH, 'tsk-clusters-{}.obj')
 
 NLP_TOPICS_PATH     = os.path.join(EXPORT_PATH, 'verse-with-topics.tsv')
 

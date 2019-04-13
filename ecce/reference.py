@@ -31,8 +31,11 @@ def init(book, chapter, verse):
 
     return result
 
-def init_raw_row(row):
-    return Data(row.at['book'], row.at['chapter'], row.at['verse'])
+def init_raw_row(row, prefix=''):
+    return Data(
+        row.at[f'{prefix}book'],
+        row.at[f'{prefix}chapter'],
+        row.at[f'{prefix}verse'])
 
 def ordered(references):
     def key(ref):

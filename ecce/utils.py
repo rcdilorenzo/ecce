@@ -1,9 +1,10 @@
 import hashlib
-import os
 import logging
-import pandas as pd
+import os
+import pickle
 from functools import reduce
 
+import pandas as pd
 from pymonad.List import *
 from pymonad.Maybe import *
 from toolz.curried import *
@@ -27,6 +28,27 @@ def cache_frame(filename, tsv=False):
             return pd.read_csv(call_filename)
         return wrapped_f
     return decorator
+
+
+def cache_pickle(filename):
+    def decorator(f):
+        def wrapped_f(*args):
+            call_filename = filename.format(
+                hashlib.md5(str(args).encode('utf-8')).hexdigest()[0:6]
+            )
+            if os.path.isfile(call_filename) is False:
+                obj = f(*args)
+                logging.info(f'Saving to {call_filename}...')
+                with open(call_filename, 'wb') as cache_file:
+                    pickle.dump(obj, cache_file)
+                return obj
+
+            with open(call_filename, 'rb') as cache_file:
+                return pickle.load(cache_file)
+        return wrapped_f
+    return decorator
+
+
 
 
 def relative_path(current_file, path):

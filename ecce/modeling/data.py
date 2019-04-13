@@ -4,19 +4,17 @@ import os
 import numpy as np
 import pandas as pd
 from ascii_graph import Pyasciigraph
+from ecce.constants import *
+from ecce.utils import cache_frame
 from funcy import flatten, second
 from gensim.models import KeyedVectors
 from gensim.scripts.glove2word2vec import glove2word2vec
 from keras.preprocessing.sequence import pad_sequences
 from keras.preprocessing.text import Tokenizer, text_to_word_sequence
-from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer
 from toolz import compose, memoize, partial, pipe
 from tqdm import tqdm
-
-from ecce.constants import *
-from ecce.utils import cache_frame
 
 
 @memoize
@@ -112,9 +110,7 @@ def embedding_matrix():
         values = np.array(missing_words)
         count = len(missing_words)
         stats = f'{count} / {word_count} ({(100 * count / word_count):.2f}%)'
-        logging.warning(
-            f'{stats} not found in word embeddings:\n{values}'
-        )
+        logging.warning(f'{stats} not found in word embeddings:\n{values}')
 
     with open(WORD_EMBEDDINGS, 'wb') as f:
         logging.debug(f'Saving word embeddings to "{WORD_EMBEDDINGS}"...')
@@ -142,17 +138,11 @@ def tokenize(sentences):
 
 
 @memoize
-def vocabulary_vectorizer():
-    vectorizer = CountVectorizer()
-    vectorizer.fit_transform(frame().text.values)
-    return vectorizer
-
-
-@memoize
 def topic_encoder():
     encoder = MultiLabelBinarizer()
     encoder.fit_transform(frame().topics.values)
     return encoder
+
 
 @memoize
 def data_split():
@@ -161,6 +151,7 @@ def data_split():
     topics = topic_encoder().transform(df.topics.values)
     return train_test_split(text, topics, test_size=0.2, random_state=1337)
 
+
 @cache_frame(CACHE_VERSE_COUNTS)
 def verse_counts():
     topics = frame().topics
@@ -168,10 +159,12 @@ def verse_counts():
                        for t in tqdm(set(flatten(topics.values)))]
     return pd.DataFrame(counts_by_topic, columns=['topic_name', 'verse_count'])
 
+
 @memoize
 def topic_counts():
     df = frame()
-    verse = df.apply(lambda r: f"{r.at['book']} {r.at['chapter']}:{r.at['verse']}", axis=1)
+    verse = df.apply(
+        lambda r: f"{r.at['book']} {r.at['chapter']}:{r.at['verse']}", axis=1)
     topic_count = df.topics.apply(len)
     return pd.DataFrame(dict(verse=verse, topic_count=topic_count))
 

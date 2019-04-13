@@ -6,10 +6,26 @@ import ecce.nave as nave
 from ecce.constants import *
 from ecce.modeling.lstm_model import LstmModel
 
+
 def train_lstm(args):
     model = LstmModel()
     model.train()
     model.evaluate()
+
+
+def predict_lstm(args):
+    model = LstmModel()
+    model.load_weights(args.weights)
+
+    print('\nEnter text to predict. Type "exit" when finished.')
+    command = input('> ')
+    while command != 'exit':
+        results = model.predict(command, threshold=args.threshold)
+        print('Result: ', results)
+        command = input('\n> ')
+
+    print('Exiting.')
+
 
 def export_nave(args):
     print(f'Writing to {NAVE_EXPORT_REF}')
@@ -25,13 +41,15 @@ def export_nave(args):
     print(f'Writing to {NAVE_SUBTOPIC_NODES}')
     subtopic_nodes = nave.by_subtopic_nodes()
     if os.path.isfile(NAVE_SUBTOPIC_NODES) is False:
-        columns = list(remove(lambda k: k == 'passages', subtopic_nodes.columns))
+        columns = list(
+            remove(lambda k: k == 'passages', subtopic_nodes.columns))
         (subtopic_nodes[columns].to_csv(
             NAVE_SUBTOPIC_NODES, sep='\t', index=False))
 
     print(f'Writing to {NAVE_EXPORT_PASSAGES}')
-    subtopic_to_passages = dict(subtopic_nodes.apply(
-        lambda r: (r.at['id'], r.at['passages']), axis=1).tolist())
+    subtopic_to_passages = dict(
+        subtopic_nodes.apply(lambda r: (r.at['id'], r.at['passages']),
+                             axis=1).tolist())
     if os.path.isfile(NAVE_EXPORT_PASSAGES) is False:
         with open(NAVE_EXPORT_PASSAGES, 'w') as f:
             simplejson.dump(subtopic_to_passages, f, ignore_nan=True)
@@ -43,12 +61,11 @@ def export_nave(args):
 
     print(f'Writing to {NAVE_TOPIC_NODES}')
     if os.path.isfile(NAVE_TOPIC_NODES) is False:
-        (nave.by_topic_nodes().to_csv(
-            NAVE_TOPIC_NODES, sep='\t', index=False))
+        (nave.by_topic_nodes().to_csv(NAVE_TOPIC_NODES, sep='\t', index=False))
+
 
 def export_topics(args):
     print(f'Writing to {NLP_TOPICS_PATH}')
     if os.path.isfile(NLP_TOPICS_PATH) is False:
         (nave.topic_data_frame().to_csv(
             NLP_TOPICS_PATH, sep='\t', index=False))
-
