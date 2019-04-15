@@ -10,7 +10,7 @@ const renderTopics = (topics) => {
   return topics.map(({ topic_name, category_text, subtopic_text}, index) => {
     return (
       <li key={index}>
-        <Link to={`/topics/search?q=${topic_name}`}>{topic_name}</Link>
+        <Link to={`/topics?q=${topic_name}`}>{topic_name}</Link>
         <span>, {category_text}, {subtopic_text}</span>
       </li>
     );

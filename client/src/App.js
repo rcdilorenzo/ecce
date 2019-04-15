@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import Index from './components/pages/Index';
 import TopicsSearch from './components/pages/TopicsSearch';
+import TopicShow from './components/pages/TopicShow';
 
 const App = () => (
   <Router>
@@ -15,7 +16,8 @@ const App = () => (
         </nav> */}
 
     <Route path="/" exact component={Index} />
-    <Route path="/topics/search" component={TopicsSearch} />
+    <Route path="/topics" exact component={TopicsSearch} />
+    <Route path="/topics/:topicId" exact component={TopicShow} />
   </Router>
 );
 

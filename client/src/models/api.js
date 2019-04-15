@@ -23,6 +23,9 @@ export const path = {
     )
   },
   nave: {
+    topic: (topicId, params={}) => (
+      `/api/nave/topic/${encodeURIComponent(topicId)}?${qs.stringify(params)}`
+    ),
     topics: (params={}) => (
       `/api/nave/topics?${qs.stringify(params)}`
     ),

@@ -82,7 +82,7 @@ def stats():
 @app.get('/api/nave/topics')
 def topic_nodes(query: str = '', limit: int = 20, references: bool = False):
     return _as_dict(nave.topics_matching_extracted(
-        query.upper(),
+        query,
         references=references
     ).iloc[0:limit])
 

@@ -105,7 +105,7 @@ def topics_matching_extracted(topic_chunk, references=False):
     Return data frame with columns (id, label, reference_count, references)
     """
     frame = by_topic_nodes(references=references)
-    results = frame[frame.label.str.contains(topic_chunk, na=False)]
+    results = frame[frame.label.str.contains(topic_chunk, regex=False, case=False, na=False)]
     return results.sort_values('reference_count', ascending=False)
 
 

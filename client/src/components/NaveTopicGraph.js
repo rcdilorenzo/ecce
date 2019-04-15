@@ -33,11 +33,11 @@ const nodeCanvasObject = (node, ctx, globalScale) => {
   // some padding
   const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
 
-  ctx.fillStyle = 'rgba(250, 250, 250, 0.5)';
-  ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);
+  /* ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+   * ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);*/
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = node.color;
+  ctx.fillStyle = 'rgba(0, 0, 0, 1)';
   ctx.fillText(label, node.x, node.y);
 };
 
@@ -48,11 +48,12 @@ const currentWidth = () => {
 
 
 const NaveTopicGraph = (props) => {
-  const [width, setWidth] = useState(currentWidth());
+  const widthFunction = props.width ? props.width : currentWidth;
+  const [width, setWidth] = useState(widthFunction());
 
   useEffect(() => {
     window.addEventListener('resize', () => {
-      setWidth(currentWidth());
+      setWidth(widthFunction());
     }, false);
   }, [setWidth]);
 
@@ -63,7 +64,7 @@ const NaveTopicGraph = (props) => {
         graphData={graphData(props)}
         dagMode={'radialout'}
         dagLevelDistance={300}
-        linkColor={() => 'rgba(0,0,0,0.1)'}
+        linkColor={() => 'rgba(0,0,0,0.2)'}
         nodeRelSize={2}
         nodeVal={n => Math.sqrt(n.reference_count)}
         nodeLabel="label"

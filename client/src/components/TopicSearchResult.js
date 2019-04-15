@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const RealSearchResult = ({ id, label, reference_count, placeholder }) => (
-  <Link to={`/topics/${id}`} className="no-underline text-black flex p-3 mb-1 border border-grey-darker hover:bg-grey-light">
-    <header className="flex-grow">{label}</header>
-    <p className="flex-no-grow align-right">{reference_count} Verses</p>
+  <Link to={`/topics/${id}`} className="search-result-link">
+    <header className="search-result-link__title">{label}</header>
+    <p className="search-result-link__details">{reference_count} Verses</p>
   </Link>
 );
 
