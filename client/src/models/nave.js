@@ -5,6 +5,8 @@ export const topics = R.pipe(Api.path.nave.reference, Api.fetchFrame);
 
 export const topic = R.pipe(Api.path.nave.topic, Api.fetchJSON);
 
+export const topicPassages = R.pipe(Api.path.nave.passages, Api.fetchFrame);
+
 export const topicNodes = R.pipe(Api.path.nave.topics, Api.fetchFrame);
 
 export const categoryNodes = R.pipe(Api.path.nave.categories, Api.fetchFrame);

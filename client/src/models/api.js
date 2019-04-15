@@ -24,13 +24,16 @@ export const path = {
   },
   nave: {
     topic: (topicId, params={}) => (
-      `/api/nave/topic/${encodeURIComponent(topicId)}?${qs.stringify(params)}`
+      `/api/nave/topic/${topicId}?${qs.stringify(params)}`
     ),
     topics: (params={}) => (
       `/api/nave/topics?${qs.stringify(params)}`
     ),
     reference: (book, chapter, verse) => (
       `/api/nave/reference/${book}/${chapter}/${verse}`
+    ),
+    passages: (topicId) => (
+      `/api/nave/topics/${topicId}/passages`
     ),
     categories: (topicId) => (
       `/api/nave/topics/${topicId}/categories`
