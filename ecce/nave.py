@@ -1,19 +1,19 @@
+import json
+import pickle
 from multiprocessing import Pool, cpu_count
 
+import ecce.esv
+import ecce.passage as passage
+import ecce.reference as ref
 import pandas as pd
-import pickle
-from funcy import first, second, flatten, memoize
+import spacy
+from ecce.constants import *
+from ecce.utils import *
+from funcy import first, flatten, memoize, second
 from lenses import lens
 from pymonad.Maybe import *
 from toolz.curried import *
 from tqdm import tqdm
-import spacy
-
-import ecce.reference as ref
-import ecce.passage as passage
-import ecce.esv
-from ecce.constants import *
-from ecce.utils import *
 
 spacy.prefer_gpu()
 # Download with `python -m spacy download en`
@@ -100,6 +100,30 @@ def _extract_topic_name_topics(string):
     return [n.text for n in nlp(string).noun_chunks]
 
 
+def topics_matching_extracted(topic_chunk, references=False):
+    """Find all topic-based rows where the label includes the topic_chunk.
+    Return data frame with columns (id, label, reference_count, references)
+    """
+    frame = by_topic_nodes(references=references)
+    results = frame[frame.label.str.contains(topic_chunk, na=False)]
+    return results.sort_values('reference_count', ascending=False)
+
+
+def top_topic_matching_extracted(topic_chunk, references=False):
+    """Find most frequently occurring topic row where the label includes the
+    topic_chunk.
+
+    Return data frame with columns (id, label, reference_count, references)
+    """
+    results = topics_matching_extracted(topic_chunk)
+    if len(results) > 0:
+        columns = list(filter(lambda x: x != 'references', results.columns))
+        dictionary = json.loads(results.iloc[0][columns].to_json())
+        dictionary['references'] = results.iloc[0].references
+        return dictionary
+    else:
+        return None
+
 def by_reference():
     attr = flip(getattr)
     by_book = compose(attr('book'), first)
@@ -159,14 +183,27 @@ def by_category_nodes():
     }.items())
 
 
-def by_topic_nodes():
+@memoize
+def by_topic_nodes(references=False):
+    """Transform init() frame into the following columns:
+
+        id, label, reference_count, references (optional)
+    """
     by_topic = compose(topic_id, second)
 
-    return _by_group_transform(by_topic, {
+    options = {
         'id': group_attr(topic_id),
         'label': group_attr(topic_text),
         'reference_count': len
-    }.items())
+    }
+
+    if references:
+        references_option = {
+            'references': compose(list, map(first))
+        }
+        options = {**options, **references_option}
+
+    return _by_group_transform(by_topic, options.items())
 
 
 def _by_group_transform(groupby_f, columns_to_transforms):

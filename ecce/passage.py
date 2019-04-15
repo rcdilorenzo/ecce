@@ -50,6 +50,7 @@ def text(passages, module=esv):
 
     return [Data(p.name, p.references, _text(p)) for p in passages]
 
+
 def compact(passage):
     return (passage.name, list_map(reference.compact, passage.references), passage.text)
 
