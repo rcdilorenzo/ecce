@@ -7,6 +7,7 @@
     "d3-array": "^2.0.3",
     "folktale": "^2.3.2",
     "precss": "^4.0.0",
+    "query-string": "^6.4.2",
     "ramda": "^0.26.1",
     "rc-slider": "^8.6.9",
     "react": "^16.8.4",

@@ -11,7 +11,7 @@ const sortTopics = R.sortBy(R.pipe(R.prop('reference_count'), R.negate));
 
 const loadData = (setData) => {
   Nave
-    .topicNodes()
+    .topicNodes({ limit: MAX_TOPICS })
     .then(sortTopics)
     .then(topics => setData({ selected: topics[0], topics }));
 };
@@ -22,7 +22,6 @@ const toOptions = t => {
 
 const options = R.pipe(
   R.prop('topics'),
-  R.take(MAX_TOPICS),
   R.map(toOptions)
 );
 

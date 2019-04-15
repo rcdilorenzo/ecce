@@ -1,10 +1,11 @@
 import { zipObj } from 'ramda';
+import qs from 'query-string';
 
 export const parseFrameJSON = json => {
   return json.rows.map(zipObj(json.columns));
 };
 
-export const fetchJSON = path => {
+export const fetchJSON = (path) => {
   return fetch(path).then(r => r.json());
 };
 
@@ -22,8 +23,8 @@ export const path = {
     )
   },
   nave: {
-    topics: () => (
-      '/api/nave/topics'
+    topics: (params={}) => (
+      `/api/nave/topics?${qs.stringify(params)}`
     ),
     reference: (book, chapter, verse) => (
       `/api/nave/reference/${book}/${chapter}/${verse}`
