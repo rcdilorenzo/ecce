@@ -37,11 +37,11 @@ def init_raw_row(row, prefix=''):
         row.at[f'{prefix}chapter'],
         row.at[f'{prefix}verse'])
 
-def ordered(references):
+def ordered_unique(references):
     def key(ref):
         return (CANONICAL_ORDER.index(ref.book), ref.chapter, ref.verse)
 
-    return sorted(references, key=key)
+    return sorted(set(references), key=key)
 
 @curry
 def _match(components, ref):

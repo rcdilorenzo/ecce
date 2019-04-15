@@ -30,11 +30,11 @@ def init(references):
             ','.join)
 
     grouped = groupby(lambda r: (r.book, r.chapter),
-                      reference.ordered(references))
+                      reference.ordered_unique(references))
 
     return [
         Data(f'{k[0]} {k[1]}:{_verses(list_map(verse, references))}',
-             reference.ordered(references), None)
+             reference.ordered_unique(references), None)
         for k, references in grouped.items()
     ]
 

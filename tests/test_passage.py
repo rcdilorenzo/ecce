@@ -73,6 +73,18 @@ def describe_passage():
             ], None)
         ]
 
+    def duplicates():
+        assert passage.init([
+            reference.init('Genesis', 1, 2),
+            reference.init('Genesis', 1, 2),
+            reference.init('Genesis', 1, 1)
+        ]) == [
+            passage.Data('Genesis 1:1-2', [
+                reference.init('Genesis', 1, 1),
+                reference.init('Genesis', 1, 2)
+            ], None)
+        ]
+
     def describe_text():
         def single_verse():
             assert passage.text([
