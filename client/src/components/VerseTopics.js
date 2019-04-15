@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Verse from './Verse';
 import Maybe from 'folktale/maybe';
 
@@ -8,7 +9,10 @@ import * as Nave from '../models/nave';
 const renderTopics = (topics) => {
   return topics.map(({ topic_name, category_text, subtopic_text}, index) => {
     return (
-        <li key={index}>{topic_name}, {category_text}, {subtopic_text}</li>
+      <li key={index}>
+        <Link to={`/topics/search?q=${topic_name}`}>{topic_name}</Link>
+        <span>, {category_text}, {subtopic_text}</span>
+      </li>
     );
   });
 }
@@ -19,6 +23,7 @@ const VerseTopics = ({ book, chapter, verse }) => {
   useEffect(() => {
     Nave
       .topics(book, chapter, verse)
+      .then(R.tap(console.log))
       .then(R.pipe(Maybe.Just, setTopics))
   }, [book, chapter, verse, setTopics]);
 
