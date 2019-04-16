@@ -20,7 +20,7 @@ def init(references):
                 return f'{sequential[0]}-{sequential[-1]}'
 
         def _reduce_verse(acc, number):
-            if len(acc) == 0 or len(acc[0]) == 0 or acc[0][-1] != (number - 1):
+            if len(acc) == 0 or len(acc[0]) == 0 or acc[-1][-1] != (number - 1):
                 return acc + [[number]]
             else:
                 return acc[0:-1] + [acc[-1] + [number]]

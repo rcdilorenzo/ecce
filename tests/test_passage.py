@@ -85,6 +85,21 @@ def describe_passage():
             ], None)
         ]
 
+    def discontiguous_verses():
+        assert passage.init([
+            reference.init('Genesis', 1, 5),
+            reference.init('Genesis', 1, 4),
+            reference.init('Genesis', 1, 2),
+            reference.init('Genesis', 1, 1)
+        ]) == [
+            passage.Data('Genesis 1:1-2,4-5', [
+                reference.init('Genesis', 1, 1),
+                reference.init('Genesis', 1, 2),
+                reference.init('Genesis', 1, 4),
+                reference.init('Genesis', 1, 5)
+            ], None)
+        ]
+
     def describe_text():
         def single_verse():
             assert passage.text([
@@ -111,3 +126,4 @@ def describe_passage():
                     reference.init('Genesis', 1, 3)
                 ], '2 The earth was without form and void, and darkness was over the face of the deep. And the Spirit of God was hovering over the face of the waters.\n3 And God said, "Let there be light," and there was light.')
             ]
+
