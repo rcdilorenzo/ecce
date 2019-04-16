@@ -30,11 +30,7 @@ const nodeCanvasObject = (node, ctx, globalScale) => {
   const fontSize = Math.max(6, 4 * Math.log10(node.reference_count)) / globalScale;
   ctx.font = `${fontSize}px Sans-Serif`;
   const textWidth = ctx.measureText(label).width;
-  // some padding
-  const bckgDimensions = [textWidth, fontSize].map(n => n + fontSize * 0.2);
 
-  /* ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-   * ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions);*/
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillStyle = 'rgba(0, 0, 0, 1)';

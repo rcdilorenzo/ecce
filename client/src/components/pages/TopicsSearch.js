@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as R from 'ramda';
 import * as Nave from '../../models/nave';
 import { Redirect } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import qs from 'query-string';
 
 import PageWrapper from '../PageWrapper';
@@ -38,7 +39,11 @@ const TopicsSearch = (props) => {
 
   return (
     <PageWrapper>
-      <h1 className="pt-3">Search Topics</h1>
+      <Helmet>
+        <title>{query.length > 0 ? `Ecce - "${query}" in Topics` : 'Ecce - Topics'}</title>
+      </Helmet>
+
+      <h1 className="pt-3">Search Nave's Topics</h1>
       <input
         className="search w-full"
         name="search" type="text" value={query}

@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import * as R from 'ramda';
 
 import * as ESV from '../../models/esv';
+
 import VerseTopics from '../VerseTopics';
 import VerseSelector from '../VerseSelector';
-import NaveExplorer from '../NaveExplorer';
-import Dashboard from '../Dashboard';
-import Card from '../Card';
-import TopicCountByVerse from '../cards/TopicCountByVerse';
-import VerseCountByTopic from '../cards/VerseCountByTopic';
+import PageWrapper from '../PageWrapper';
 
 const mergeRight = R.flip(R.merge);
 
-class Index extends Component {
+class Verses extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,8 +24,7 @@ class Index extends Component {
   }
 
   chapterSelected(selected) {
-    this.setState(mergeRight({ chapter: selected.value, verse: 1 }));
-  }
+    this.setState(mergeRight({ chapter: selected.value, verse: 1 }));}
 
   verseSelected(selected) {
     this.setState({ verse: selected.value });
@@ -40,23 +38,23 @@ class Index extends Component {
     };
 
     return (
-      <Dashboard>
-        <Card>
-          <VerseSelector {...this.state} handlers={selectionHandlers} />
-          <VerseTopics {...this.state} />
-        </Card>
-        <Card>
-          <NaveExplorer />
-        </Card>
-        <Card>
-          <TopicCountByVerse />
-        </Card>
-        <Card>
-          <VerseCountByTopic />
-        </Card>
-      </Dashboard>
+      <PageWrapper>
+        <Helmet>
+          <title>Ecce - Verses</title>
+        </Helmet>
+
+        <h1 className="mb-3">
+          <a href="https://www.esv.org/resources/esv-global-study-bible/copyright-page/"
+            className="no-underline text-black">
+            English Standard Version &#169;
+          </a>
+        </h1>
+
+        <VerseSelector {...this.state} handlers={selectionHandlers} />
+        <VerseTopics {...this.state} />
+      </PageWrapper>
     );
   }
 };
 
-export default Index;
+export default Verses;

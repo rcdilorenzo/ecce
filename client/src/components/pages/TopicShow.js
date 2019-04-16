@@ -1,6 +1,7 @@
 import React from 'react';
 import Async from 'react-async';
 import * as R from 'ramda';
+import { Helmet } from 'react-helmet-async';
 
 import AsyncError from '../AsyncError';
 import PageWrapper from '../PageWrapper';
@@ -21,8 +22,12 @@ const TopicShow = props => {
   console.log(props);
   return (
     <PageWrapper>
-      <h1 className="pt-3 pb-3">{label}</h1>
-      <div className="bg-grey-light">
+      <Helmet>
+        <title>Ecce - {label}</title>
+      </Helmet>
+
+      <h1>{label}</h1>
+      <div className="bg-subtle">
         <NaveTopicGraph
           width={graphWidth}
           topicId={id}
@@ -48,7 +53,9 @@ const loadData = (props) => {
 const AsyncTopicShow = (props) => (
   <Async promiseFn={() => loadData(props)}>
     <Async.Loading>
-      <p>Loading graph...</p>
+      <PageWrapper>
+        <p>Loading topic...</p>
+      </PageWrapper>
     </Async.Loading>
 
     <Async.Resolved>

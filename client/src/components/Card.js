@@ -6,7 +6,7 @@ const Card = ({ children }) =>  {
     'flex-no-shrink',
     'm-2',
     'p-8',
-    'bg-grey-lighter',
+    'bg-subtle',
     'rounded-lg',
     'shadow-md',
     'md:w-1/2',
