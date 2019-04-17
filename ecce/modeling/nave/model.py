@@ -2,7 +2,7 @@ import logging
 import os
 import uuid
 
-import ecce.modeling.data as data
+import ecce.modeling.nave.data as data
 import numpy as np
 from ecce.constants import CHECKPOINTS_PATH
 from keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -11,7 +11,7 @@ from toolz import first
 
 class Model():
     def load_weights(self, name):
-        self.model.load_weights(os.path.join(CHECKPOINTS_PATH, name + '.hdf5'))
+        self.model.load_weights(name)
 
     def train(self, epochs=20, patience=3):
         self.epochs = epochs

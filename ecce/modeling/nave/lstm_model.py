@@ -4,8 +4,8 @@ from keras.layers.embeddings import Embedding
 from keras.optimizers import *
 from toolz import memoize, pipe
 
-import ecce.modeling.data as data
-from ecce.modeling.model import Model
+import ecce.modeling.nave.data as data
+from ecce.modeling.nave.model import Model
 
 
 class LstmModel(Model):

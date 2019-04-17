@@ -6,19 +6,15 @@ import warnings
 from multiprocessing import Pool, cpu_count
 
 import ecce.esv as esv
-import ecce.modeling.data as data
+import ecce.modeling.nave.data as data
 import ecce.modeling.text as text
 import ecce.reference as reference
-import numpy as np
 import pandas as pd
 from ecce.constants import *
 from ecce.nave import parse as nave_parse
 from ecce.utils import *
 from funcy import first, second
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
 from toolz import curry, memoize
-from toolz.curried import map
 from tqdm import tqdm
 
 _writer = None
@@ -65,54 +61,6 @@ def df():
     df.book = df.book.apply(lambda index: CANONICAL_ORDER[index - 1])
 
     return df
-
-@memoize
-def data_split():
-    bow = bag_of_words(init())
-    vectors = pipe(bow, map(second), list, np.array)
-    uuids = pipe(bow, map(first), list, np.array, reshape_one_hot_encode,
-                 uuid_encoder().transform)
-    return train_test_split(vectors, (uuids), test_size=0.2, random_state=1337)
-
-@memoize
-def uuid_encoder():
-    encoder = OneHotEncoder()
-
-    pipe(init(),
-         bag_of_words,
-         map(first),
-         list,
-         np.array,
-         reshape_one_hot_encode,
-         encoder.fit_transform)
-
-    return encoder
-
-
-@cache_pickle(CACHE_TSK_CLUSTERS)
-def bag_of_words(frame):
-    """Converts a data frame of the following columns
-
-        uuid, linked_book, linked_chapter, linked_verse, phrase, book, chapter, verse
-
-    to a list of SVD-reduced components with the uuid clusters
-
-        [ ('84faacdd', np.array([ 2.64889813, ... ])),
-          ... ]
-    """
-    iterator = tqdm(frame.iterrows(), total=len(frame))
-
-    print('Cluster bag-of-words SVD reduction...')
-
-    pool = Pool(cpu_count())
-    return [r for r in pool.imap_unordered(_bag_of_words, iterator)]
-
-
-@curry
-def _bag_of_words(index_and_row):
-    _, row = index_and_row
-    return (row.at['uuid'], pipe(row, esv.text, text.vector))
-
 
 @curry
 def _parse_refs(file_path, index_and_row):

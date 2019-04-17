@@ -7,7 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from ecce.constants import *
 import ecce.nave as nave
 import ecce.passage as passage
-import ecce.modeling.data as data
+import ecce.modeling.nave.data as data
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
