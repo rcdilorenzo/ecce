@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import PageWrapper from './PageWrapper';
 
 const Navigation = () => {
   return (
-    <nav className="w-screen pl-5 pr-5 nav-bg">
-      <div className="max-w-lg mx-auto flex items-center">
+    <nav className="w-full nav-bg">
+      <div className="max-w-lg mx-auto flex items-center pl-3 pr-3">
         <h1 className="flex-no-grow">
           <Link to="/" className="text-white no-underline">Ecce</Link>
         </h1>
