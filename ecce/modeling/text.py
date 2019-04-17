@@ -12,6 +12,7 @@ def _bible_text(translation=esv):
 def vector(text, translation=esv):
     return representation([text], translation=translation)[0]
 
+
 def representation(text_list, translation=esv):
     """Converts list of sentences to a vocabulary-vectorized, SVD-reduced
     representation

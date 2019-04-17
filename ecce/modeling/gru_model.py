@@ -8,9 +8,9 @@ import ecce.modeling.data as data
 from ecce.modeling.model import Model
 
 
-class LstmModel(Model):
+class GruModel(Model):
     def name(self):
-        return 'lstm'
+        return 'gru'
 
     @property
     @memoize
@@ -31,9 +31,9 @@ class LstmModel(Model):
                 weights=[embedding_matrix],
                 input_length=max_length,
                 mask_zero=True),
-            LSTM(800),
-            Dense(topic_count * 3, activation='relu'),
-            Dropout(0.2),
+            BatchNormalization(),
+            GRU(200),
+            Dense(topic_count, activation='sigmoid'),
             Dense(topic_count, activation='sigmoid'))
 
         _model = keras.models.Model(inputs=inputs, outputs=outputs)

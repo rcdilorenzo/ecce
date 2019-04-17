@@ -5,11 +5,18 @@ import pandas as pd
 import ecce.nave as nave
 from ecce.constants import *
 from ecce.modeling.lstm_model import LstmModel
+from ecce.modeling.gru_model import GruModel
 
 
 def train_lstm(args):
     model = LstmModel()
-    model.train()
+    model.train(args.epochs, args.patience)
+    model.evaluate()
+
+
+def train_gru(args):
+    model = GruModel()
+    model.train(args.epochs, args.patience)
     model.evaluate()
 
 

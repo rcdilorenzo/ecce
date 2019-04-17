@@ -13,7 +13,10 @@ class Model():
     def load_weights(self, name):
         self.model.load_weights(os.path.join(CHECKPOINTS_PATH, name + '.hdf5'))
 
-    def train(self):
+    def train(self, epochs=20, patience=3):
+        self.epochs = epochs
+        self.patience = patience
+
         logging.info('Splitting train/val/test data...')
         (text_train, text_test, topics_train, topics_test) = data.data_split()
         self.text_train = text_train
@@ -28,7 +31,7 @@ class Model():
         self.model.fit(
             self.text_train,
             self.topics_train,
-            epochs=20,
+            epochs=self.epochs,
             batch_size=256,
             validation_split=0.15,
             callbacks=self.callbacks())
@@ -50,9 +53,9 @@ class Model():
     def callbacks(self):
         return [
             ModelCheckpoint(
-                os.path.join(CHECKPOINTS_PATH, f'lstm-{self.uuid}.hdf5'),
+                os.path.join(CHECKPOINTS_PATH, f'{self.name()}-{self.uuid}.hdf5'),
                 save_best_only=True),
-            EarlyStopping(patience=3)
+            EarlyStopping(patience=self.patience)
         ]
 
     def evaluate(self):
