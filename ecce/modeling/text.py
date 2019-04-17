@@ -39,3 +39,4 @@ def vocabulary_vectorizer(translation=esv):
     vectorizer = CountVectorizer()
     vectorizer.fit_transform(_bible_text(translation))
     return vectorizer
+

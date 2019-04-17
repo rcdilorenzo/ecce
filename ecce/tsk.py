@@ -16,7 +16,9 @@ from ecce.nave import parse as nave_parse
 from ecce.utils import *
 from funcy import first, second
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
 from toolz import curry, memoize
+from toolz.curried import map
 from tqdm import tqdm
 
 _writer = None
@@ -67,9 +69,24 @@ def df():
 @memoize
 def data_split():
     bow = bag_of_words(init())
-    vectors = np.array(map(second, bow))
-    uuids = np.array(map(first, bow))
-    return train_test_split(vectors, uuids, test_size=0.2, random_state=1337)
+    vectors = pipe(bow, map(second), list, np.array)
+    uuids = pipe(bow, map(first), list, np.array, reshape_one_hot_encode,
+                 uuid_encoder().transform)
+    return train_test_split(vectors, (uuids), test_size=0.2, random_state=1337)
+
+@memoize
+def uuid_encoder():
+    encoder = OneHotEncoder()
+
+    pipe(init(),
+         bag_of_words,
+         map(first),
+         list,
+         np.array,
+         reshape_one_hot_encode,
+         encoder.fit_transform)
+
+    return encoder
 
 
 @cache_pickle(CACHE_TSK_CLUSTERS)

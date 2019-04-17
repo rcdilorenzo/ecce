@@ -37,6 +37,7 @@ def cache_pickle(filename):
                 hashlib.md5(str(args).encode('utf-8')).hexdigest()[0:6]
             )
             if os.path.isfile(call_filename) is False:
+                logging.debug(f'No cache file found at {call_filename}.')
                 obj = f(*args)
                 logging.info(f'Saving to {call_filename}...')
                 with open(call_filename, 'wb') as cache_file:
@@ -48,7 +49,8 @@ def cache_pickle(filename):
         return wrapped_f
     return decorator
 
-
+def reshape_one_hot_encode(array):
+    return array.reshape(-1, 1)
 
 
 def relative_path(current_file, path):

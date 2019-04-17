@@ -39,7 +39,7 @@ NAVE_TOPIC_NODES     = os.path.join(EXPORT_PATH, 'nave-topic-nodes.tsv')
 NAVE_EXPORT_PASSAGES = os.path.join(EXPORT_PATH, 'nave-passages.json')
 
 CACHE_VERSE_COUNTS = os.path.join(CACHE_PATH, 'verse-counts-{}.csv')
-CACHE_TSK_CLUSTERS = os.path.join(CACHE_PATH, 'tsk-clusters-{}.obj')
+CACHE_TSK_CLUSTERS = os.path.join(CACHE_PATH, 'tsk-clusters.obj')
 
 NLP_TOPICS_PATH     = os.path.join(EXPORT_PATH, 'verse-with-topics.tsv')
 

@@ -1,3 +1,5 @@
+import numpy as np
+
 import ecce.tsk as tsk
 from ecce.reference import Reference
 
@@ -18,3 +20,11 @@ def describe_tsk():
                 Reference('Hebrews', 1, 10),
                 Reference('1 John', 1, 1)
             ]
+
+    def describe_uuid_encoding():
+
+        def matches():
+            uuid = tsk.bag_of_words(tsk.init())[4][0]
+            encoder = tsk.uuid_encoder()
+
+            assert encoder.inverse_transform(encoder.transform([[uuid]])) == uuid
