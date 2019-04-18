@@ -5,7 +5,6 @@ import uuid
 import warnings
 from multiprocessing import Pool, cpu_count
 
-import ecce.esv as esv
 import ecce.modeling.nave.data as data
 import ecce.modeling.text as text
 import ecce.reference as reference
@@ -18,7 +17,6 @@ from toolz import curry, memoize
 from tqdm import tqdm
 
 _writer = None
-
 
 def init():
     if os.path.isfile(TSK_PATH):

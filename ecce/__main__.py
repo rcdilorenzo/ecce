@@ -21,15 +21,20 @@ def add_topics_export(subparsers):
 
 def add_train(subparsers):
     parser = subparsers.add_parser(
-        'train-lstm', help='Train an LSTM neural network model')
+        'train-lstm', help='Train an LSTM neural network model on Nave data')
     parser.add_argument('-e', '--epochs', type=int, default=20)
     parser.add_argument('-p', '--patience', type=int, default=3)
     parser.set_defaults(func=train_lstm)
 
-    parser = subparsers.add_parser('train-gru', help='Train a GRU model')
+    parser = subparsers.add_parser('train-gru', help='Train a GRU model on Nave data')
     parser.add_argument('-e', '--epochs', type=int, default=20)
     parser.add_argument('-p', '--patience', type=int, default=3)
     parser.set_defaults(func=train_gru)
+
+    parser = subparsers.add_parser('train-tsk', help='Train cluster model on TSK data')
+    parser.add_argument('-e', '--epochs', type=int, default=20)
+    parser.add_argument('-p', '--patience', type=int, default=3)
+    parser.set_defaults(func=train_tsk_clusters)
     return subparsers
 
 

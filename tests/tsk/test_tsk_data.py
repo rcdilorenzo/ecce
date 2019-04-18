@@ -12,3 +12,9 @@ def describe_tsk():
             encoder = data.uuid_encoder()
 
             assert encoder.inverse_transform(encoder.transform([[uuid]])) == uuid
+
+    def describe_tokenize():
+
+        def converts_to_numpy_array():
+            vector = data.tokenize(['what is life', 'overflow of the heart'])
+            assert vector.shape == (2, 100)

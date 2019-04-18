@@ -4,9 +4,14 @@ import pandas as pd
 
 import ecce.nave as nave
 from ecce.constants import *
+from ecce.modeling.tsk.model import ClusterModel
 from ecce.modeling.nave.lstm_model import LstmModel
 from ecce.modeling.nave.gru_model import GruModel
 
+def train_tsk_clusters(args):
+    model = ClusterModel()
+    model.train(args.epochs, args.patience)
+    model.evaluate()
 
 def train_lstm(args):
     model = LstmModel()

@@ -4,6 +4,8 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import CountVectorizer
 from toolz import pipe, memoize
 
+DEFAULT_SVD_COMPONENTS = 200
+
 
 def _bible_text(translation=esv):
     return list_map(lambda r: r[3], translation.flattened_verses())
@@ -25,7 +27,7 @@ def representation(text_list, translation=esv):
 
 
 @memoize
-def svd(n_components=100, translation=esv):
+def svd(n_components=DEFAULT_SVD_COMPONENTS, translation=esv):
     """Truncated singular value decomposition
     for dimensionality reduction of ESV verses
     """

@@ -1,4 +1,8 @@
+from multiprocessing import Pool, cpu_count
+
+import ecce.modeling.text as text
 import ecce.tsk as tsk
+import ecce.esv as esv
 import numpy as np
 from ecce.constants import *
 from ecce.utils import *
@@ -6,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 from toolz import memoize
 from toolz.curried import map
+from tqdm import tqdm
 
 
 @memoize
@@ -15,6 +20,7 @@ def data_split():
     uuids = pipe(bow, map(first), list, np.array, reshape_one_hot_encode,
                  uuid_encoder().transform)
     return train_test_split(vectors, (uuids), test_size=0.2, random_state=1337)
+
 
 @memoize
 def uuid_encoder():
@@ -29,6 +35,10 @@ def uuid_encoder():
          encoder.fit_transform)
 
     return encoder
+
+
+def tokenize(text_lists):
+    return pipe(text_lists, map(text.vector), list, np.array)
 
 
 @cache_pickle(CACHE_TSK_CLUSTERS)
