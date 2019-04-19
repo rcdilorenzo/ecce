@@ -13,6 +13,7 @@ def train_tsk_clusters(args):
     model.train(args.epochs, args.patience)
     model.evaluate()
 
+
 def train_lstm(args):
     model = LstmModel()
     model.train(args.epochs, args.patience)
@@ -33,6 +34,20 @@ def predict_lstm(args):
     command = input('> ')
     while command != 'exit':
         results = model.predict(command, threshold=args.threshold)
+        print('Result: ', results)
+        command = input('\n> ')
+
+    print('Exiting.')
+
+
+def predict_tsk(args):
+    model = ClusterModel()
+    model.load_weights(args.weights)
+
+    print('\nEnter text to predict. Type "exit" when finished.')
+    command = input('> ')
+    while command != 'exit':
+        results = model.predict_repl(command, n_max=args.n_max)
         print('Result: ', results)
         command = input('\n> ')
 

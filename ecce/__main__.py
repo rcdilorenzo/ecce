@@ -47,6 +47,16 @@ def add_predict(subparsers):
                         default=0.5,
                         help='Threshold for topic probability')
     parser.set_defaults(func=predict_lstm)
+
+    parser = subparsers.add_parser(
+        'predict-tsk', help='(REPL) Predict TSK clusters based on text')
+    parser.add_argument('-w', '--weights', type=str)
+    parser.add_argument('-n', '--n-max',
+                        type=int,
+                        default=5,
+                        help='Return top N results')
+    parser.set_defaults(func=predict_tsk)
+
     return subparsers
 
 

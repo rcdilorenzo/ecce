@@ -6,18 +6,24 @@ import keras.models
 import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras.layers import *
-from keras.layers.embeddings import Embedding
 from keras.optimizers import *
-from toolz import first, memoize, pipe
+from lenses import lens
+from toolz import first, memoize, pipe, compose
 
 import ecce.modeling.tsk.data as data
+import ecce.tsk as tsk
 from ecce.constants import CHECKPOINTS_PATH
 from ecce.modeling.text import DEFAULT_SVD_COMPONENTS
+import ecce.utils as utils
+from ecce.utils import list_map
 
 
 class ClusterModel():
     def __init__(self):
         "Initialize model"
+
+    def load_weights(self, name):
+        self.model.load_weights(name)
 
     def name(self):
         return 'tsk-cluster'
@@ -27,7 +33,8 @@ class ClusterModel():
         self.patience = patience
 
         logging.info('Splitting train/val/test data...')
-        (vector_train, vector_test, cluster_train, cluster_test) = data.data_split()
+        (vector_train, vector_test, cluster_train,
+         cluster_test) = data.data_split()
         self.vector_train = vector_train
         self.vector_test = vector_test
         self.cluster_train = cluster_train
@@ -50,11 +57,9 @@ class ClusterModel():
     def model(self):
         uuid_count = len(data.uuid_encoder().categories_[0])
 
-        inputs = Input(shape=(DEFAULT_SVD_COMPONENTS,))
+        inputs = Input(shape=(DEFAULT_SVD_COMPONENTS, ))
 
-        outputs = pipe(
-            inputs,
-            Dense(uuid_count, activation='softmax'))
+        outputs = pipe(inputs, Dense(uuid_count, activation='softmax'))
 
         _model = keras.models.Model(inputs=inputs, outputs=outputs)
 
@@ -67,25 +72,44 @@ class ClusterModel():
 
         return _model
 
-    def predict(self, text):
+    def predict(self, text, n_max=5):
+        """Predicts clusters of TSK cross-references based on verse-like text
+
+        Returns:
+
+           list of (probability, cluster_id) tuples
+        """
         result = self.model.predict(data.tokenize([text]))
 
-        print(result)
+        print(result.shape)
 
-        probabilities = list(result[result >= threshold])
+        indices = utils.n_max_indices(result[0], n=n_max)
 
-        chosen = np.copy(result)
-        chosen[(result[:] >= threshold)] = 1
-        chosen[(result[:] < threshold)] = 0
+        probabilities = list(result[0][indices])
 
-        clusters = data.uuid_encoder().inverse_transform(chosen)[0]
-        return list(reversed(sorted(zip(probabilities, clusters), key=first)))
+        chosen = np.zeros(result.shape, np.int)
+        chosen[:, indices] = 1
 
+        clusters = (data
+                    .uuid_encoder()
+                    .inverse_transform(utils.categories_to_selections(chosen))
+                    .reshape(1, -1)[0])
+
+        return list(zip(probabilities, clusters))
+
+    def predict_repl(self, text, n_max):
+        predicted = self.predict(text, n_max)
+
+        uuids_to_passages = lens.Each()[1].modify(
+                compose(list_map(lambda p: p.name), tsk.passages_by_uuid))
+
+        return uuids_to_passages(predicted)
 
     def callbacks(self):
         return [
             ModelCheckpoint(
-                os.path.join(CHECKPOINTS_PATH, f'{self.name()}-{self.uuid}.hdf5'),
+                os.path.join(CHECKPOINTS_PATH,
+                             f'{self.name()}-{self.uuid}.hdf5'),
                 save_best_only=True),
             EarlyStopping(patience=self.patience)
         ]

@@ -2,6 +2,7 @@ import numpy as np
 
 import ecce.tsk as tsk
 import ecce.modeling.tsk.data as data
+from ecce.modeling.text import DEFAULT_SVD_COMPONENTS
 
 def describe_tsk():
 
@@ -17,4 +18,4 @@ def describe_tsk():
 
         def converts_to_numpy_array():
             vector = data.tokenize(['what is life', 'overflow of the heart'])
-            assert vector.shape == (2, 100)
+            assert vector.shape == (2, DEFAULT_SVD_COMPONENTS)

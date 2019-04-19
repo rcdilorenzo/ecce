@@ -20,3 +20,20 @@ def describe_tsk():
                 Reference('Hebrews', 1, 10),
                 Reference('1 John', 1, 1)
             ]
+
+
+    def find_by_uuid():
+        uuid = tsk.init().uuid[0]
+
+        assert len(tsk.find_by_uuid(uuid)) > 1
+
+    def passages_by_uuid():
+        uuid = tsk.init().uuid[0]
+
+        passages = tsk.passages_by_uuid(uuid, include_text=True)
+        assert len(passages) > 1
+
+        passage = passages[0]
+        assert passage.name is not None
+        assert len(passage.references) > 0
+        assert passage.text is not None

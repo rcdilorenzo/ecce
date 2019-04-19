@@ -2,6 +2,7 @@ import hashlib
 import logging
 import os
 import pickle
+import numpy as np
 from functools import reduce
 
 import pandas as pd
@@ -74,3 +75,36 @@ def mconcat_bind(list_of_monadic_binds):
     """Implementation of List (a -> Monad a) -> (a -> Monad a)"""
     return reduce(lambda left, right: (lambda x: left(x) >> right),
                   list_of_monadic_binds)
+
+def categories_to_selections(m):
+    """Converts probability selections to matrix of choices.
+
+    Example:
+
+        m = np.array([[0, 1, 0, 1, 0]])
+        expected = np.array([[0, 1, 0, 0, 0],
+                             [0, 0, 0, 1, 0]])
+
+        categories_to_selections(m) == expected
+    """
+    length = m.shape[1]
+
+    indices = np.where(m[0] == 1)[0]
+    indices_length = indices.shape[0]
+
+    result = np.zeros((indices_length, length), np.int32)
+    result[np.arange(indices_length), indices] = 1
+
+    return result
+
+def n_max_indices(m, n=5):
+    """Determines the index of the max n values in numpy array
+
+    Example:
+
+        m = np.array([1, 5, 3, 8, 4, 1, 9, 11, 22, 1])
+        expected = np.array([8, 7, 6, 3, 1])
+
+        n_max_indices(m) == expected
+    """
+    return m.argsort()[-n:][::-1]
