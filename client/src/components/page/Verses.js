@@ -10,13 +10,7 @@ const Verses = _props => (
       <title>Ecce - Verses</title>
     </Helmet>
 
-    <h1 className="mb-3">
-      <a href="https://www.esv.org/resources/esv-global-study-bible/copyright-page/"
-        className="no-underline text-black">
-        English Standard Version &#169;
-      </a>
-    </h1>
-
+    <h1>Explore Verses</h1>
     <VerseExplorer />
   </PageWrapper>
 );

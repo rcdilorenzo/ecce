@@ -9,6 +9,7 @@ import Verses from './components/page/Verses';
 import About from './components/page/About';
 
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 
 const App = () => (
   <HelmetProvider>
@@ -17,13 +18,18 @@ const App = () => (
     </Helmet>
 
     <Router>
-      <Navigation />
+      <div className="flex flex-col min-h-screen">
+        <Navigation />
 
-      <Route path="/" exact component={Index} />
-      <Route path="/about" exact component={About} />
-      <Route path="/verses" exact component={Verses} />
-      <Route path="/topics" exact component={TopicsSearch} />
-      <Route path="/topics/:topicId" exact component={TopicShow} />
+        <div className="flex-grow">
+          <Route path="/" exact component={Index} />
+          <Route path="/about" exact component={About} />
+          <Route path="/verses" exact component={Verses} />
+          <Route path="/topics" exact component={TopicsSearch} />
+          <Route path="/topics/:topicId" exact component={TopicShow} />
+        </div>
+        <Footer />
+      </div>
     </Router>
   </HelmetProvider>
 );

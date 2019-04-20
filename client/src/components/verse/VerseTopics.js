@@ -32,9 +32,16 @@ const VerseTopics = ({ book, chapter, verse }) => {
     Just: ({ value }) => {
       return (
         <div>
-          <h2 className="pt-5 pb-5">{`${book} ${chapter}:${verse}`}</h2>
+          <h2>{`${book} ${chapter}:${verse}`}</h2>
           <VerseText book={book} chapter={chapter} verse={verse} />
           <ul>{renderTopics(value)}</ul>
+
+          <footnote className="block pt-5 italic text-right">
+            <a href="https://www.esv.org/resources/esv-global-study-bible/copyright-page/"
+              className="no-underline text-black">
+              <span className="underline">English Standard Version</span><sup>&#169;</sup>
+            </a>
+          </footnote>
         </div>
       );
     }

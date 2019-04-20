@@ -18,7 +18,9 @@ const About = (props) => (
     <h1>About</h1>
     <p>Work in progress...</p>
 
-    <Card><VerseExplorer /></Card>
+    <div className="mt-5">
+      <VerseExplorer />
+    </div>
 
     <Card><NaveExplorer /></Card>
 

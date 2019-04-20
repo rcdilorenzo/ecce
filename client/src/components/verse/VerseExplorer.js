@@ -35,10 +35,10 @@ class VerseExplorer extends Component {
     };
 
     return (
-      <React.Fragment>
+      <div className="bg-white border border-light p-6 rounded-lg">
         <VerseSelector {...this.state} handlers={selectionHandlers} />
         <VerseTopics {...this.state} />
-      </React.Fragment>
+      </div>
     );
   }
 };
