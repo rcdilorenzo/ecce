@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import * as R from 'ramda';
 
 import * as ESV from '../../models/esv';
 
-import VerseTopics from '../VerseTopics';
-import VerseSelector from '../VerseSelector';
-import PageWrapper from '../PageWrapper';
+import VerseTopics from './VerseTopics';
+import VerseSelector from './VerseSelector';
 
 const mergeRight = R.flip(R.merge);
 
-class Verses extends Component {
+class VerseExplorer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,23 +35,12 @@ class Verses extends Component {
     };
 
     return (
-      <PageWrapper>
-        <Helmet>
-          <title>Ecce - Verses</title>
-        </Helmet>
-
-        <h1 className="mb-3">
-          <a href="https://www.esv.org/resources/esv-global-study-bible/copyright-page/"
-            className="no-underline text-black">
-            English Standard Version &#169;
-          </a>
-        </h1>
-
+      <React.Fragment>
         <VerseSelector {...this.state} handlers={selectionHandlers} />
         <VerseTopics {...this.state} />
-      </PageWrapper>
+      </React.Fragment>
     );
   }
 };
 
-export default Verses;
+export default VerseExplorer;

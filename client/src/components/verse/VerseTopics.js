@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Verse from './Verse';
+import VerseText from './VerseText';
 import Maybe from 'folktale/maybe';
 
 import * as R from 'ramda';
-import * as Nave from '../models/nave';
+import * as Nave from '../../models/nave';
 
 const renderTopics = (topics) => {
   return topics.map(({ topic_name, category_text, subtopic_text}, index) => {
@@ -33,7 +33,7 @@ const VerseTopics = ({ book, chapter, verse }) => {
       return (
         <div>
           <h2 className="pt-5 pb-5">{`${book} ${chapter}:${verse}`}</h2>
-          <Verse book={book} chapter={chapter} verse={verse} />
+          <VerseText book={book} chapter={chapter} verse={verse} />
           <ul>{renderTopics(value)}</ul>
         </div>
       );

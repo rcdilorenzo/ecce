@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-import * as ESV from '../models/esv';
+import * as ESV from '../../models/esv';
 
-const Verse = ({ book, chapter, verse }) => {
+const VerseText = ({ book, chapter, verse }) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -16,4 +16,4 @@ const Verse = ({ book, chapter, verse }) => {
   }
 };
 
-export default Verse;
+export default VerseText;

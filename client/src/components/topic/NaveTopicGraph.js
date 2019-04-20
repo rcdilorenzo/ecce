@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Async from 'react-async';
 import { ForceGraph2D } from 'react-force-graph';
 
-import * as Nave from '../models/nave';
-import AsyncError from './AsyncError';
+import * as Nave from '../../models/nave';
+import AsyncError from '../AsyncError';
 
 
 const graphData = ({ topicId, topicName, categories }) => ({

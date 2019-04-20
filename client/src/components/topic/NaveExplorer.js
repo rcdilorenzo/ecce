@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as Nave from '../models/nave';
+import * as Nave from '../../models/nave';
 import * as R from 'ramda';
 import Select from 'react-select';
 

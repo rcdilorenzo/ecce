@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import * as R from 'ramda';
 
 import * as ESV from '../../models/esv';
-import VerseTopics from '../VerseTopics';
-import VerseSelector from '../VerseSelector';
-import NaveExplorer from '../NaveExplorer';
+import VerseTopics from '../verse/VerseTopics';
+import VerseSelector from '../verse/VerseSelector';
+import NaveExplorer from '../topic/NaveExplorer';
 import Dashboard from '../Dashboard';
 import Card from '../Card';
-import TopicCountByVerse from '../cards/TopicCountByVerse';
-import VerseCountByTopic from '../cards/VerseCountByTopic';
+import TopicCountByVerse from '../eda/TopicCountByVerse';
+import VerseCountByTopic from '../eda/VerseCountByTopic';
 
 const mergeRight = R.flip(R.merge);
 

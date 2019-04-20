@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 
 import AsyncError from '../AsyncError';
 import PageWrapper from '../PageWrapper';
-import NaveTopicGraph from '../NaveTopicGraph';
+import NaveTopicGraph from '../topic/NaveTopicGraph';
 import PassageBlock from '../PassageBlock';
 
 import * as Nave from '../../models/nave';

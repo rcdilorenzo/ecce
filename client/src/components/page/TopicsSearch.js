@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import qs from 'query-string';
 
 import PageWrapper from '../PageWrapper';
-import TopicSearchResult from '../TopicSearchResult';
+import TopicSearchResult from '../topic/TopicSearchResult';
 
 const paramsQuery = R.pipe(
   R.prop('location'),

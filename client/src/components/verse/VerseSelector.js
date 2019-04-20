@@ -1,10 +1,10 @@
 import React from 'react';
 import Async from 'react-async';
-import AsyncError from './AsyncError';
+import AsyncError from '../AsyncError';
 import Select from 'react-select';
 import * as R from 'ramda';
 
-import * as ESV from '../models/esv';
+import * as ESV from '../../models/esv';
 
 const toOptions = (value) => {
   return { value, label: value };
