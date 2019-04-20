@@ -108,3 +108,4 @@ def n_max_indices(m, n=5):
         n_max_indices(m) == expected
     """
     return m.argsort()[-n:][::-1]
+

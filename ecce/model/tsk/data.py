@@ -1,6 +1,6 @@
 from multiprocessing import Pool, cpu_count
 
-import ecce.modeling.text as text
+import ecce.model.text as text
 import ecce.tsk as tsk
 import ecce.esv as esv
 import numpy as np
@@ -15,6 +15,9 @@ from tqdm import tqdm
 
 @memoize
 def data_split():
+    # TODO: Use word embeddings instead of SVD for words in order to better
+    # generalize when unfamiliar words are used
+
     bow = bag_of_words(tsk.init())
     vectors = pipe(bow, map(second), list, np.array)
     uuids = pipe(bow, map(first), list, np.array, reshape_one_hot_encode,

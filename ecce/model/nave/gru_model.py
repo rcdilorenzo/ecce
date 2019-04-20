@@ -4,8 +4,8 @@ from keras.layers.embeddings import Embedding
 from keras.optimizers import *
 from toolz import memoize, pipe
 
-import ecce.modeling.nave.data as data
-from ecce.modeling.nave.model import Model
+import ecce.model.nave.data as data
+from ecce.model.nave.model import Model
 
 
 class GruModel(Model):

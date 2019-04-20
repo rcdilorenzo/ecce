@@ -146,6 +146,8 @@ def topic_encoder():
 
 @memoize
 def data_split():
+    # TODO: Try bag of words approach instead of sequence
+    # TODO: Down sample the really large topics
     df = filtered_frame()
     text = tokenize(df.text.values)
     topics = topic_encoder().transform(df.topics.values)

@@ -1,4 +1,4 @@
-import ecce.modeling.nave.data as data
+import ecce.model.nave.data as data
 
 def describe_data():
     def describe_frame():

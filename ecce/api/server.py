@@ -7,7 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from ecce.constants import *
 import ecce.nave as nave
 import ecce.passage as passage
-import ecce.modeling.nave.data as data
+import ecce.model.nave.data as data
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
@@ -18,9 +18,7 @@ with open(ESV_PATH) as f:
     references = {
         book: {
             chapter: sorted([int(k) for k in verses])[-1]
-            for chapter, verses in chapters.items()
-        }
-        for book, chapters in esv.items()
+            for chapter, verses in chapters.items()} for book, chapters in esv.items()
     }
 
 with open(NAVE_EXPORT_REF) as f:
@@ -139,3 +137,7 @@ def default_passages():
         pd.DataFrame,
         _as_dict
     )
+
+
+
+

@@ -1,8 +1,8 @@
 import numpy as np
 
 import ecce.tsk as tsk
-import ecce.modeling.tsk.data as data
-from ecce.modeling.text import DEFAULT_SVD_COMPONENTS
+import ecce.model.tsk.data as data
+from ecce.model.text import DEFAULT_SVD_COMPONENTS
 
 def describe_tsk():
 

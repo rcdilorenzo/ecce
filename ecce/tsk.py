@@ -5,8 +5,8 @@ import uuid
 import warnings
 from multiprocessing import Pool, cpu_count
 
-import ecce.modeling.nave.data as data
-import ecce.modeling.text as text
+import ecce.model.nave.data as data
+import ecce.model.text as text
 import ecce.reference as reference
 import ecce.passage as passage
 import pandas as pd

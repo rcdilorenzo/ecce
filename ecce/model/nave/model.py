@@ -2,7 +2,7 @@ import logging
 import os
 import uuid
 
-import ecce.modeling.nave.data as data
+import ecce.model.nave.data as data
 import numpy as np
 from ecce.constants import CHECKPOINTS_PATH
 from keras.callbacks import EarlyStopping, ModelCheckpoint

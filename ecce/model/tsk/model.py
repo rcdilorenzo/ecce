@@ -10,10 +10,10 @@ from keras.optimizers import *
 from lenses import lens
 from toolz import first, memoize, pipe, compose
 
-import ecce.modeling.tsk.data as data
+import ecce.model.tsk.data as data
 import ecce.tsk as tsk
 from ecce.constants import CHECKPOINTS_PATH
-from ecce.modeling.text import DEFAULT_SVD_COMPONENTS
+from ecce.model.text import DEFAULT_SVD_COMPONENTS
 import ecce.utils as utils
 from ecce.utils import list_map
 
