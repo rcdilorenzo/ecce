@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Card = ({ children }) =>  {
-  const className = [
-    'flex-1',
-    'flex-no-shrink',
-    'm-2',
-    'p-8',
-    'bg-subtle',
-    'rounded-lg',
-    'shadow-md',
-    'md:w-1/2',
-    'card'
-  ].join(' ');
+class Card extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className={className}>
-      {children}
-    </div>
-  );
-};
+    this.className = [
+      'flex-1',
+      'flex-no-shrink',
+      'mt-4',
+      'mb-4',
+      'p-8',
+      'bg-grey-subtle',
+      'rounded-lg',
+      'shadow-md',
+      'card'
+    ].join(' ');
+
+    this.state = { isLoaded: props.waitForLoad || false };
+  }
+
+  componentDidMount() {
+    this.setState({ isLoaded: true });
+  }
+
+  render() {
+    return (
+      <div className={this.className}>
+        {this.state.isLoaded && this.props.children}
+      </div>
+    );
+  }
+}
 
 export default Card;

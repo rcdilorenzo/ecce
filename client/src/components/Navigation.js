@@ -4,10 +4,10 @@ import PageWrapper from './PageWrapper';
 
 const Navigation = () => {
   return (
-    <nav className="w-full nav-bg">
+    <nav className="w-full bg-primary">
       <div className="max-w-lg mx-auto flex items-center pl-3 pr-3">
         <h1 className="flex-no-grow">
-          <Link to="/" className="text-white no-underline">Ecce</Link>
+          <Link to="/" className="text-light no-underline">Ecce</Link>
         </h1>
         <ul className="nav-list flex-grow ml-5">
           <li>

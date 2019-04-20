@@ -14,7 +14,7 @@ const topicId = R.view(R.lensPath(['match', 'params', 'topicId']));
 
 const graphWidth = () => {
   const innerWidth = window.innerWidth;
-  return Math.min(800, innerWidth - 40);
+  return Math.min(774, innerWidth - 40);
 };
 
 const TopicShow = props => {
@@ -27,7 +27,7 @@ const TopicShow = props => {
       </Helmet>
 
       <h1>{label}</h1>
-      <div className="bg-subtle">
+      <div className="bg-white border rounded-lg border-light">
         <NaveTopicGraph
           width={graphWidth}
           topicId={id}

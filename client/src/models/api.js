@@ -46,5 +46,10 @@ export const path = {
     byReference: (book, chapter, verse) => (
       `/api/data/${book}/${chapter}/${verse}`
     )
+  },
+  passages: {
+    default: (params={}) => (
+      `/api/passages/default?${qs.stringify(params)}`
+    )
   }
 };

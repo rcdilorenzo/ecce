@@ -1,62 +1,34 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as R from 'ramda';
 
 import * as ESV from '../../models/esv';
-import VerseTopics from '../verse/VerseTopics';
-import VerseSelector from '../verse/VerseSelector';
-import NaveExplorer from '../topic/NaveExplorer';
-import Dashboard from '../Dashboard';
-import Card from '../Card';
-import TopicCountByVerse from '../eda/TopicCountByVerse';
-import VerseCountByTopic from '../eda/VerseCountByTopic';
+import PageWrapper from '../PageWrapper';
+import TopicResults from '../ai/TopicResults';
+import PassageResults from '../ai/PassageResults';
 
 const mergeRight = R.flip(R.merge);
 
-class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      book: ESV.books[0], chapter: 1, verse: 1
-    };
-  }
+const Index = props => (
+  <PageWrapper>
+    <h1 className="pt-3 text-center">Bible Text AI</h1>
+    <p className="text-center">
+      Type any text and we'll find related Biblical topics and verses
+    </p>
+    <textarea
+      placeholder="e.g. God does not need our approval for his decisions."
+      className="search w-full" style={{ marginBottom: '0.5rem' }}
+      name="search" type="text" />
+    <button className="search-button italic">Coming soon...</button>
 
-  bookSelected(selected) {
-    this.setState(mergeRight({ book: selected.value, chapter: 1, verse: 1 }));
-  }
-
-  chapterSelected(selected) {
-    this.setState(mergeRight({ chapter: selected.value, verse: 1 }));
-  }
-
-  verseSelected(selected) {
-    this.setState({ verse: selected.value });
-  }
-
-  render() {
-    const selectionHandlers = {
-      bookSelected: this.bookSelected.bind(this),
-      chapterSelected: this.chapterSelected.bind(this),
-      verseSelected: this.verseSelected.bind(this)
-    };
-
-    return (
-      <Dashboard>
-        <Card>
-          <VerseSelector {...this.state} handlers={selectionHandlers} />
-          <VerseTopics {...this.state} />
-        </Card>
-        <Card>
-          <NaveExplorer />
-        </Card>
-        <Card>
-          <TopicCountByVerse />
-        </Card>
-        <Card>
-          <VerseCountByTopic />
-        </Card>
-      </Dashboard>
-    );
-  }
-};
+    <div className="md:flex flex-column">
+      <article className="flex-grow">
+        <TopicResults />
+      </article>
+      <article className="flex-grow md:ml-2">
+        <PassageResults />
+      </article>
+    </div>
+  </PageWrapper>
+);
 
 export default Index;

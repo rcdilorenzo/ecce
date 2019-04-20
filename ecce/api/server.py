@@ -129,3 +129,13 @@ def topic_data_by_reference(book: str, chapter: int, verse: int):
         return {'error': str(e), 'type': 'KeyError'}
 
 
+@app.get('/api/passages/default')
+def default_passages():
+    return pipe(
+        "Joh3:16; Jer29:11; Ge1:1; Php4:13; Ro8:28; Ps23:1-6; Php4:6; Mt28:19; Eph2:8; Ga5:22; Ro12:1",
+        nave.parse,
+        passage.init,
+        passage.text,
+        pd.DataFrame,
+        _as_dict
+    )

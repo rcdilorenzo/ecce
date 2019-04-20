@@ -1,3 +1,7 @@
 h1 {
     @apply pt-3 pb-3;
 }
+
+h2 {
+    @apply pt-2 pb-2;
+}

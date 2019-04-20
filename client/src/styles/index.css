@@ -2,6 +2,51 @@
 @tailwind utilities;
 @import "fonts";
 
+/* https://color.adobe.com/Blue-Tones-color-theme-12387830 */
+.bg-primary {
+    background: #233656;
+}
+
+.text-light {
+    color: #F0F0DF;
+}
+
+.bg-light {
+    background: #F0F0DF;
+}
+
+.border-primary {
+    border: 1px solid #233656;
+}
+
+.border-light {
+    background: 1px solid #F0F0DF;
+}
+
+.text-primary-color {
+    color: #233656;
+}
+
+.text-accent {
+    color: #FFBE45;
+}
+
+.bg-accent {
+    background: #FFBE45;
+}
+
+.bg-accent-lighter {
+    background: #FFCB6B;
+}
+
+.bg-grey-subtle {
+    background: #DAE3E8;
+}
+
+.text-nav {
+    color: #233656;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -10,6 +55,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply bg-light;
 }
 
 code {
@@ -29,30 +75,17 @@ code {
     }
 }
 
-/* https://color.adobe.com/kuler/12387830 */
-.nav-bg {
-    background: #233656;
-}
-
-.bg-subtle {
-    background: #DAE3E8;
-}
-
-.text-nav {
-    color: #233656;
-}
-
 .nav-list {
     @apply flex list-reset;
 }
 
 .nav-list__block-link {
-    @apply block p-5 pt-6 text-white no-underline text-sm;
+    @apply block p-5 pt-6 text-light no-underline text-sm;
     text-transform: uppercase;
 }
 
 .nav-list__block-link--active {
-    @apply bg-white text-nav;
+    @apply bg-light text-nav;
 }
 
 .nav-list__block-link:hover {
@@ -60,7 +93,7 @@ code {
 }
 
 .nav-list__social-link {
-    @apply block p-2 text-grey-light no-underline text-lg;
+    @apply block p-2 text-light no-underline text-lg;
     &:hover {
         @apply text-white;
     }
@@ -70,15 +103,15 @@ code {
     @apply p-3 mt-3 mb-5 rounded-lg border border-black outline-none;
 
     &:focus {
-        @apply border-blue-dark;
+        @apply border-primary;
     }
 }
 
 .list-item {
-    @apply no-underline text-black flex p-3 mb-1 border border-grey-darker flex-wrap;
+    @apply no-underline text-black flex p-3 mb-1 border border-light flex-wrap bg-white;
 
     &:hover {
-        @apply bg-subtle;
+        @apply bg-grey-subtle;
     }
 }
 
@@ -93,4 +126,12 @@ code {
 .list-item__body {
     width: 100%;
     flex-basis: 100%;
+}
+
+.search-button {
+    @apply text-center w-1/3 mx-auto block h-10 mb-3 text-primary-color bg-accent rounded;
+
+    &:hover {
+        @apply bg-accent-lighter;
+    }
 }

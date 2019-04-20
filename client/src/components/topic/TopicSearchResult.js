@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const RealSearchResult = ({ id, label, reference_count, placeholder }) => (
   <Link to={`/topics/${id}`} className="list-item">
     <header className="list-item__title">{label}</header>
-    <p className="list-item__details">{reference_count} Verses</p>
+    <p className="list-item__details">{reference_count} verses</p>
   </Link>
 );
 
