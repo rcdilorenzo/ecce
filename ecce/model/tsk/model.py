@@ -12,13 +12,12 @@ from toolz import first, memoize, pipe, compose
 from collections import namedtuple as Struct
 
 import ecce.model.tsk.data as data
+import ecce.model.tsk.cluster_result as cluster_result
 import ecce.tsk as tsk
 from ecce.constants import CHECKPOINTS_PATH
 from ecce.model.text import DEFAULT_SVD_COMPONENTS
 import ecce.utils as utils
 from ecce.utils import list_map
-
-ClusterResult = Struct('ClusterResult', ['probability', 'uuid'])
 
 class ClusterModel():
     def __init__(self):
@@ -79,11 +78,9 @@ class ClusterModel():
 
         Returns:
 
-           list of (probability, cluster_id) tuples
+           list of ClusterResult structs
         """
         result = self.model.predict(data.tokenize([text]))
-
-        print(result.shape)
 
         indices = utils.n_max_indices(result[0], n=n_max)
 
@@ -97,7 +94,7 @@ class ClusterModel():
                     .inverse_transform(utils.categories_to_selections(chosen))
                     .reshape(1, -1)[0])
 
-        return list_map(lambda x: ClusterResult(*x), zip(probabilities, clusters))
+        return list_map(lambda x: cluster_result.init(*x), zip(probabilities, clusters))
 
     def predict_repl(self, text, n_max):
         predicted = self.predict(text, n_max)

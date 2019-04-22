@@ -13,6 +13,7 @@ from ecce.utils import *
 
 ClusterResult = Struct('ClusterResult', ['probability', 'uuid', 'reference', 'text', 'passages'])
 
+# Note: Implementation requires two keys to transform to dictionary
 WeightedTfIdfTopic = Struct('WeightedTfIdfTopic', ['topic_id', 'score'])
 
 
