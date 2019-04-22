@@ -32,6 +32,10 @@ def describe_nave():
                 result = nave.best_match_topic_for('wor')
                 assert result['label'] == 'WORD OF GOD'
 
+            def removing_parentheses():
+                result = nave.best_match_topic_for('WICKED PEOPLE')
+                assert result['label'] == 'WICKED (PEOPLE)'
+
             def no_match():
                 result = nave.best_match_topic_for('i love cheese')
                 assert result == None

@@ -19,6 +19,7 @@ from tqdm import tqdm
 
 _writer = None
 
+@memoize
 def init():
     if os.path.isfile(TSK_PATH):
         return pd.read_csv(TSK_PATH)

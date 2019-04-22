@@ -10,7 +10,7 @@ import pandas as pd
 import spacy
 from ecce.constants import *
 from ecce.utils import *
-from funcy import first, flatten, memoize, second, rpartial
+from funcy import first, flatten, memoize, second, rpartial, iffy
 from lenses import lens
 from pymonad.Maybe import *
 from toolz.curried import *
@@ -105,8 +105,8 @@ def topics_matching_extracted(topic_chunk, references=False):
     """Find all topic-based rows where the label includes the topic_chunk.
     Return data frame with columns (id, label, reference_count, references)
     """
-    frame = by_topic_nodes(references=references)
-    results = frame[frame.label.str.contains(topic_chunk, regex=False, case=False, na=False)]
+    frame = by_topic_nodes(references=references, simple_label=True)
+    results = frame[frame.simple_label.str.contains(topic_chunk, regex=False, case=False, na=False)]
     return results.sort_values('reference_count', ascending=False)
 
 
@@ -177,10 +177,10 @@ def by_category_nodes():
 
 
 @memoize
-def by_topic_nodes(references=False):
+def by_topic_nodes(references=False, use_set=False, simple_label=False):
     """Transform init() frame into the following columns:
 
-        id, label, reference_count, references (optional)
+        id, label, simple_label (optional), reference_count, references (optional)
     """
     by_topic = compose(topic_id, second)
 
@@ -196,7 +196,20 @@ def by_topic_nodes(references=False):
         }
         options = {**options, **references_option}
 
-    return _by_group_transform(by_topic, options.items())
+    if simple_label:
+        options = {
+            **options, 'simple_label':
+            compose(iffy(lambda x: isinstance(x, str), lambda x: x.replace('(', '').replace(')', '')),
+                group_attr(topic_text))
+        }
+
+
+    df = _by_group_transform(by_topic, options.items())
+
+    if references and use_set:
+        df.references = df.references.apply(frozenset)
+
+    return df
 
 
 def by_topic():
@@ -326,18 +339,18 @@ def parse(raw_reference, abbreviations=NAVE_ABBREVIATIONS):
 
 def topics_frame(passage_or_passages, df=None):
     if df is None:
-        df = by_topic_nodes(references=True)
+        df = by_topic_nodes(references=True, use_set=True)
 
     if isinstance(passage_or_passages, list):
         references = pipe(
             passage_or_passages,
             map(rpartial(getattr, 'references')),
             concat,
-            set)
+            frozenset)
     else:
-        references = set(passage_or_passages.references)
+        references = frozenset(passage_or_passages.references)
 
-    overlapping = df.references.apply(lambda r: len(set(r) & references) > 0)
+    overlapping = df.references.apply(lambda r: len(r & references) > 0)
 
     return df[overlapping]
 
