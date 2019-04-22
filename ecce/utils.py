@@ -9,9 +9,13 @@ import pandas as pd
 from pymonad.List import *
 from pymonad.Maybe import *
 from toolz.curried import *
+from funcy import rpartial, compose, count_reps, cat
 
 list_filter = curry(lambda f, x: list(filter(f, x)))
 list_map = curry(lambda f, x: list(map(f, x)))
+attr = lambda key: rpartial(getattr, key)
+count_nested_reps = compose(count_reps, list, cat)
+mean = lambda values: sum(values) / float(len(values))
 lines = '\n'.join
 
 def cache_frame(filename, tsv=False):

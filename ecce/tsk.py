@@ -13,7 +13,7 @@ import pandas as pd
 from ecce.constants import *
 from ecce.nave import parse as nave_parse
 from ecce.utils import *
-from funcy import first, second, iffy
+from funcy import first, second, iffy, constantly
 from toolz import curry, memoize
 from tqdm import tqdm
 
@@ -69,7 +69,7 @@ def find_by_uuid(uuid):
 
 def passages_by_uuid(uuid, include_text=False):
     references = find_by_uuid(uuid).apply(reference.init_raw_row, axis=1).tolist()
-    return pipe(references, passage.init, iffy(include_text, passage.text))
+    return pipe(references, passage.init, iffy(constantly(include_text), passage.text))
 
 
 @curry

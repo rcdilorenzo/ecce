@@ -324,7 +324,10 @@ def parse(raw_reference, abbreviations=NAVE_ABBREVIATIONS):
         mcompact)
 
 
-def topics_frame(passage_or_passages):
+def topics_frame(passage_or_passages, df=None):
+    if df is None:
+        df = by_topic_nodes(references=True)
+
     if isinstance(passage_or_passages, list):
         references = pipe(
             passage_or_passages,
@@ -334,7 +337,6 @@ def topics_frame(passage_or_passages):
     else:
         references = set(passage_or_passages.references)
 
-    df = by_topic_nodes(references=True)
     overlapping = df.references.apply(lambda r: len(set(r) & references) > 0)
 
     return df[overlapping]
@@ -369,3 +371,4 @@ def _by_group_transform(groupby_f, columns_to_transforms):
     data = list_map(to_data, groupby(groupby_f, init()).values())
 
     return pd.DataFrame(data, columns=list_map(first, columns_to_transforms))
+
