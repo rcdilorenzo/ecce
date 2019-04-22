@@ -20,6 +20,14 @@ spacy.prefer_gpu()
 # Download with `python -m spacy download en`
 nlp = None # Lazy-loaded
 
+subtopic_id   = lambda v: f"sbtpc:{v['subtopic_key']}:{v['source_topic_key']}"
+subtopic_text = lambda v: v['subtopic_text']
+category_id   = lambda v: f"cat:{v['category_key']}"
+category_text = lambda v: v['category_text']
+topic_id      = lambda v: f"tpc:{v['topic_key']}"
+topic_text    = lambda v: v['topic_name']
+
+group_attr = lambda f: compose(f, second, first)
 
 @memoize
 def init():
@@ -86,22 +94,11 @@ def extract_topics_of(nave_data):
     Returns:
         list of topics
     """
-    # TODO: Beef up implementation
 
     global nlp
     if nlp is None: nlp = spacy.load('en')
 
     return _extract_topic_name_topics(nave_data['topic_name'])
-
-@memoize
-def _extract_topic_name_topics(string):
-    if not isinstance(string, str): return []
-    if len(string) == 0: return []
-
-    # TODO: Determine how to add this to spaCy pipeline
-    string = string.replace('(', '').replace(')', '')
-
-    return [n.text for n in nlp(string).noun_chunks]
 
 
 def topics_matching_extracted(topic_chunk, references=False):
@@ -113,20 +110,21 @@ def topics_matching_extracted(topic_chunk, references=False):
     return results.sort_values('reference_count', ascending=False)
 
 
-def top_topic_matching_extracted(topic_chunk, references=False):
-    """Find most frequently occurring topic row where the label includes the
-    topic_chunk.
+def best_match_topic_for(topic_chunk):
+    """Find best match of topic row where the label includes the topic_chunk.
 
-    Return data frame with columns (id, label, reference_count, references)
+    Return dictionary of result
     """
     results = topics_matching_extracted(topic_chunk)
-    if len(results) > 0:
-        columns = list(filter(lambda x: x != 'references', results.columns))
-        dictionary = json.loads(results.iloc[0][columns].to_json())
-        dictionary['references'] = results.iloc[0].references
-        return dictionary
-    else:
+
+    if len(results) == 0:
         return None
+
+    if topic_chunk in results.label.tolist():
+        # TODO: Remove horribly procedural rewrite of variable
+        results = results[results.label == topic_chunk]
+
+    return json.loads(results.iloc[0].to_json())
 
 def by_reference():
     attr = flip(getattr)
@@ -151,15 +149,6 @@ def by_reference():
         }
         for book, book_values in groupby(by_book, init()).items()
     }
-
-subtopic_id   = lambda v: f"sbtpc:{v['subtopic_key']}:{v['source_topic_key']}"
-subtopic_text = lambda v: v['subtopic_text']
-category_id   = lambda v: f"cat:{v['category_key']}"
-category_text = lambda v: v['category_text']
-topic_id      = lambda v: f"tpc:{v['topic_key']}"
-topic_text    = lambda v: v['topic_name']
-
-group_attr = lambda f: compose(f, second, first)
 
 def by_subtopic_nodes():
     attr = flip(getattr)
@@ -208,19 +197,6 @@ def by_topic_nodes(references=False):
         options = {**options, **references_option}
 
     return _by_group_transform(by_topic, options.items())
-
-
-def _by_group_transform(groupby_f, columns_to_transforms):
-    attr = flip(getattr)
-    category_id = lambda v: v['category_key']
-    category_text = lambda v: v['category_text']
-
-    by_category = compose(category_id, second)
-    to_data = juxt(list_map(second, columns_to_transforms))
-
-    data = list_map(to_data, groupby(groupby_f, init()).values())
-
-    return pd.DataFrame(data, columns=list_map(first, columns_to_transforms))
 
 
 def by_topic():
@@ -288,12 +264,6 @@ def df():
 
     df.to_csv(NAVE_FRAME_PATH, index=False)
     return df
-
-
-def _parse_refs(index_and_row):
-    _, row = index_and_row
-    return list_map(lambda reference: (reference, row.to_dict()),
-                    parse(row.at['reference_list']))
 
 
 def parse(raw_reference, abbreviations=NAVE_ABBREVIATIONS):
@@ -368,3 +338,34 @@ def topics_frame(passage_or_passages):
     overlapping = df.references.apply(lambda r: len(set(r) & references) > 0)
 
     return df[overlapping]
+
+# Helper Functions
+
+@memoize
+def _extract_topic_name_topics(string):
+    if not isinstance(string, str): return []
+    if len(string) == 0: return []
+
+    # TODO: Determine how to add this to spaCy pipeline
+    string = string.replace('(', '').replace(')', '')
+
+    return [n.text for n in nlp(string).noun_chunks]
+
+
+def _parse_refs(index_and_row):
+    _, row = index_and_row
+    return list_map(lambda reference: (reference, row.to_dict()),
+                    parse(row.at['reference_list']))
+
+
+def _by_group_transform(groupby_f, columns_to_transforms):
+    attr = flip(getattr)
+    category_id = lambda v: v['category_key']
+    category_text = lambda v: v['category_text']
+
+    by_category = compose(category_id, second)
+    to_data = juxt(list_map(second, columns_to_transforms))
+
+    data = list_map(to_data, groupby(groupby_f, init()).values())
+
+    return pd.DataFrame(data, columns=list_map(first, columns_to_transforms))

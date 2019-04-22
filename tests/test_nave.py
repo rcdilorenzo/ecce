@@ -18,6 +18,24 @@ def describe_nave():
             assert frame.label.iloc[0] == 'TIME'
             assert len(frame) == 7
 
+    def describe_finding_topics_from_extracted():
+
+        def describe_best_match_topic_for():
+
+            def exact_match():
+                # Should not return "WORD OF GOD" even though more topics
+                # because match is exact
+                result = nave.best_match_topic_for('WORD')
+                assert result['label'] == 'WORD'
+
+            def ambiguous_match():
+                result = nave.best_match_topic_for('wor')
+                assert result['label'] == 'WORD OF GOD'
+
+            def no_match():
+                result = nave.best_match_topic_for('i love cheese')
+                assert result == None
+
 
     def describe_reference_parsing():
 

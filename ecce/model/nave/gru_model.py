@@ -19,7 +19,7 @@ class GruModel(Model):
         word_count = embedding_matrix.shape[0]
         embedding_size = embedding_matrix.shape[1]
         max_length = data._text_tokenizer().num_words
-        topic_count = len(data.topic_encoder().classes_)
+        topic_count = len(data.topic_chunk_encoder().classes_)
 
         inputs = Input(shape=(max_length, ))
 

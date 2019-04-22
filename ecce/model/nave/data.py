@@ -138,7 +138,7 @@ def tokenize(sentences):
 
 
 @memoize
-def topic_encoder():
+def topic_chunk_encoder():
     encoder = MultiLabelBinarizer()
     encoder.fit_transform(frame().topics.values)
     return encoder
@@ -150,7 +150,7 @@ def data_split():
     # TODO: Down sample the really large topics
     df = filtered_frame()
     text = tokenize(df.text.values)
-    topics = topic_encoder().transform(df.topics.values)
+    topics = topic_chunk_encoder().transform(df.topics.values)
     return train_test_split(text, topics, test_size=0.2, random_state=1337)
 
 

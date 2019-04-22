@@ -9,6 +9,7 @@ from keras.layers import *
 from keras.optimizers import *
 from lenses import lens
 from toolz import first, memoize, pipe, compose
+from collections import namedtuple as Struct
 
 import ecce.model.tsk.data as data
 import ecce.tsk as tsk
@@ -17,6 +18,7 @@ from ecce.model.text import DEFAULT_SVD_COMPONENTS
 import ecce.utils as utils
 from ecce.utils import list_map
 
+ClusterResult = Struct('ClusterResult', ['probability', 'uuid'])
 
 class ClusterModel():
     def __init__(self):
@@ -95,7 +97,7 @@ class ClusterModel():
                     .inverse_transform(utils.categories_to_selections(chosen))
                     .reshape(1, -1)[0])
 
-        return list(zip(probabilities, clusters))
+        return list_map(lambda x: ClusterResult(*x), zip(probabilities, clusters))
 
     def predict_repl(self, text, n_max):
         predicted = self.predict(text, n_max)

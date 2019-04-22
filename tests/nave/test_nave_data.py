@@ -10,8 +10,8 @@ def describe_data():
         def excluding_missing_topics():
             assert 0 not in data.frame().topics.apply(len).value_counts().index
 
-    def topic_encoder():
-        encoder = data.topic_encoder()
+    def topic_chunk_encoder():
+        encoder = data.topic_chunk_encoder()
         assert encoder.classes_.shape[0] > 1000
 
     def text_tokenizer():

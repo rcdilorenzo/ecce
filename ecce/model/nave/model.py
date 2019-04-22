@@ -3,11 +3,13 @@ import os
 import uuid
 
 import ecce.model.nave.data as data
+import ecce.model.nave.topic_result as topic_result
 import numpy as np
 from ecce.constants import CHECKPOINTS_PATH
 from keras.callbacks import EarlyStopping, ModelCheckpoint
-from toolz import first
-
+from collections import namedtuple as Struct
+from toolz import first, pipe
+from ecce.utils import *
 
 class Model():
     def load_weights(self, name):
@@ -46,8 +48,13 @@ class Model():
         chosen[(result[:] >= threshold)] = 1
         chosen[(result[:] < threshold)] = 0
 
-        topics = data.topic_encoder().inverse_transform(chosen)[0]
-        return list(reversed(sorted(zip(probabilities, topics), key=first)))
+        topic_chunks = data.topic_chunk_encoder().inverse_transform(chosen)[0]
+
+        return pipe(
+            zip(probabilities, topic_chunks),
+            sorted(key=first),
+            reversed,
+            list_map(lambda x: topic_result.init(*x)))
 
 
     def callbacks(self):
