@@ -5,11 +5,12 @@ from multiprocessing import Pool, cpu_count
 import ecce.esv
 import ecce.passage as passage
 import ecce.reference as ref
+import ecce.model.nave.data as nave_data
 import pandas as pd
 import spacy
 from ecce.constants import *
 from ecce.utils import *
-from funcy import first, flatten, memoize, second
+from funcy import first, flatten, memoize, second, rpartial
 from lenses import lens
 from pymonad.Maybe import *
 from toolz.curried import *
@@ -57,8 +58,11 @@ def init():
 
     return results
 
-@memoize
 def topic_data_frame(module=ecce.esv):
+    """Expensive operation to aggregate topics by verse
+
+    (Note: used for export to CSV and then loaded with ecce.model.nave.data)
+    """
     columns = ['book', 'chapter', 'verse', 'topics']
     df = pd.DataFrame([
         list(ref._asdict().values()) + [extract_topics_of(data)]
@@ -348,3 +352,19 @@ def parse(raw_reference, abbreviations=NAVE_ABBREVIATIONS):
         map(_to_references),
         flatten,
         mcompact)
+
+
+def topics_frame(passage_or_passages):
+    if isinstance(passage_or_passages, list):
+        references = pipe(
+            passage_or_passages,
+            map(rpartial(getattr, 'references')),
+            concat,
+            set)
+    else:
+        references = set(passage_or_passages.references)
+
+    df = by_topic_nodes(references=True)
+    overlapping = df.references.apply(lambda r: len(set(r) & references) > 0)
+
+    return df[overlapping]

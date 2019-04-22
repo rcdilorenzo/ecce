@@ -1,7 +1,23 @@
 import ecce.nave as nave
 import ecce.reference as reference
+import ecce.passage as passage
 
 def describe_nave():
+
+    def describe_topics_frame():
+
+        def single():
+            p = passage.init([reference.Data('Genesis', 1, 1)])[0]
+            frame = nave.topics_frame(p)
+            assert frame.label.iloc[0] == 'TIME'
+            assert len(frame) == 7
+
+        def multiple():
+            p = passage.init([reference.Data('Genesis', 1, 1)])
+            frame = nave.topics_frame(p)
+            assert frame.label.iloc[0] == 'TIME'
+            assert len(frame) == 7
+
 
     def describe_reference_parsing():
 
