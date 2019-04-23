@@ -34,8 +34,8 @@ def init(book, chapter, verse):
 def init_raw_row(row, prefix=''):
     return Data(
         row.at[f'{prefix}book'],
-        row.at[f'{prefix}chapter'],
-        row.at[f'{prefix}verse'])
+        int(row.at[f'{prefix}chapter']),
+        int(row.at[f'{prefix}verse']))
 
 def ordered_unique(references):
     def key(ref):

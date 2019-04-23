@@ -9,6 +9,7 @@ from ecce.constants import CHECKPOINTS_PATH
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from collections import namedtuple as Struct
 from toolz import first, pipe
+from funcy import distinct, rpartial
 from ecce.utils import *
 
 class Model():
@@ -54,7 +55,8 @@ class Model():
             zip(probabilities, topic_chunks),
             sorted(key=first),
             reversed,
-            list_map(lambda x: topic_result.init(*x)))
+            list_map(lambda x: topic_result.init(*x)),
+            rpartial(distinct, attr('id')))
 
 
     def callbacks(self):

@@ -21,7 +21,7 @@ def init(probability, uuid):
     ref = reference.init_raw_row(
         tsk.find_by_uuid(uuid).iloc[0], prefix='linked_')
 
-    return ClusterResult(probability, uuid, ref, esv.text(ref),
+    return ClusterResult(float(probability), uuid, ref, esv.text(ref),
                          tsk.passages_by_uuid(uuid))
 
 

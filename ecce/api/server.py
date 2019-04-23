@@ -1,3 +1,4 @@
+import os
 import json
 
 import pandas as pd
@@ -8,6 +9,7 @@ from ecce.constants import *
 import ecce.nave as nave
 import ecce.passage as passage
 import ecce.model.nave.data as data
+from ecce.model.ecce import EcceModel
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
@@ -40,9 +42,21 @@ category_frame = pd.read_csv(NAVE_CATEGORY_NODES, sep='\t')
 
 processed_data = pd.read_csv(NLP_TOPICS_PATH, sep='\t')
 
+@memoize
+def model():
+    return EcceModel(os.environ['ECCE_TOPIC_WEIGHTS'], os.environ['ECCE_TSK_WEIGHTS'])
+
 # ============
 # Handlers
 # ============
+
+
+@app.post('/api/predict')
+def predict(text: str):
+    result = model().predict(text)
+    topics = _as_dict(pd.DataFrame(result.topics))
+    clusters = _as_dict(pd.DataFrame(result.clusters))
+    return { 'topics': topics, 'clusters': clusters }
 
 
 @app.get('/api/esv/references')

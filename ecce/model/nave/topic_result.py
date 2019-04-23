@@ -31,5 +31,5 @@ def intersect_with_weighted_tf_idf(topic_results, weighted_tf_idf_topics):
 
     return list_map(
         lambda r: TopicResult(
-            r.probability * id_to_tf_idf.get(r.id, min_weight), r.id, r.label),
+            float(r.probability * id_to_tf_idf.get(r.id, min_weight)), r.id, r.label),
         topic_results)
