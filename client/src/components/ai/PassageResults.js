@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import LoadingIndicator from 'react-loading-indicator';
 
-import * as Passage from '../../models/passage';
 import TopicSearchResult from '../topic/TopicSearchResult';
 import PassageBlock from '../PassageBlock';
 
-const PassageResults = props => {
-  const [results, setResults] = useState([{ name: 'Loading...', references: [], text: '' }]);
-
-  useEffect(() => {
-    Passage.defaultPassages().then(setResults);
-  }, setResults);
-
-  return (
-    <React.Fragment>
-      <h2>Passages</h2>
-      {results.map(p => <PassageBlock key={p.name} linkOnly={true} {...p} />)}
-    </React.Fragment>
-  );
-};
+const PassageResults = ({ data, autoExpand }) => (
+  <React.Fragment>
+    <h2>Passages</h2>
+    {data.length === 0 && <p className="list-item">
+      <LoadingIndicator />
+      <span className="ml-2">Loading</span>
+    </p>}
+    {data.length > 0 && data.map(p =>
+      <PassageBlock key={p.name} open={autoExpand} linkOnly={!autoExpand} {...p} />
+    )}
+  </React.Fragment>
+);
 
 export default PassageResults;

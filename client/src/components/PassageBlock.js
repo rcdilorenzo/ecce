@@ -14,9 +14,9 @@ const renderContent = ({ open, name, references, text }) => (
 );
 
 const PassageBlock = (props) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.open || false);
 
-  if (props.linkOnly) {
+  if (!props.open && props.linkOnly) {
     return (
       <a className="list-item cursor-pointer"
         href={`https://www.biblegateway.com/passage/?search=${props.name}&version=ESV`}
@@ -26,8 +26,10 @@ const PassageBlock = (props) => {
     );
   }
 
+  const className = props.open ? `list-item list-item--no-hover` : `list-item cursor-pointer`;
+
   return (
-    <article className="list-item cursor-pointer" onClick={() => setOpen(!open)}>
+    <article className={className} onClick={() => props.open || setOpen(!open)}>
       {renderContent({ ...props, open })}
     </article>
   )

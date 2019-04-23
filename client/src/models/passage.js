@@ -1,5 +1,10 @@
 import * as R from 'ramda';
 import * as Api from './api';
+import * as Reference from './reference';
+
+export const init = ([name, references, text]) => ({
+  name, references: references.map(Reference.init), text
+});
 
 const memoize = R.memoizeWith(R.identity);
 

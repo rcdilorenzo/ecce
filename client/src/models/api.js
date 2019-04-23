@@ -5,8 +5,15 @@ export const parseFrameJSON = json => {
   return json.rows.map(zipObj(json.columns));
 };
 
-export const fetchJSON = (path) => {
-  return fetch(path).then(r => r.json());
+export const postJSON = path => {
+  return fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  }).then(r => r.json());
+};
+
+export const fetchJSON = (path, options = {}) => {
+  return fetch(path, options).then(r => r.json());
 };
 
 export const fetchFrame = path => {
@@ -14,6 +21,9 @@ export const fetchFrame = path => {
 };
 
 export const path = {
+  predict: (text) => (
+    `/api/predict?${qs.stringify({ text })}`
+  ),
   esv: {
     references: () => (
       '/api/esv/references'

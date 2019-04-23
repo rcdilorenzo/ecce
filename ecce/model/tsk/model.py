@@ -94,7 +94,8 @@ class ClusterModel():
                     .inverse_transform(utils.categories_to_selections(chosen))
                     .reshape(1, -1)[0])
 
-        return list_map(lambda x: cluster_result.init(*x), zip(probabilities, clusters))
+        return list_map(lambda x: cluster_result.init(*x, include_text=True),
+                        zip(probabilities, clusters))
 
     def predict_repl(self, text, n_max):
         predicted = self.predict(text, n_max)

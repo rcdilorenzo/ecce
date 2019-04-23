@@ -17,12 +17,12 @@ ClusterResult = Struct('ClusterResult', ['probability', 'uuid', 'reference', 'te
 WeightedTfIdfTopic = Struct('WeightedTfIdfTopic', ['topic_id', 'score'])
 
 
-def init(probability, uuid):
+def init(probability, uuid, include_text=False):
     ref = reference.init_raw_row(
         tsk.find_by_uuid(uuid).iloc[0], prefix='linked_')
 
     return ClusterResult(float(probability), uuid, ref, esv.text(ref),
-                         tsk.passages_by_uuid(uuid))
+                         tsk.passages_by_uuid(uuid, include_text=include_text))
 
 
 def to_mean_weighted_tf_idf_topics(cluster_results, passage_to_topic_ids=None):
