@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import PageWrapper from './PageWrapper';
 
 const Navigation = () => {
   return (
@@ -29,7 +28,7 @@ const Navigation = () => {
               to="/about">About</NavLink>
           </li>
         </ul>
-        <div className="flex-no-grow invisible sm:visible">
+        <div className="flex-no-grow hidden sm:block">
           <ul className="nav-list">
             <li>
               <a className="nav-list__social-link"

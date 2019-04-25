@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const RealSearchResult = ({ id, label, reference_count }) => (
-  <Link to={`/topics/${id}`} className="list-item">
+const RealSearchResult = ({ id, label, reference_count, openNewTab }) => (
+  <Link
+    to={`/topics/${id}`}
+    target={openNewTab ? '_blank' : null}
+    className="list-item">
+
     <header className="list-item__title">{label}</header>
     {reference_count &&
-      <p className="list-item__details">{reference_count} verses</p>}
+     <p className="list-item__details">
+       {reference_count} verses
+     </p>}
+
   </Link>
 );
 

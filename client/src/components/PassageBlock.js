@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import * as R from 'ramda';
 
 const renderContent = ({ open, name, references, text }) => (
   <React.Fragment>

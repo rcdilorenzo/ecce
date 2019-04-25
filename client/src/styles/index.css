@@ -84,6 +84,14 @@ code {
     text-transform: uppercase;
 }
 
+@media (max-width: 768px) {
+    .nav-list__block-link {
+        @apply pl-2 pr-2;
+        height: 60px;
+        font-size: 10pt;
+    }
+}
+
 .nav-list__block-link--active {
     @apply bg-light text-nav;
 }

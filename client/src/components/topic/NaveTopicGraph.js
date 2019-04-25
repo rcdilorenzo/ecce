@@ -29,7 +29,6 @@ const nodeCanvasObject = (node, ctx, globalScale) => {
   const label = node.label;
   const fontSize = Math.max(6, 4 * Math.log10(node.reference_count)) / globalScale;
   ctx.font = `${fontSize}px Sans-Serif`;
-  const textWidth = ctx.measureText(label).width;
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -37,29 +36,34 @@ const nodeCanvasObject = (node, ctx, globalScale) => {
   ctx.fillText(label, node.x, node.y);
 };
 
-const currentWidth = () => {
+const currentDimensions = () => {
+  const innerHeight = window.innerHeight;
   const innerWidth = window.innerWidth;
-  return innerWidth >= 768 ? (innerWidth / 2 - 105) : (innerWidth - 135)
+  return {
+    height: Math.min(400, innerHeight / 3),
+    width: Math.min(774, innerWidth - 40)
+  };
 };
 
 
 const NaveTopicGraph = (props) => {
-  const widthFunction = props.width ? props.width : currentWidth;
-  const [width, setWidth] = useState(widthFunction());
+  const dimensionFunction = props.dimensions ? props.dimensions : currentDimensions;
+  const [dimensions, setDimensions] = useState(dimensionFunction());
 
   useEffect(() => {
     window.addEventListener('resize', () => {
-      setWidth(widthFunction());
+      setDimensions(dimensionFunction());
     }, false);
-  }, [setWidth]);
+  }, [setDimensions]);
 
   return (
       <ForceGraph2D
-        width={width}
-        height={400}
+        width={dimensions.width}
+        height={dimensions.height}
+        linkHoverPrecision={1}
         graphData={graphData(props)}
         dagMode={'radialout'}
-        dagLevelDistance={300}
+        dagLevelDistance={250}
         linkColor={() => 'rgba(0,0,0,0.2)'}
         nodeRelSize={2}
         nodeVal={n => Math.sqrt(n.reference_count)}

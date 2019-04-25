@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import * as R from 'ramda';
 
 import LoadingIndicator from 'react-loading-indicator';
 
 import * as Ai from '../../models/ai';
-import * as ESV from '../../models/esv';
 import * as Nave from '../../models/nave';
 import * as Passage from '../../models/passage';
 import PageWrapper from '../PageWrapper';
 import TopicResults from '../ai/TopicResults';
 import PassageResults from '../ai/PassageResults';
-
-const mergeRight = R.flip(R.merge);
 
 const messages = [
   'Browsing through 856 topics',

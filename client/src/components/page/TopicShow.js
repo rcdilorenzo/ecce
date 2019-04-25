@@ -12,11 +12,6 @@ import * as Nave from '../../models/nave';
 
 const topicId = R.view(R.lensPath(['match', 'params', 'topicId']));
 
-const graphWidth = () => {
-  const innerWidth = window.innerWidth;
-  return Math.min(774, innerWidth - 40);
-};
-
 const TopicShow = props => {
   const { id, label } = props;
   console.log(props);
@@ -29,7 +24,6 @@ const TopicShow = props => {
       <h1>{label}</h1>
       <div className="bg-white border rounded-lg border-light">
         <NaveTopicGraph
-          width={graphWidth}
           topicId={id}
           topicName={label} />
       </div>

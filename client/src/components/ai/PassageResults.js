@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import LoadingIndicator from 'react-loading-indicator';
 
-import TopicSearchResult from '../topic/TopicSearchResult';
 import PassageBlock from '../PassageBlock';
 
 const PassageResults = ({ data, autoExpand }) => (

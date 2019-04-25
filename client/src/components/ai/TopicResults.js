@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import LoadingIndicator from 'react-loading-indicator';
 
 import TopicSearchResult from '../topic/TopicSearchResult';
@@ -10,7 +10,9 @@ const TopicResults = ({ data }) => (
       <LoadingIndicator />
       <span className="ml-2">Loading</span>
     </p>}
-    {data.length > 0 && data.map(r => <TopicSearchResult key={r.id} {...r} />)}
+    {data.length > 0 && data.map(r =>
+      <TopicSearchResult key={r.id} openNewTab={true} {...r} />
+    )}
   </React.Fragment>
 );
 
