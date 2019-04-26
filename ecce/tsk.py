@@ -20,7 +20,14 @@ from tqdm import tqdm
 _writer = None
 
 @memoize
-def init():
+def init(flat=False):
+    if flat:
+        df = init(flat=False)
+        references = df[['uuid', 'phrase', 'book', 'chapter', 'verse']]
+        linked = df[['uuid', 'phrase', 'linked_book', 'linked_chapter', 'linked_verse']]
+        linked.columns = linked.columns.str.replace('linked_', '')
+        return linked.append(references, ignore_index=True)
+
     if os.path.isfile(TSK_PATH):
         return pd.read_csv(TSK_PATH)
 
@@ -40,11 +47,12 @@ def init():
 
     return _init()
 
-
 @memoize
-def _init():
-    return pd.read_csv(TSK_PATH)
-
+def flattened_uuids():
+    return (init(flat=True)
+            .groupby(['book', 'chapter', 'verse'])
+            .uuid.aggregate(lambda x: list(x))
+            .reset_index())
 
 @memoize
 def df():

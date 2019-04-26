@@ -123,6 +123,10 @@ code {
     }
 }
 
+.list-item--inline {
+    @apply inline-block mr-1;
+}
+
 .list-item--no-hover {
     &:hover {
         @apply bg-white;

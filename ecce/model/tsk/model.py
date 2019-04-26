@@ -1,6 +1,7 @@
 import logging
 import os
 import uuid
+import math
 
 import keras.models
 import numpy as np
@@ -20,9 +21,6 @@ import ecce.utils as utils
 from ecce.utils import list_map
 
 class ClusterModel():
-    def __init__(self):
-        "Initialize model"
-
     def load_weights(self, name):
         self.model.load_weights(name)
 
@@ -49,18 +47,21 @@ class ClusterModel():
             self.vector_train,
             self.cluster_train,
             epochs=self.epochs,
-            batch_size=256,
+            batch_size=64,
             validation_split=0.15,
             callbacks=self.callbacks())
 
     @property
     @memoize
     def model(self):
-        uuid_count = len(data.uuid_encoder().categories_[0])
+        uuid_count = len(data.uuid_encoder().classes_)
 
         inputs = Input(shape=(DEFAULT_SVD_COMPONENTS, ))
 
-        outputs = pipe(inputs, Dense(uuid_count, activation='softmax'))
+        outputs = pipe(inputs,
+                       Dense(DEFAULT_SVD_COMPONENTS * 20, activation='relu'),
+                       Dropout(0.2),
+                       Dense(uuid_count, activation='softmax'))
 
         _model = keras.models.Model(inputs=inputs, outputs=outputs)
 
@@ -91,8 +92,7 @@ class ClusterModel():
 
         clusters = (data
                     .uuid_encoder()
-                    .inverse_transform(utils.categories_to_selections(chosen))
-                    .reshape(1, -1)[0])
+                    .inverse_transform(chosen)[0])
 
         return list_map(lambda x: cluster_result.init(*x, include_text=True),
                         zip(probabilities, clusters))

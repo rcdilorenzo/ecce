@@ -5,7 +5,7 @@ const RealSearchResult = ({ id, label, reference_count, openNewTab }) => (
   <Link
     to={`/topics/${id}`}
     target={openNewTab ? '_blank' : null}
-    className="list-item">
+    className={ reference_count ? "list-item" : "list-item list-item--inline" }>
 
     <header className="list-item__title">{label}</header>
     {reference_count &&
