@@ -21,15 +21,10 @@ def add_topics_export(subparsers):
 
 def add_train(subparsers):
     parser = subparsers.add_parser(
-        'train-lstm', help='Train an LSTM neural network model on Nave data')
+        'train-nave', help='Train an neural network model on Nave data')
     parser.add_argument('-e', '--epochs', type=int, default=20)
     parser.add_argument('-p', '--patience', type=int, default=3)
-    parser.set_defaults(func=train_lstm)
-
-    parser = subparsers.add_parser('train-gru', help='Train a GRU model on Nave data')
-    parser.add_argument('-e', '--epochs', type=int, default=20)
-    parser.add_argument('-p', '--patience', type=int, default=3)
-    parser.set_defaults(func=train_gru)
+    parser.set_defaults(func=train_nave)
 
     parser = subparsers.add_parser('train-tsk', help='Train cluster model on TSK data')
     parser.add_argument('-e', '--epochs', type=int, default=20)
@@ -40,13 +35,13 @@ def add_train(subparsers):
 
 def add_predict(subparsers):
     parser = subparsers.add_parser(
-        'predict-lstm', help='(REPL) Predict topics based on text')
+        'predict-nave', help='(REPL) Predict topics based on text')
     parser.add_argument('-w', '--weights', type=str)
     parser.add_argument('-t', '--threshold',
                         type=float,
                         default=0.5,
                         help='Threshold for topic probability')
-    parser.set_defaults(func=predict_lstm)
+    parser.set_defaults(func=predict_nave)
 
     parser = subparsers.add_parser(
         'predict-tsk', help='(REPL) Predict TSK clusters based on text')

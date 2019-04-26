@@ -1,4 +1,4 @@
-from ecce.model.nave.lstm_model import LstmModel
+from ecce.model.nave.model import NaveModel
 from ecce.model.tsk.model import ClusterModel
 import ecce.model.tsk.cluster_result as cr
 import ecce.model.nave.topic_result as tr
@@ -17,7 +17,7 @@ class EcceModel():
     @property
     @memoize
     def topic_model(self):
-        model = LstmModel()
+        model = NaveModel()
         model.load_weights(self.topic_weights)
         return model
 

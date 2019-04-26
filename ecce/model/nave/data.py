@@ -1,6 +1,7 @@
 import logging
 import os
 
+import ecce.model.text as text
 import numpy as np
 import pandas as pd
 from ascii_graph import Pyasciigraph
@@ -16,6 +17,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from toolz import compose, memoize, partial, pipe
 from tqdm import tqdm
 
+EXCLUDED_TOPICS = set(['JESUS', 'THE CHRIST', 'GOD'])
 
 @memoize
 def frame():
@@ -39,8 +41,8 @@ def frame():
 def filtered_frame(min_per_topic=MIN_VERSES_PER_TOPIC):
     df = frame().copy()
     counts_df = verse_counts()
-    whitelist_topics = counts_df.topic_name[
-        counts_df.verse_count >= min_per_topic].values
+    whitelist_topics = set(counts_df.topic_name[
+        counts_df.verse_count >= min_per_topic].values) - EXCLUDED_TOPICS
     df.topics = df.topics.apply(lambda topics: list(
         filter(lambda t: t in whitelist_topics, topics)))
     return df[df.topics.apply(len) > 0]
@@ -120,6 +122,10 @@ def embedding_matrix():
 
 
 def tokenize(sentences):
+    return text.representation(sentences)
+
+
+def tokenize_sequence(sentences):
     """Tokenize sentences into a (sentence count, max length) matrix
 
     Usage:

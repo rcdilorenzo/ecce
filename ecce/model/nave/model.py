@@ -1,18 +1,48 @@
 import logging
 import os
 import uuid
+from collections import namedtuple as Struct
 
 import ecce.model.nave.data as data
 import ecce.model.nave.topic_result as topic_result
+import keras.models
 import numpy as np
 from ecce.constants import CHECKPOINTS_PATH
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from collections import namedtuple as Struct
-from toolz import first, pipe
-from funcy import distinct, rpartial
+from ecce.model.text import DEFAULT_SVD_COMPONENTS
 from ecce.utils import *
+from funcy import distinct, rpartial
+from keras.callbacks import EarlyStopping, ModelCheckpoint
+from keras.layers import *
+from keras.layers.embeddings import Embedding
+from keras.optimizers import *
+from toolz import first, memoize, pipe
 
-class Model():
+
+class NaveModel():
+    @property
+    @memoize
+    def model(self):
+        topic_count = len(data.topic_chunk_encoder().classes_)
+
+        inputs = Input(shape=(DEFAULT_SVD_COMPONENTS, ))
+
+        outputs = pipe(
+            inputs,
+            Dense(topic_count * 3, activation='relu'),
+            Dropout(0.2),
+            Dense(topic_count, activation='sigmoid'))
+
+        _model = keras.models.Model(inputs=inputs, outputs=outputs)
+
+        optimizer = Adam()
+
+        _model.compile(
+            loss='categorical_crossentropy',
+            optimizer=optimizer,
+            metrics=['categorical_accuracy'])
+
+        return _model
+
     def load_weights(self, name):
         self.model.load_weights(name)
 
@@ -56,13 +86,14 @@ class Model():
             sorted(key=first),
             reversed,
             list_map(lambda x: topic_result.init(*x)),
-            rpartial(distinct, attr('id')))
+            rpartial(distinct, attr('id')),
+            list)
 
 
     def callbacks(self):
         return [
             ModelCheckpoint(
-                os.path.join(CHECKPOINTS_PATH, f'{self.name()}-{self.uuid}.hdf5'),
+                os.path.join(CHECKPOINTS_PATH, f'svd-bow-{self.uuid}.hdf5'),
                 save_best_only=True),
             EarlyStopping(patience=self.patience)
         ]
@@ -71,7 +102,3 @@ class Model():
         print('Evaluating...')
         scores = self.model.evaluate(self.text_test, self.topics_test)
         print(f'Accuracy {scores[1] * 100:.2f}%')
-
-    @property
-    def model(self):
-        return None

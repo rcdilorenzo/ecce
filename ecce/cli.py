@@ -5,8 +5,7 @@ import pandas as pd
 import ecce.nave as nave
 from ecce.constants import *
 from ecce.model.tsk.model import ClusterModel
-from ecce.model.nave.lstm_model import LstmModel
-from ecce.model.nave.gru_model import GruModel
+from ecce.model.nave.model import NaveModel
 
 def train_tsk_clusters(args):
     model = ClusterModel()
@@ -14,20 +13,14 @@ def train_tsk_clusters(args):
     model.evaluate()
 
 
-def train_lstm(args):
-    model = LstmModel()
+def train_nave(args):
+    model = NaveModel()
     model.train(args.epochs, args.patience)
     model.evaluate()
 
 
-def train_gru(args):
-    model = GruModel()
-    model.train(args.epochs, args.patience)
-    model.evaluate()
-
-
-def predict_lstm(args):
-    model = LstmModel()
+def predict_nave(args):
+    model = NaveModel()
     model.load_weights(args.weights)
 
     print('\nEnter text to predict. Type "exit" when finished.')
