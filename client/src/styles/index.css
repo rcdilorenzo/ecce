@@ -143,7 +143,8 @@ code {
 }
 
 .search-button {
-    @apply text-center mx-auto block h-10 mb-3 pl-5 pr-5 text-primary-color bg-accent rounded;
+    @apply text-center mx-auto block mb-3 text-primary-color bg-accent rounded flex items-center;
+    padding: .7rem 1rem;
     min-width: 33%;
 
     &:hover {

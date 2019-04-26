@@ -68,8 +68,8 @@ const Index = props => {
       return;
     }
 
-    if (text.split(' ').length < 5) {
-      return setError('Please enter a sentence with at least five words')
+    if (text.split(' ').length < 3) {
+      return setError('Please enter at least three words')
     } else {
       setError(null);
     }
@@ -89,11 +89,11 @@ const Index = props => {
     <PageWrapper>
       <h1 className="pt-3 text-center">Bible Text AI</h1>
       <p className="text-center">
-        Type any text and we'll find related Biblical topics and verses
+        Enter part of a Bible verse and we'll find related Biblical topics and passages
       </p>
 
       <textarea
-        placeholder="e.g. God does not need our approval for his decisions."
+        placeholder="e.g. What is man that you are mindful of him?"
         className="search w-full"
         value={text}
         onChange={e => isLoading || setError(null) || setText(e.target.value.replace(/\n$/, ''))}
@@ -108,11 +108,11 @@ const Index = props => {
       <button
         className="search-button"
         onClick={() => _match(text)}>
-        {!isLoading && 'Find'}
+        {!isLoading && <span className="flex-grow">Find</span>}
         {isLoading && <>
-          <LoadingIndicator />
+          <LoadingIndicator style={{ flexShrink: 0 }}/>
           <span
-            className="inline-block align-top pl-2"
+            className="text-left align-top pl-2"
             style={{ paddingTop: '1px' }}>
             {message}...
           </span>
