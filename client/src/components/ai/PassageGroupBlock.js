@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
 import PassageBlock from '../PassageBlock';
+import BibleGatewayLink, { READ_MORE_STYLE } from '../BibleGatewayLink';
 import * as Reference from '../../models/reference';
+import * as Passage from '../../models/passage';
 
 const renderPassage = (passage, index) => (
-  <PassageBlock key={index} open={true} {...passage} />
+  <PassageBlock key={index} open={true} passage={passage} />
 );
 
 const PassageGroupBlock = ({ cluster: { uuid, reference, passages }, open, opening }) => {
@@ -19,8 +21,9 @@ const PassageGroupBlock = ({ cluster: { uuid, reference, passages }, open, openi
           <div className="w-full">
             <header className="list-item__title">{passage.name}</header>
             <div className="list-item__body pt-3">
-              {passage.text.split('\n').map((t, i) => (<p key={i}>{t}</p>))}
+              {Passage.lines(passage).map((t, i) => (<p key={i}>{t}</p>))}
             </div>
+            <BibleGatewayLink passage={passage} style={READ_MORE_STYLE} text="Read more" />
           </div>
           <div className="ml-2 text-grey">
             <span className={`fas fa-lg fa-angle-${open ? 'down' : 'right'} p-1`}>

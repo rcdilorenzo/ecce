@@ -29,7 +29,7 @@ const TopicShow = props => {
       </div>
       <section>
         <h2 className="pt-3 pb-3">Passages</h2>
-        {props.passages.map((p, i) => <PassageBlock key={i} {...p} /> )}
+        {props.passages.map((p, i) => <PassageBlock key={i} passage={p} /> )}
       </section>
     </PageWrapper>
   );

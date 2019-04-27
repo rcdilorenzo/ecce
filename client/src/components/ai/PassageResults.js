@@ -11,7 +11,7 @@ const PassageResults = ({ data }) => (
         <span className="ml-2">Loading</span>
       </p>}
       {data.length > 0 && data.map(p =>
-        <PassageBlock key={p.name} open={false} linkOnly={true} {...p} />
+        <PassageBlock key={p.name} open={false} linkOnly={true} passage={p} />
       )}
     </React.Fragment>
   );

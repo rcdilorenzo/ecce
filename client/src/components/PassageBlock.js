@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import BibleGatewayLink, { READ_MORE_STYLE } from './BibleGatewayLink';
 
-const renderContent = ({ open, name, references, text }) => (
+import * as Passage from '../models/passage';
+
+const renderContent = ({ open, linkOnly, passage }) => (
   <React.Fragment>
-    <header className="list-item__title">{name}</header>
-    {!open && references.length > 1 && <p className="list-item__details">
-      {references.length} verses
+    <header className="list-item__title">{passage.name}</header>
+    {!open && passage.references.length > 1 && <p className="list-item__details">
+      {passage.references.length} verses
     </p>}
-    {open && <div className="list-item__body pt-3">
-      {text.split('\n').map((t, i) => (<p key={i}>{t}</p>))}
-    </div>}
+    <div className={`list-item__body ${open ? 'pt-3' : ''}`}>
+      {open && Passage.lines(passage).map((t, i) => (<p key={i}>{t}</p>))}
+      {!linkOnly && open &&
+        <BibleGatewayLink passage={passage} style={READ_MORE_STYLE} text="Read more" />}
+    </div>
   </React.Fragment>
 );
 
@@ -17,11 +22,9 @@ const PassageBlock = (props) => {
 
   if (!props.open && props.linkOnly) {
     return (
-      <a className="list-item cursor-pointer"
-        href={`https://www.biblegateway.com/passage/?search=${props.name}&version=ESV`}
-        target={'_blank'}>
+      <BibleGatewayLink passage={props.passage} className="list-item cursor-pointer">
         {renderContent({ ...props, open })}
-      </a>
+      </BibleGatewayLink>
     );
   }
 
