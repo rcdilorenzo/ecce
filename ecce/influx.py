@@ -30,11 +30,10 @@ def record(event_type, data, request=None):
     if request is not None and request.headers.get('dnt') is not '1':
         tags = filter_headers(dict(request.headers))
 
-    data = valfilter(lambda v: v is not None and v is not '',
-                     data if len(data) == 0 else dict(empty=True))
+    data = valfilter(lambda v: v is not None and v is not '', data)
 
     client.write_points([{
         'measurement': event_type,
-        'fields': data,
+        'fields': data if len(data) != 0 else dict(empty=True),
         'tags': tags
     }])
