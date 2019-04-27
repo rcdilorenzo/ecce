@@ -1,6 +1,6 @@
 import os
 import logging
-from toolz import curry
+from toolz import curry, dissoc
 
 from influxdb import InfluxDBClient
 from collections import namedtuple as Struct
@@ -20,6 +20,13 @@ else:
     log = curry(lambda msg, data: print(f'INFLUX:[{msg}]: {data}'))
     client = LoggerClient(log('write_points'))
 
+def filter_headers(headers):
+    return dissoc(headers, 'connection', 'accept', 'cookie', 'accept-encoding')
 
-def record(event_type, data):
-    client.write_points([{ 'measurement': event_type, 'fields': data }])
+
+def record(event_type, data, request=None):
+    tags = {}
+    if request is not None and request.headers.get('dnt') is not '1':
+        tags = filter_headers(dict(request.headers))
+
+    client.write_points([{ 'measurement': event_type, 'fields': data, 'tags': tags }])
