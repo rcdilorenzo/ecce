@@ -47,7 +47,7 @@ def init(flat=False):
 
     return _init()
 
-@memoize
+@cache_pickle(CACHE_FLATTENED_UUIDS)
 def flattened_uuids():
     return (init(flat=True)
             .groupby(['book', 'chapter', 'verse'])
