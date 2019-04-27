@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import * as Nave from '../../models/nave';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { DebounceInput } from 'react-debounce-input';
 import qs from 'query-string';
 
 import PageWrapper from '../PageWrapper';
@@ -44,7 +45,8 @@ const TopicsSearch = (props) => {
       </Helmet>
 
       <h1 className="pt-3">Search Nave's Topics</h1>
-      <input
+      <DebounceInput
+        debounceTimeout={500}
         className="search w-full"
         name="search" type="text" value={query}
         onChange={queryInputChanged(setQuery, setResults)} />

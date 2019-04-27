@@ -12,6 +12,7 @@
     "rc-slider": "^8.6.9",
     "react": "^16.8.4",
     "react-async": "^5.1.2",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "^16.8.4",
     "react-force-graph": "^1.20.5",
     "react-helmet-async": "^1.0.2",

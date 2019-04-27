@@ -35,7 +35,9 @@ const PassageGroupBlock = ({ cluster: { uuid, reference, passages }, open, openi
       {open && <div className="pb-3 pt-2">
         <p className="pb-1 pl-2 text-xs uppercase">Related Passages</p>
         {passages.map(renderPassage)}
-        <button className="text-center text-sm w-full pt-1 cursor-pointer" onClick={toggle}>Collapse</button>
+        <button className="text-center text-sm w-full pt-1 cursor-pointer" onClick={toggle}>
+          Collapse
+        </button>
        </div>}
     </div>
   );
