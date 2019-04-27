@@ -1,15 +1,16 @@
-import os
 import json
+import os
+from time import time
 
-import pandas as pd
-from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
-
-from ecce.constants import *
+import ecce.influx
+import ecce.model.nave.data as data
 import ecce.nave as nave
 import ecce.passage as passage
-import ecce.model.nave.data as data
+import pandas as pd
+from ecce.constants import *
 from ecce.model.ecce import EcceModel
+from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
@@ -53,7 +54,10 @@ def model():
 
 @app.post('/api/predict')
 def predict(text: str):
+    start = time()
     result = model().predict(text)
+    ecce.influx.record('ecce_predict', dict(text=text, duration=time() - start))
+
     topics = _as_dict(pd.DataFrame(result.topics))
     clusters = _as_dict(pd.DataFrame(result.clusters))
     return { 'topics': topics, 'clusters': clusters }
@@ -66,6 +70,7 @@ def read_references():
 
 @app.get('/api/esv/text/{book}/{chapter}/{verse}')
 def text(book: str, chapter: int, verse: int):
+    ecce.influx.record('esv_text', dict(book=book, chapter=chapter, verse=verse))
     try:
         return {'text': esv[book][str(chapter)][str(verse)]}
     except KeyError as e:
@@ -74,6 +79,7 @@ def text(book: str, chapter: int, verse: int):
 
 @app.get('/api/data/{book}/{chapter}/{verse}')
 def data_line(book: str, chapter: int, verse: int):
+    ecce.influx.record('data', dict(book=book, chapter=chapter, verse=verse))
     df = processed_data
     results = df[(df.book == book) & (df.chapter == chapter) &
                  (df.verse == verse)]
@@ -85,14 +91,18 @@ def data_line(book: str, chapter: int, verse: int):
 
 @app.get('/api/data/stats')
 def stats():
-    return {
+    start = time()
+    stats = {
         'topics': _as_dict(data.topic_counts()),
         'verses': _as_dict(data.verse_counts())
     }
+    ecce.influx.record('stats', dict(duration=time() - start))
+    return stats
 
 
 @app.get('/api/nave/topics')
 def topic_nodes(query: str = '', limit: int = 20, references: bool = False):
+    ecce.influx.record('topics_index', dict(query=query))
     return _as_dict(nave.topics_matching_extracted(
         query,
         references=references
@@ -101,6 +111,7 @@ def topic_nodes(query: str = '', limit: int = 20, references: bool = False):
 
 @app.get('/api/nave/topic/{topic_id}')
 def topic_node(topic_id: str, references: bool = True):
+    ecce.influx.record('topics_show', dict(topic_id=topic_id, include_references=references))
     df = nave.by_topic_nodes(references=references)
     results = df[df.id == topic_id]
 
@@ -112,11 +123,13 @@ def topic_node(topic_id: str, references: bool = True):
 
 @app.get('/api/nave/topics/{topic_id}/categories')
 def category_nodes(topic_id: str):
+    ecce.influx.record('categories_show', dict(topic_id=topic_id))
     return _as_dict(category_frame[category_frame.topic_id == topic_id])
 
 
 @app.get('/api/nave/topics/{topic_id}/passages')
 def topic_passages(topic_id: str):
+    ecce.influx.record('passages_index', dict(topic_id=topic_id))
     df = nave.by_topic_nodes(references=True)
     results = df[df.id == topic_id]
 
@@ -134,6 +147,7 @@ def topic_passages(topic_id: str):
 
 @app.get('/api/nave/reference/{book}/{chapter}/{verse}')
 def topic_data_by_reference(book: str, chapter: int, verse: int):
+    ecce.influx.record('topic_by_reference', dict(book=book, chapter=chapter, verse=verse))
     try:
         return _as_dict(
             pd.DataFrame(nave_references[book][str(chapter)][str(verse)]))
@@ -151,7 +165,3 @@ def default_passages():
         pd.DataFrame,
         _as_dict
     )
-
-
-
-
