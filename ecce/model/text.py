@@ -4,7 +4,7 @@ from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import CountVectorizer
 from toolz import pipe, memoize
 
-DEFAULT_SVD_COMPONENTS = 200
+DEFAULT_SVD_COMPONENTS = 150
 
 
 def _bible_text(translation=esv):
