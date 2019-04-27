@@ -7,6 +7,7 @@ import * as Nave from '../../models/nave';
 import * as Passage from '../../models/passage';
 import PageWrapper from '../PageWrapper';
 import TopicResults from '../ai/TopicResults';
+import ClusterResults from '../ai/ClusterResults';
 import PassageResults from '../ai/PassageResults';
 
 const messages = [
@@ -123,8 +124,11 @@ const Index = props => {
         <article className="flex-grow" style={{ minWidth: '300px' }}>
           <TopicResults data={results.topics}/>
         </article>
-        <article className="flex-grow md:ml-2">
-          <PassageResults data={results.passages} autoExpand={results.autoExpand} />
+        <article className="flex-grow md:ml-2" style={{ maxWidth: '1200px' }}>
+          {results.passages &&
+           <PassageResults data={results.passages} />}
+          {results.clusters &&
+           <ClusterResults data={results.clusters} autoExpand={results.autoExpand} />}
         </article>
       </div>
     </PageWrapper>

@@ -116,7 +116,7 @@ code {
 }
 
 .list-item {
-    @apply no-underline text-black flex p-3 mb-1 border border-light flex-wrap bg-white;
+    @apply no-underline text-black flex p-3 mb-1 border border-light flex-wrap bg-white text-left;
 
     &:hover {
         @apply bg-grey-subtle;
@@ -155,3 +155,4 @@ code {
         @apply bg-accent-lighter;
     }
 }
+
