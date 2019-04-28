@@ -48,7 +48,6 @@ def init():
                 'sort_order_category': 3.0 } ),
             ...
         ]
-
     """
     if os.path.isfile(NAVE_PATH):
         with open(NAVE_PATH, 'rb') as f:

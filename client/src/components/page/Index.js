@@ -123,6 +123,8 @@ const Index = props => {
       <div className="md:flex flex-column">
         <article className="flex-grow" style={{ minWidth: '300px' }}>
           <TopicResults data={results.topics}/>
+          {results.passage_topics &&
+           <TopicResults title="Linked Passage Themes" data={results.passage_topics} />}
         </article>
         <article className="flex-grow md:ml-2" style={{ maxWidth: '1200px' }}>
           {results.passages &&

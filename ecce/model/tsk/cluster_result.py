@@ -13,7 +13,6 @@ from ecce.utils import *
 
 ClusterResult = Struct('ClusterResult', ['probability', 'uuid', 'reference', 'text', 'passages'])
 
-# Note: Implementation requires two keys to transform to dictionary
 WeightedTfIdfTopic = Struct('WeightedTfIdfTopic', ['topic_id', 'score'])
 
 
@@ -23,6 +22,16 @@ def init(probability, uuid, include_text=False):
 
     return ClusterResult(float(probability), uuid, ref, esv.text(ref),
                          tsk.passages_by_uuid(uuid, include_text=include_text))
+
+
+def tf_idf_topics_to_topic_results(tf_idf_topics):
+    tf_idf_topic_ids = list_map(attr('topic_id'), tf_idf_topics)
+    df = nave.by_topic_nodes()
+    filtered = df[df.id.isin(tf_idf_topic_ids)]
+    id_to_label = dict(zip(filtered.id, filtered.label))
+
+    return [TopicResult(float(w.score), w.topic_id, id_to_label[w.topic_id]) for w in tf_idf_topics]
+
 
 
 def to_mean_weighted_tf_idf_topics(cluster_results, passage_to_topic_ids=None):

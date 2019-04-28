@@ -27,10 +27,6 @@ NAVE_PATH           = relative_path(__file__, 'data/nave/pickled.obj')
 TSK_PATH            = relative_path(__file__, 'data/tsk/parsed.csv')
 TSK_RAW_PATH        = relative_path(__file__, 'data/tsk/tskxref.txt')
 
-GLOVE_PATH          = relative_path(__file__, 'data/glove/glove.42B.300d.txt')
-GLOVE_WORD2VEC_PATH = GLOVE_PATH + '.word2vec'
-WORD_EMBEDDINGS     = relative_path(__file__, 'data/word-embeddings.npy')
-
 NAVE_EXPORT_TOPIC    = os.path.join(EXPORT_PATH, 'nave-by-topic.json')
 NAVE_EXPORT_REF      = os.path.join(EXPORT_PATH, 'nave-by-reference.json')
 NAVE_SUBTOPIC_NODES  = os.path.join(EXPORT_PATH, 'nave-subtopic-nodes.tsv')

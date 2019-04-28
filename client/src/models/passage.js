@@ -9,7 +9,7 @@ export const init = ([name, references, text]) => ({
 export const lines = ({ text }) => {
   const lines = text.split('\n');
   const previewLines = lines.slice(0, 3);
-  return previewLines.concat(lines.length == previewLines.length ? [] : ['...']);
+  return previewLines.concat(lines.length === previewLines.length ? [] : ['...']);
 };
 
 const memoize = R.memoizeWith(R.identity);

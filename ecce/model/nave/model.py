@@ -8,7 +8,7 @@ import ecce.model.nave.topic_result as topic_result
 import keras.models
 import numpy as np
 from ecce.constants import CHECKPOINTS_PATH
-from ecce.model.text import DEFAULT_SVD_COMPONENTS
+import ecce.model.text as text
 from ecce.utils import *
 from funcy import distinct, rpartial
 from keras.callbacks import EarlyStopping, ModelCheckpoint
@@ -19,22 +19,27 @@ from toolz import first, memoize, pipe
 
 
 class NaveModel():
+    def __init__(self):
+        self._train_data_loaded = False
+
     @property
     @memoize
     def model(self):
         topic_count = len(data.topic_chunk_encoder().classes_)
 
-        inputs = Input(shape=(DEFAULT_SVD_COMPONENTS, ))
+        input_size = data.tokenize(['']).shape[1]
+
+        inputs = Input(shape=(input_size,))
 
         outputs = pipe(
             inputs,
             Dense(topic_count * 3, activation='relu'),
-            Dropout(0.2),
+            Dropout(0.3),
             Dense(topic_count, activation='sigmoid'))
 
         _model = keras.models.Model(inputs=inputs, outputs=outputs)
 
-        optimizer = Adam()
+        optimizer = Adam(beta_1=0.75)
 
         _model.compile(
             loss='categorical_crossentropy',
@@ -46,16 +51,21 @@ class NaveModel():
     def load_weights(self, name):
         self.model.load_weights(name)
 
+    def _load_train_data(self):
+        if self._train_data_loaded is False:
+            logging.info('Splitting train/val/test data...')
+            (text_train, text_test, topics_train, topics_test) = data.data_split()
+            self.text_train = text_train
+            self.text_test = text_test
+            self.topics_train = topics_train
+            self.topics_test = topics_test
+            self._train_data_loaded = True
+
     def train(self, epochs=20, patience=3):
         self.epochs = epochs
         self.patience = patience
 
-        logging.info('Splitting train/val/test data...')
-        (text_train, text_test, topics_train, topics_test) = data.data_split()
-        self.text_train = text_train
-        self.text_test = text_test
-        self.topics_train = topics_train
-        self.topics_test = topics_test
+        self._load_train_data()
         self.uuid = uuid.uuid4().hex[0:6]
 
         logging.info('Training...')
@@ -93,12 +103,13 @@ class NaveModel():
     def callbacks(self):
         return [
             ModelCheckpoint(
-                os.path.join(CHECKPOINTS_PATH, f'svd-bow-{self.uuid}.hdf5'),
+                os.path.join(CHECKPOINTS_PATH, f'nave-{self.uuid}.hdf5'),
                 save_best_only=True),
             EarlyStopping(patience=self.patience)
         ]
 
     def evaluate(self):
         print('Evaluating...')
+        self._load_train_data()
         scores = self.model.evaluate(self.text_test, self.topics_test)
         print(f'Accuracy {scores[1] * 100:.2f}%')

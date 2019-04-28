@@ -67,7 +67,8 @@ def predict(text: str, request: Request):
 
     topics = _as_dict(pd.DataFrame(result.topics))
     clusters = _as_dict(pd.DataFrame(result.clusters))
-    return {'topics': topics, 'clusters': clusters}
+    passage_topics = _as_dict(pd.DataFrame(result.passage_topics))
+    return {'topics': topics, 'clusters': clusters, 'passage_topics': passage_topics}
 
 
 @app.get('/api/esv/references')
