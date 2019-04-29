@@ -10,22 +10,16 @@ const Navigation = () => {
         </h1>
         <ul className="nav-list flex-grow ml-5">
           <li>
-            <NavLink
+            <NavLink exact
               activeClassName="nav-list__block-link--active"
               className="nav-list__block-link"
               to="/verses">Verses</NavLink>
           </li>
           <li>
-            <NavLink
+            <NavLink exact
               activeClassName="nav-list__block-link--active"
               className="nav-list__block-link"
               to="/topics">Topics</NavLink>
-          </li>
-          <li>
-            <NavLink
-              activeClassName="nav-list__block-link--active"
-              className="nav-list__block-link"
-              to="/about">About</NavLink>
           </li>
         </ul>
         <div className="flex-no-grow hidden sm:block">

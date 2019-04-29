@@ -9,10 +9,11 @@ class Card extends Component {
       'flex-no-shrink',
       'mt-4',
       'mb-4',
-      'p-8',
-      'bg-grey-subtle',
+      'p-6',
+      'bg-white',
       'rounded-lg',
       'shadow-md',
+      'overflow-hidden',
       'card'
     ].join(' ');
 

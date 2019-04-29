@@ -62,7 +62,7 @@ const TopicVerseHistogram = ({
         onAfterChange={setMinCount} />
 
       <div style={{ height: `${height}px` }}>
-        <VictoryChart height={height} domain={domain} padding={padding} scale={{ y: 'sqrt' }}>
+        <VictoryChart height={height} width={600} domain={domain} padding={padding} scale={{ y: 'sqrt' }}>
           <VictoryBar
             data={bin(counts)}
             alignment="start"

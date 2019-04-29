@@ -34,7 +34,7 @@ const selectedOption = R.curry((data, setData, option) => {
 });
 
 
-const NaveExplorer = React.memo((_props) => {
+const NaveExplorer = React.memo((props) => {
     const [data, setData] = useState({ topics: [], selected: null });
     useEffect(() => loadData(setData), [setData])
 
@@ -50,6 +50,7 @@ const NaveExplorer = React.memo((_props) => {
           onChange={selectedOption(data, setData)} />
 
         <NaveTopicGraph
+          {...props}
           topicId={data.selected.id}
           topicName={data.selected.label} />
       </React.Fragment>
