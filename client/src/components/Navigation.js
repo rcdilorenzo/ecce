@@ -16,8 +16,9 @@ const Navigation = () => {
       <div className="max-w-lg mx-auto flex items-center pl-3 pr-3">
         <h1 className="flex-no-grow">
           <Link to="/" className="text-light no-underline">Ecce</Link>
+          <sup class="text-light" style={{ verticalAlign: '1rem', fontSize: '0.2rem', marginLeft: '-0.2rem' }}>BETA</sup>
         </h1>
-        <ul className="nav-list flex-grow ml-5">
+        <ul className="nav-list flex-grow ml-2">
           <NavigationLink path="/verses" title="Verses" />
           <NavigationLink path="/topics" title="Topics" />
           <NavigationLink path="/about" title="About" />
