@@ -1,6 +1,15 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
+const NavigationLink = ({ path, title }) => (
+  <li>
+    <NavLink exact
+      activeClassName="nav-list__block-link--active"
+      className="nav-list__block-link"
+      to={path}>{title}</NavLink>
+  </li>
+);
+
 const Navigation = () => {
   return (
     <nav className="w-full bg-primary">
@@ -9,18 +18,9 @@ const Navigation = () => {
           <Link to="/" className="text-light no-underline">Ecce</Link>
         </h1>
         <ul className="nav-list flex-grow ml-5">
-          <li>
-            <NavLink exact
-              activeClassName="nav-list__block-link--active"
-              className="nav-list__block-link"
-              to="/verses">Verses</NavLink>
-          </li>
-          <li>
-            <NavLink exact
-              activeClassName="nav-list__block-link--active"
-              className="nav-list__block-link"
-              to="/topics">Topics</NavLink>
-          </li>
+          <NavigationLink path="/verses" title="Verses" />
+          <NavigationLink path="/topics" title="Topics" />
+          <NavigationLink path="/about" title="About" />
         </ul>
         <div className="flex-no-grow hidden sm:block">
           <ul className="nav-list">

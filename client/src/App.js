@@ -7,6 +7,7 @@ import TopicsSearch from './components/page/TopicsSearch';
 import TopicShow from './components/page/TopicShow';
 import Verses from './components/page/Verses';
 import Eda from './components/page/Eda';
+import About from './components/page/About';
 
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -23,6 +24,7 @@ const App = () => (
 
         <div className="flex-grow">
           <Route path="/" exact component={Index} />
+          <Route path="/about" exact component={About} />
           <Route path="/verses" exact component={Verses} />
           <Route path="/topics" exact component={TopicsSearch} />
           <Route path="/topics/:topicId" exact component={TopicShow} />

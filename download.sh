@@ -32,12 +32,4 @@ then
     rm tsk.zip
 fi
 
-if [ ! -d glove ]
-then
-    echo "Downloading 'globe.42B.300d.zip' for word embeddings..."
-    wget http://nlp.stanford.edu/data/glove.42B.300d.zip
-    unzip glove.42B.300d.zip -d glove
-    rm glove.42B.300d.zip
-fi
-
 echo "Downloads finished."

@@ -5,3 +5,21 @@ h1 {
 h2 {
     @apply pt-2 pb-2;
 }
+
+.content li {
+    @apply pb-2;
+}
+
+.content p {
+    @apply pt-3 pb-3;
+    line-height: 1.4rem;
+}
+
+footer {
+    @apply text-sm w-full bg-primary;
+    line-height: 1.4rem;
+}
+
+footer a {
+    color: white;
+}
