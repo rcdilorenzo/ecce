@@ -90,11 +90,11 @@ const Index = props => {
     <PageWrapper>
       <h1 className="pt-3 text-center">Bible Text AI</h1>
       <p className="text-center">
-        Enter part of a Bible verse and we'll find related Biblical topics and passages
+        Enter a phrase or question and we'll find related Biblical topics and passages
       </p>
 
       <textarea
-        placeholder="e.g. What is man that you are mindful of him?"
+        placeholder="e.g. Why is there evil in the world?"
         className="search w-full"
         value={text}
         onChange={e => isLoading || setError(null) || setText(e.target.value.replace(/\n$/, ''))}
