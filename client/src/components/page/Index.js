@@ -11,12 +11,13 @@ import ClusterResults from '../ai/ClusterResults';
 import PassageResults from '../ai/PassageResults';
 
 const messages = [
-  'Browsing through 856 topics',
+  'Browsing through 853 topics',
   'Performing forward propagation',
   'Examining term frequencies',
-  'Looking through 65,000+ verse groups',
+  'Looking through 63,500+ verse groups',
   'Vectorizing text for supervised clustering',
-  'Warming up the gerbils for work', 'Flipping pages faster than a sword drill',
+  'Warming up the gerbils for work',
+  'Flipping pages faster than a sword drill',
   'Examining your theological tendencies',
   'Incorporating verses for your journey'
 ];
