@@ -113,9 +113,47 @@ tsk-cluster-4e1698  |  1.16%                 |  make SVD 200 components (doubled
 tsk-cluster-47f717  |  1.24%                 |  make SVD 150 components (200 was too big for production)
 tsk-cluster-8a1db9  |  1.32%                 |  change epoch patience to 2 instead of 3
 
+## Usage
+
+If you're interested in running the project or extending the existing work, you'll need to do the following setup the first time.
+
+```bash
+# Download sources
+./download.sh
+
+# Install Python version and setup dependencies
+pyenv install 3.6.8
+pyenv virtualenv 3.6.8 $(cat .python-version)
+pip install -r requirements.txt
+```
+
+With this setup complete, some of the primary ways you'd want to
+interact the code are provided by the command line utility that
+includes documentation for each command.
+
+```
+❯ python -m ecce -h
+usage: __main__.py [-h]
+                   {nave-export,topic-export,train-nave,train-tsk,predict-nave,predict-tsk}
+                   ...
+
+positional arguments:
+  {nave-export,topic-export,train-nave,train-tsk,predict-nave,predict-tsk}
+    nave-export         Export processed data from Nave's Topical Index
+    topic-export        Preprocess topics and export with ESV text
+    train-nave          Train an neural network model on Nave data
+    train-tsk           Train cluster model on TSK data
+    predict-nave        (REPL) Predict topics based on text
+    predict-tsk         (REPL) Predict TSK clusters based on text
+
+optional arguments:
+  -h, --help            show this help message and exit
+```
+
 ## Additional Information
 
 Ecce: ML Prediction of Bible Topics and Passages
+
 Copyright (C) 2019 Christian Di Lorenzo
 
 This program is free software: you can redistribute it and/or modify
