@@ -40,6 +40,8 @@ with a filtered list of Nave's topics (at least 30 verses per topic). The
 cluster model combines ESV verse text with the cross-references from TSK such
 that groups of passages can be predicted.
 
+[![Image](https://user-images.githubusercontent.com/634167/57022702-e7b7ef80-6bfd-11e9-97c0-6f3705767adc.png)](https://ecce.rcd.ai/eda)
+
 ## Data Sources
 
 **English Standard Version.** Text from English Standard Version (2001) is
