@@ -3,7 +3,7 @@
 ![GPLv3](https://img.shields.io/badge/license-GPLv3-blue.svg)
 ![last commit](https://img.shields.io/github/last-commit/rcdilorenzo/ecce.svg)
 
-![Screenshot](https://user-images.githubusercontent.com/634167/56903950-46009900-6a6b-11e9-8d8e-51b6fdf21a4c.png)
+[![Screenshot](https://user-images.githubusercontent.com/634167/56903950-46009900-6a6b-11e9-8d8e-51b6fdf21a4c.png)](https://ecce.rcd.ai)
 
 ## Introduction
 
