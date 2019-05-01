@@ -42,6 +42,11 @@ that groups of passages can be predicted.
 
 [![Image](https://user-images.githubusercontent.com/634167/57022702-e7b7ef80-6bfd-11e9-97c0-6f3705767adc.png)](https://ecce.rcd.ai/eda)
 
+In addition, I presented this project in my final semester for an M.S. in Data
+Science. The slides I used to present can be found in the repository:
+
+[<img src="https://user-images.githubusercontent.com/634167/57033003-b2b99600-6c19-11e9-9857-21636c775c5f.png" alt="Slides" width="60%" />](./ecce-slides.pdf)
+
 ## Data Sources
 
 **English Standard Version.** Text from English Standard Version (2001) is
@@ -182,4 +187,3 @@ copyrights, please send me a direct message with your reasoning so that I can
 remain above board. My current understanding is that using the 2001 version is
 not prohibitive in the manner I am using it assuming the entire application is
 open, noncommercial, and not exposing entire books of the Bible.*
-
