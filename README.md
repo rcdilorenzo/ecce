@@ -125,6 +125,9 @@ If you're interested in running the project or extending the existing work, you'
 pyenv install 3.6.8
 pyenv virtualenv 3.6.8 $(cat .python-version)
 pip install -r requirements.txt
+
+# Download spaCy model
+python -m spacy download en
 ```
 
 With this setup complete, some of the primary ways you'd want to
