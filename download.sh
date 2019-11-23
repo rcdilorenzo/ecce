@@ -11,7 +11,7 @@ cd "$FOLDER"
 if [ ! -f ESV.json ]
 then
     echo "Downloading ESV..."
-    wget https://github.com/honza/bibles/raw/master/ESV/ESV.json
+    aws s3 cp s3://ecce-rcd-ai/ESV.json .
 fi
 
 if [ ! -d nave ]

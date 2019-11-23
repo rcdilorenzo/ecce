@@ -60,6 +60,27 @@ def model():
 
 @app.post('/api/predict')
 def predict(text: str, request: Request):
+    if os.environ.get('ECCE_TOPIC_WEIGHTS') is None or os.environ.get('ECCE_TSK_WEIGHTS') is None:
+        return {
+            'topics': {
+                'columns': ['id', 'label', 'probability'],
+                'rows': []
+            },
+            'clusters': {
+                'columns': ['uuid', 'reference', 'text', 'probability'],
+                'rows': [
+                    'uuid-fake',
+                    ['Revelation', 23, 1],
+                    'Unfortunately, the ML model is not initialized due to the costs of running it. Please email me at rcddeveloper@icloud.com if you really need to see a demo. Thanks!',
+                    0
+                ]
+            },
+            'passage_topics': {
+                'columns': ['id', 'label', 'probability'],
+                'rows': []
+            }
+        }
+
     start = time()
     result = model().predict(text)
     ecce.influx.record('ecce_predict', dict(
