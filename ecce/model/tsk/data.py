@@ -27,7 +27,7 @@ def data_split():
 
 @memoize
 def uuid_encoder():
-    encoder = MultiLabelBinarizer()
+    encoder = MultiLabelBinarizer(sparse_output=True)
     encoder.fit_transform(tsk.flattened_uuids().uuid.values)
     return encoder
 

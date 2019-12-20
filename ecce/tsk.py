@@ -22,9 +22,9 @@ _writer = None
 @memoize
 def init(flat=False):
     if flat:
-        df = init(flat=False)
-        references = df[['uuid', 'phrase', 'book', 'chapter', 'verse']]
-        linked = df[['uuid', 'phrase', 'linked_book', 'linked_chapter', 'linked_verse']]
+        temp_df = init(flat=False)
+        references = temp_df[['uuid', 'phrase', 'book', 'chapter', 'verse']]
+        linked = temp_df[['uuid', 'phrase', 'linked_book', 'linked_chapter', 'linked_verse']]
         linked.columns = linked.columns.str.replace('linked_', '')
         return linked.append(references, ignore_index=True)
 
@@ -45,7 +45,7 @@ def init(flat=False):
     pool = Pool(cpu_count())
     pool.imap_unordered(_parse_refs(TSK_PATH), iterator)
 
-    return _init()
+    return pd.read_csv(TSK_PATH)
 
 @cache_pickle(CACHE_FLATTENED_UUIDS)
 def flattened_uuids():
