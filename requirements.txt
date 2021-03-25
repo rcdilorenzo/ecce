@@ -52,7 +52,7 @@ pytest-forked==1.0.2
 pytest-xdist==1.26.1
 python-dateutil==2.8.0
 pytz==2018.9
-PyYAML==5.1
+PyYAML==5.4
 requests==2.21.0
 scikit-learn==0.20.3
 scipy==1.2.1
