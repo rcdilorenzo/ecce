@@ -16,7 +16,7 @@ cymem==2.0.2
 dataclasses==0.6
 docopt==0.6.2
 execnet==1.5.0
-fastapi==0.10.1
+fastapi==0.65.2
 fastrlock==0.4
 funcy==1.11
 gast==0.2.2
